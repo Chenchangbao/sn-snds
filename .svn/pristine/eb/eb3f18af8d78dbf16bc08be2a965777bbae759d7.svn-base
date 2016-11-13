@@ -1,0 +1,52 @@
+body {font-family: "Microsoft YaHei",Arial,"Helvetica Neue",Helvetica,sans-serif !important;}
+
+
+.content-header {
+  > h1, > h2, > h3 {
+    float: left;
+  }
+  > sn-tabs.component-demo {
+    > div {
+      > .btn-prev, > .btn-next {
+        display: none;
+      }
+      > .nav-contant > ul.nav-tabs {
+        left: auto !important;
+        right: 0;
+      }
+    }
+  }
+}
+
+.horizontal-menu {
+  .main-header .navbar {
+    margin-left: 0;
+  }
+}
+
+pre code {
+  word-break: break-word;
+}
+
+sn-tabs.component-demo {
+  > div > div.nav-contant {
+    margin-bottom: 20px !important; 
+  }
+}
+
+sn-tabs.code-tab {
+  > div {
+    margin-top: 10px;
+    > .btn-prev, > .btn-next {
+      display: none;
+    }
+    > .nav-contant {
+      margin: 0;
+      height: 30px;
+
+      > ul > li > a {
+        padding: 5px 15px;
+      }
+    }
+  }
+}

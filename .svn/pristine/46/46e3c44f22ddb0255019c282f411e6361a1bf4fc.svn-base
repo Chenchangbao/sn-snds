@@ -1,0 +1,39 @@
+@base: #ddd;
+
+body {
+  background: @base;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.content-header {
+  > h1, > h2, > h3 {
+    font-weight: 700;
+  }
+}
+
+.box {
+  border: 1px solid @panel-bg;
+  border-radius: 0;
+  box-shadow: none;
+
+  .box-header {
+    background: @panel-bg;
+  }
+}
+
+.skin-blue {
+  .wrapper, .main-sidebar, .left-side {
+    background: @panel-bg;
+  }
+  .sidebar-menu {
+    > li {
+      > .treeview-menu, &:hover > a, &.active > a {
+        background: @panel-bg;
+      }
+    }
+  }
+}

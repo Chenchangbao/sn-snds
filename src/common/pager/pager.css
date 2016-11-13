@@ -1,0 +1,103 @@
+.sn-pagination {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.sn-pagination > li {
+    float: left;
+    list-style: none;
+}
+
+.sn-pagination > li + li {
+    margin-left: 10px;
+}
+
+.sn-pagination > li > a {
+    display: block;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #b5b5b6;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sn-pagination > li > a:hover {
+    border-color: #3a8cbb;
+    color: #3a8cbb;
+}
+
+.sn-pagination > .active > a,
+.sn-pagination > .active > a:hover {
+    background: #3a8cbb;
+    border-color: #3a8cbb;
+    color: #fff;
+    /*font-weight: 700;*/
+    cursor: default;
+}
+
+.sn-pagination > .disabled > a,
+.sn-pagination > .disabled > a:hover {
+    border: 1px solid #b5b5b6;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.sn-pagination > .dots > a,
+.sn-pagination > .dots > a:hover {
+    padding: 6px 0;
+    background-color: inherit;
+    border-width: 0;
+    color: #333;
+    cursor: default;
+}
+
+.sn-pagination .dropdown > .dropdown-toggle {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sn-pagination .dropdown .caret {
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -webkit-transition: transform 0.5s ease-in ;
+    -moz-transition: transform 0.5s ease-in;
+    transition: transform .2s ease-in;
+}
+
+.sn-pagination .dropdown.open .caret {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sn-pagination .dropdown-menu {
+    width: 100%;
+    min-width: initial;
+}
+
+.sn-pagination .dropdown-menu a {
+    text-align: center;
+}
+
+.sn-pagination-info {
+    display: inline-block;
+}
+
+.sn-pagination-info form {
+    display: inline-block;
+}
+
+.sn-pagination-info input {
+    display: inline-block;
+    width: 50px;
+    padding-left:5px;
+    padding-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+}

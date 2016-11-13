@@ -1,0 +1,88 @@
+<div class="modal fade in" ng-controller="UpdateModalCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+            您正在对实例<span class="text-danger">{{data.exData.exOddNumber}}</span>进行升级操作，是否继续？
+        </h4>
+        <table class="table-border-mine">
+            <tr>
+                <!--<th>申请单号</th>
+                <th>编号</th>
+                <th>申请人</th>-->
+                <th>系统名</th>
+                <th>环境</th>
+                <th>主IP</th>
+                <th>从IP</th>
+                <th>读虚拟IP</th>
+                <th>写虚拟IP</th>
+            </tr>
+            <tr>
+                <!--<td>{{data.exData.exOddNumber}}</td>
+                <td>{{data.exData.exNumber}}</td>
+                <td>{{data.exData.exPerson}}</td>-->
+                <td>{{data.exData.exSystem}}</td>
+                <td>{{data.exData.exEnvirment}}</td>
+                <td>{{data.exData.exMainIP}}</td>
+                <td>{{data.exData.exSecondIP}}</td>
+                <td>{{data.exData.exReadVIP}}</td>
+                <td>{{data.exData.exWriteVIP}}</td>
+            </tr>
+        </table>
+        <p style="margin-top: 10px;">
+            <button class="btn btn-default" ng-click="continue()">继续</button>
+        </p>
+      </div>
+      <div class="modal-body" style="overflow: auto;height: 300px;padding-top: 0;">
+        <section>
+            <form class="form-horizontal" ng-show="flag" ng-submit="doUpdate(data.exData.exOddNumber)">
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-sm-2">root密码</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="rootPass" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-sm-2">repl名字</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="replName" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-sm-2">repl密码</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="replPass" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-sm-2">admin名字</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="adminName" ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="control-label col-sm-2">admin密码</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="adminPass" ng-required="true">
+                    </div>
+                    <button type="submit" class="btn btn-default btn-sm" ng-show="!loginSuccess">提交</button>
+                    <small class="text-danger">{{errorLog}}</small>
+                    <small class="text-success">{{successLog}}</small>
+                </div>
+            </form>
+        </section>
+        <section>
+            <pre ng-show="loginSuccess"><ul ng-repeat='log in logs'><li ng-repeat="line in log">{{line}}</li></ul></pre>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-default" ng-click="commit()">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

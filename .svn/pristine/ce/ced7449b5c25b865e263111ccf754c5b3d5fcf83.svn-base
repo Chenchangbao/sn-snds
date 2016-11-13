@@ -1,0 +1,14 @@
+<ul ng-class="options.ulClass" ng-hide="hidePager">
+    <li ng-class="prev.liClass">
+        <a href="javascript: void(0)"
+            ng-bind="prev.text"
+            ng-click="selectPage(prev.value)"
+            ng-class="prev.aClass"></a>
+    </li>
+    <li ng-class="next.liClass">
+        <a href="javascript: void(0)"
+            ng-bind="next.text"
+            ng-click="selectPage(next.value)"
+            ng-class="next.aClass"></a>
+    </li>
+</ul>

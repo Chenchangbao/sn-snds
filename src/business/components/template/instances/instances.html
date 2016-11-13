@@ -1,0 +1,56 @@
+<!--导航部分 content-header-->
+<section class="content-header">
+    <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
+</section>
+<section class="content-header">
+    <div class="box">
+        <div>
+            <button class="btn btn-default" ng-click="newInstance()">新建实例</button>
+            <button class="btn btn-default" ng-click="delInstance()">删除实例</button>
+            <button class="btn btn-default pull-right">搜索</button>         
+            <div class="pull-right">
+                <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
+            </div>   
+        </div>
+    </div>
+</section>
+<!--内容部分 content-->
+<section class="content">
+    <h4 class="text-primary"><strong>实例列表</strong></h4>
+    <div class="box box-primary">
+        <!--下部分表格区-->
+        <table class='table-border-mine'>
+            <tr>
+                <th></th>
+                <th>系统名称</th>
+                <th>实例名称</th>
+                <th>类型</th>
+                <th>数据库版本</th>
+                <th>环境</th>
+                <th>运行状态</th>
+                <th>实例创建日期</th>
+            </tr>
+            <tr ng-repeat="exData in systemExDatas |filter:filter|paging:page:pageSize" ng-class="{info:$even}">
+                <td><input type="checkbox" name="toggle" id="" ng-click="setToggleEx(exData)"></td>
+                <td>{{exData.exName}}</td>
+                <td>{{exData.exSystemName}}</td>
+                <td>{{exData.exEnvirment}}</td>
+                <td>{{exData.exType}}</td>
+                <td>{{exData.exMySqlVersion}}</td>
+                <td>{{exData.exMainIP}}</td>
+                <td>
+                    <div ng-repeat="scIP in exData.exSecondIPs">{{scIP}}</div>    
+                </td>
+            </tr>
+        </table>
+        <!--分页区-->
+        <div style="text-align:center;">
+            <sn-pager page="page1" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>    
+        </div>       
+    </div>
+</section>
+
+
+    
+    
+    

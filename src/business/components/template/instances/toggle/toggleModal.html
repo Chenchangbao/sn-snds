@@ -1,0 +1,41 @@
+<div class="modal fade in" ng-controller="ToggleModalCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+           您正在对实例<span class="text-danger">{{data.exData.exName}}</span>进行主从切换操作</br>
+           <small>请选择一个从IP作为新的主IP</small>
+        </h4>
+      </div>
+      <div class="modal-body" style="overflow: auto;height: 300px;padding-top: 0;">
+        <table class="tabel table-border-mine" style="width:50%;margin:0">
+            <tr>
+                <td></td>
+                <td>主IP</td>
+                <td>{{data.exData.exMainIP}}</td>
+            </tr>
+            <tr ng-repeat="scIP in data.exData.exSecondIPs">
+                <td><input type="radio" name="scIP" id="" ng-click="setExToggle(scIP)" ng-checked="$first"></td>
+                <td>从IP</td>
+                <td>{{scIP}}</td>
+            </tr>
+        </table>  
+        <p style="margin-top: 10px;">
+            <button class="btn btn-default" ng-click="doToggle()">确定</button>
+        </p>
+        <section>
+          <pre ng-show="toggleDone"><small>请不要关闭窗口，等待操作完成</small><ul ng-repeat='log in logs'><li ng-repeat="line in log">{{line}}</li></ul></pre>
+      </section>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-default" ng-click="commit()">确定</button>
+          <button class="btn btn-default" ng-click="close()">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

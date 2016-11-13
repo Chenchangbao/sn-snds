@@ -1,0 +1,24 @@
+<div class="modal fade in" ng-controller="LogCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">{{data.msg}}</h4>
+        <small>实例{{data.exName}}</small>
+      </div>
+      <div class="modal-body" style="overflow: auto;height: 300px;">
+        <section>
+            <pre><ul ng-repeat='log in logs'><li ng-repeat="line in log">{{line}}</li></ul></pre>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button class="btn btn-default" ng-click="commit()">确定</button>
+          <button class="btn btn-default" ng-click="close()">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

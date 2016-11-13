@@ -1,0 +1,35 @@
+<ul ng-class="options.ulClass" ng-hide="hidePager">
+    <li ng-if="prev" ng-class="prev.liClass">
+        <a href="javascript: void(0)"
+            ng-bind="prev.text"
+            ng-click="selectPage(prev.value)"
+            ng-class="prev.aClass"></a>
+    </li>
+    <li class="dropdown" sn-dropdown ng-if="totalPages > 1">
+        <a href="javascript:void(0)" class="dropdown-toggle">
+            <span ng-bind="current.text"></span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li ng-repeat="item in list" ng-class="item.liClass" >
+                <a href="javascript:void(0)"
+                    ng-bind="item.text"
+                    ng-click="selectPage(item.value)"
+                    ng-class="item.aClass"></a>
+            </li>
+        </ul>
+    </li>
+    <li ng-if="totalPages == 1" class="dropdown">
+        <a href="javascript:void(0)">
+            <span ng-bind="current.text"></span>
+        </a>
+    </li>
+    <li ng-if="next" ng-class="next.liClass">
+        <a href="javascript: void(0)"
+            ng-bind="next.text"
+            ng-click="selectPage(next.value)"
+            ng-class="next.aClass"></a>
+    </li>
+</ul>
+
+

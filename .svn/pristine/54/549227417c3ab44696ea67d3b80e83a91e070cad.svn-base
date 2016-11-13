@@ -1,0 +1,62 @@
+<!--导航部分 content-header-->
+<section class="content-header">
+    <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
+</section>
+<section class="content-header">
+    <div class="box clearfix">
+        <button class="btn btn-default pull-right">搜索</button>         
+        <div class="pull-right">
+            <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
+        </div>
+    </div>
+</section>
+<section class="content">
+    <h4 class="text-primary"><strong>升级管理</strong></h4>    
+    <div class="box box-primary">
+        <!--下部分表格区-->
+        <button class="btn btn-default" ng-click="getSystemExDatasUp()">可升级</button>
+        <button class="btn btn-default" ng-click="getSystemExDatasUped()">已升级</button>
+        <table class='table-border-mine'>
+            <tr ng-switch="switchFlag">
+                <th>申请单号</th>
+                <th>编号</th>
+                <th>申请人</th>
+                <th>系统名</th>
+                <th>环境</th>
+                <th style="width:120px;">主IP</th>
+                <th style="width:120px;">从IP</th>
+                <th style="width:120px;">读虚拟IP</th>
+                <th style="width:120px;">写虚拟IP</th>
+                <th ng-switch-when="false">操作</th>
+                <th ng-switch-when="true">状态</th>
+                <th ng-switch-when="true">日志</th>
+            </tr>
+            <tr ng-repeat="exData in systemExList|filter:filter|paging:page:pageSize" ng-class="{info:$even}" ng-switch="switchFlag">
+                <td>{{exData.exOddNumber}}</td>
+                <td>{{exData.exNumber}}</td>
+                <td>{{exData.exPerson}}</td>
+                <td>{{exData.exSystem}}</td>
+                <td>{{exData.exEnvirment}}</td>
+                <td>{{exData.exMainIP}}</td>
+                <td>
+                    <div ng-repeat="scIP in exData.exSecondIPs">{{scIP}}</div>    
+                </td>
+                <td>{{exData.exReadVIP}}</td>
+                <td>{{exData.exWriteVIP}}</td>
+                <td ng-switch-when="false">
+                    <button class="btn btn-default" ng-click="doUpdate(exData,$index)">升级</button>
+                    <button class="btn btn-default">切换</button>
+                    <button class="btn btn-default" ng-click="showDate(exData.exName)">进度</button>
+                </td>
+                <td ng-switch-when="true">{{exData.upResult}}</td>
+                <td ng-switch-when="true">
+                    <button class="btn btn-default" ng-click="showDate(exData.exName)">下载</button>
+                </td>
+            </tr>
+        </table>
+        <!--分页区-->
+        <div style="text-align:center;">
+            <sn-pager page="page" page-size="pageSize" total="(systemExList|filter:filter).length" paging-action=""></sn-pager>    
+        </div>
+    </div>
+</section>

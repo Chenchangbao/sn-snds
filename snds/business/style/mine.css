@@ -1,0 +1,14 @@
+.table-border-mine{
+    border: 1px solid lightgray;
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+}
+.table-border-mine th,td{
+    border: 1px solid lightgray;
+    text-align: center;
+    padding: 7px !important;
+}
+.info{
+    background-color: #D9EDF7;
+}
