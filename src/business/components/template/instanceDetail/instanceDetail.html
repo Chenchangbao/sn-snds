@@ -1,56 +1,328 @@
+<style>
+    #instanceDetail table {
+        margin-bottom: 20px
+    }
+    
+    #instanceDetail table tr th {
+        font-size: 16px
+    }
+    
+    #instanceDetail table tr td:nth-child(odd) {
+        background-color: #D9EDF7;
+    }
+    
+    #instanceDetail table td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
 <!--导航部分 content-header-->
 <section class="content-header">
     <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
 </section>
-<section class="content-header">
-    <div class="box">
-        <div>
-            <button class="btn btn-default" ng-click="newInstance()">新建实例</button>
-            <button class="btn btn-default" ng-click="delInstance()">删除实例</button>
-            <button class="btn btn-default pull-right">搜索</button>         
-            <div class="pull-right">
-                <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
-            </div>   
-        </div>
-    </div>
-</section>
 <!--内容部分 content-->
-<section class="content">
-    <h4 class="text-primary"><strong>实例列表</strong></h4>
-    <div class="box box-primary">
-        <!--下部分表格区-->
-        <table class='table-border-mine'>
-            <tr>
-                <th></th>
-                <th>系统名称</th>
-                <th>实例名称</th>
-                <th>类型</th>
-                <th>数据库版本</th>
-                <th>环境</th>
-                <th>运行状态</th>
-                <th>实例创建日期</th>
-            </tr>
-            <tr ng-repeat="exData in systemExDatas |filter:filter|paging:page:pageSize" ng-class="{info:$even}">
-                <td><input type="checkbox" name="toggle" id="" ng-click="setToggleEx(exData)"></td>
-                <td>{{exData.exName}}</td>
-                <td>{{exData.exSystemName}}</td>
-                <td>{{exData.exEnvirment}}</td>
-                <td>{{exData.exType}}</td>
-                <td>{{exData.exMySqlVersion}}</td>
-                <td>{{exData.exMainIP}}</td>
-                <td>
-                    <div ng-repeat="scIP in exData.exSecondIPs">{{scIP}}</div>    
-                </td>
-            </tr>
-        </table>
-        <!--分页区-->
-        <div style="text-align:center;">
-            <sn-pager page="page1" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>    
-        </div>       
-    </div>
+<section id="instanceDetail" class="content">
+    <!--<h4 class="text-primary"><strong>实例列表</strong></h4>-->
+    <!--<div class="box box-primary">-->
+    <sn-tabs class="no-btn">
+        <sn-tab-panel t="主信息">
+            <div class="box">
+                <div class="box-body">
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">基本信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">系统名称</td>
+                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:15%">实例集群编号</td>
+                            <td style="width:35%">999999-201505210939</td>
+                        </tr>
+                        <tr>
+                            <td>实例编号</td>
+                            <td>100013-201505210939</td>
+                            <td>实例名称</td>
+                            <td> sndsprd1</td>
+                        </tr>
+                        <tr>
+                            <td>实例类型</td>
+                            <td>主</td>
+                            <td>所属中心</td>
+                            <td>云事业部</td>
+                        </tr>
+                        <tr>
+                            <td>环境名称</td>
+                            <td>snds_PRD</td>
+                            <td>位置</td>
+                            <td>OS雨花Juno4</td>
+                        </tr>
+                        <tr>
+                            <td>负责人</td>
+                            <td>刘伟（16081377）</td>
+                            <td>实例创建日期</td>
+                            <td>2016-11-1 10:08:02</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">服务器信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">服务器名称</td>
+                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:15%">端口</td>
+                            <td style="width:35%">3306</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟机地址</td>
+                            <td>192.168.180.66</td>
+                            <td>物理机地址</td>
+                            <td>10.27.3.150</td>
+                        </tr>
+                        <tr>
+                            <td>读写VIP地址</td>
+                            <td>10.100.33.73</td>
+                            <td>只读VIP地址</td>
+                            <td>10.100.33.74</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">运行状态</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">运行状态</td>
+                            <td style="width:35%">运行中</td>
+                            <td style="width:15%">已用空间</td>
+                            <td style="width:35%">200G / 600G</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">配置信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">CPU</td>
+                            <td style="width:35%">8核</td>
+                            <td style="width:15%">内存</td>
+                            <td style="width:35%">64G</td>
+                        </tr>
+                        <tr>
+                            <td>系统盘</td>
+                            <td>50G</td>
+                            <td>数据盘 / 存储</td>
+                            <td>300G</td>
+                        </tr>
+                        <tr>
+                            <td>操作系统</td>
+                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>数据库版本</td>
+                            <td>MySQL Percona Server 5.6.2365</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </sn-tab-panel>
+        <sn-tab-panel t="从1信息">
+            <div class="box">
+                <div class="box-body">
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">基本信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">系统名称</td>
+                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:15%">实例集群编号</td>
+                            <td style="width:35%">999999-201505210939</td>
+                        </tr>
+                        <tr>
+                            <td>实例编号</td>
+                            <td>100013-201505210939</td>
+                            <td>实例名称</td>
+                            <td> sndsprd1-s1</td>
+                        </tr>
+                        <tr>
+                            <td>实例类型</td>
+                            <td>从</td>
+                            <td>所属中心</td>
+                            <td>云事业部</td>
+                        </tr>
+                        <tr>
+                            <td>环境名称</td>
+                            <td>snds_PRD</td>
+                            <td>位置</td>
+                            <td>OS雨花Juno4</td>
+                        </tr>
+                        <tr>
+                            <td>负责人</td>
+                            <td>刘伟（16081377）</td>
+                            <td>实例创建日期</td>
+                            <td>2016-11-1 10:08:02</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">服务器信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">服务器名称</td>
+                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:15%">端口</td>
+                            <td style="width:35%">3306</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟机地址</td>
+                            <td>192.168.180.66</td>
+                            <td>物理机地址</td>
+                            <td>10.27.3.150</td>
+                        </tr>
+                        <tr>
+                            <td>读写VIP地址</td>
+                            <td>10.100.33.73</td>
+                            <td>只读VIP地址</td>
+                            <td>10.100.33.74</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">运行状态</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">运行状态</td>
+                            <td style="width:35%">运行中</td>
+                            <td style="width:15%">已用空间</td>
+                            <td style="width:35%">200G / 600G</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">配置信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">CPU</td>
+                            <td style="width:35%">8核</td>
+                            <td style="width:15%">内存</td>
+                            <td style="width:35%">64G</td>
+                        </tr>
+                        <tr>
+                            <td>系统盘</td>
+                            <td>50G</td>
+                            <td>数据盘 / 存储</td>
+                            <td>300G</td>
+                        </tr>
+                        <tr>
+                            <td>操作系统</td>
+                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>数据库版本</td>
+                            <td>MySQL Percona Server 5.6.2365</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </sn-tab-panel>
+        <sn-tab-panel t="从2信息">
+            <div class="box">
+                <div class="box-body">
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">基本信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">系统名称</td>
+                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:15%">实例集群编号</td>
+                            <td style="width:35%">999999-201505210939</td>
+                        </tr>
+                        <tr>
+                            <td>实例编号</td>
+                            <td>100013-201505210939</td>
+                            <td>实例名称</td>
+                            <td>sndsprd1-s2</td>
+                        </tr>
+                        <tr>
+                            <td>实例类型</td>
+                            <td>从</td>
+                            <td>所属中心</td>
+                            <td>云事业部</td>
+                        </tr>
+                        <tr>
+                            <td>环境名称</td>
+                            <td>snds_PRD</td>
+                            <td>位置</td>
+                            <td>OS雨花Juno4</td>
+                        </tr>
+                        <tr>
+                            <td>负责人</td>
+                            <td>刘伟（16081377）</td>
+                            <td>实例创建日期</td>
+                            <td>2016-11-1 10:08:55</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">服务器信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">服务器名称</td>
+                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:15%">端口</td>
+                            <td style="width:35%">3306</td>
+                        </tr>
+                        <tr>
+                            <td>虚拟机地址</td>
+                            <td>192.168.180.66</td>
+                            <td>物理机地址</td>
+                            <td>10.27.3.150</td>
+                        </tr>
+                        <tr>
+                            <td>读写VIP地址</td>
+                            <td>10.100.33.73</td>
+                            <td>只读VIP地址</td>
+                            <td>10.100.33.74</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">运行状态</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">运行状态</td>
+                            <td style="width:35%">运行中</td>
+                            <td style="width:15%">已用空间</td>
+                            <td style="width:35%">200G / 600G</td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <th colspan="4">配置信息</th>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">CPU</td>
+                            <td style="width:35%">8核</td>
+                            <td style="width:15%">内存</td>
+                            <td style="width:35%">64G</td>
+                        </tr>
+                        <tr>
+                            <td>系统盘</td>
+                            <td>50G</td>
+                            <td>数据盘 / 存储</td>
+                            <td>300G</td>
+                        </tr>
+                        <tr>
+                            <td>操作系统</td>
+                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>数据库版本</td>
+                            <td>MySQL Percona Server 5.6.2365</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </sn-tab-panel>
+    </sn-tabs>
+    <!--下部分表格区-->
+
+    <!--</div>-->
 </section>
-
-
-    
-    
-    

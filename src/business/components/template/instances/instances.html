@@ -1,24 +1,22 @@
 <!--导航部分 content-header-->
 <section class="content-header">
     <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
-</section>
-<section class="content-header">
-    <div class="box">
-        <div>
-            <button class="btn btn-default" ng-click="newInstance()">新建实例</button>
-            <button class="btn btn-default" ng-click="delInstance()">删除实例</button>
-            <button class="btn btn-default pull-right">搜索</button>         
-            <div class="pull-right">
-                <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
-            </div>   
-        </div>
-    </div>
+    <h4 class="text-primary"><strong>实例列表</strong></h4>
+    <hr style="margin:0;border-color:#3c8dbc"/>
 </section>
 <!--内容部分 content-->
 <section class="content">
-    <h4 class="text-primary"><strong>实例列表</strong></h4>
-    <div class="box box-primary">
-        <!--下部分表格区-->
+    <!--<div class="box box-primary">-->
+    <div>
+        <button class="btn btn-default" ng-click="newInstance()">新建实例</button>
+        <button class="btn btn-default" ng-click="delInstance()">删除实例</button>
+        <button class="btn btn-default pull-right">搜索</button>
+        <div class="pull-right">
+            <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
+        </div>
+    </div>
+    <!--下部分表格区-->
+    <form name="applyForm" class="form-inline" novalidate>
         <table class='table-border-mine'>
             <tr>
                 <th></th>
@@ -32,25 +30,19 @@
             </tr>
             <tr ng-repeat="exData in systemExDatas |filter:filter|paging:page:pageSize" ng-class="{info:$even}">
                 <td><input type="checkbox" name="toggle" id="" ng-click="setToggleEx(exData)"></td>
-                <td>{{exData.exName}}</td>
-                <td>{{exData.exSystemName}}</td>
-                <td>{{exData.exEnvirment}}</td>
-                <td>{{exData.exType}}</td>
-                <td>{{exData.exMySqlVersion}}</td>
-                <td>{{exData.exMainIP}}</td>
-                <td>
-                    <div ng-repeat="scIP in exData.exSecondIPs">{{scIP}}</div>    
-                </td>
+                <td>{{exData.a}}</td>
+                <td><a ng-href="#/instance-detail/{{exData.b}}">{{exData.b}}</a></td>
+                <td>{{exData.c}}</td>
+                <td>{{exData.d}}</td>
+                <td>{{exData.e}}</td>
+                <td>{{exData.f}}</td>
+                <td>{{exData.g}}</td>
             </tr>
         </table>
         <!--分页区-->
         <div style="text-align:center;">
-            <sn-pager page="page1" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>    
-        </div>       
-    </div>
+            <sn-pager page="page" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>
+        </div>
+    </form>
+    <!--</div>-->
 </section>
-
-
-    
-    
-    

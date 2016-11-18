@@ -1,4 +1,4 @@
-let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
+let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
 
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
@@ -15,9 +15,6 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
             reload:true
         })
     }
-    $scope.delInstance = function () {
-        getSystemExDatas();
-    }
 
     // SndsService.getUserInfo()
     //     .then( datas => {
@@ -29,7 +26,8 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
-        { href: "", title: "实例列表", pre: '<span class="fa fa-table"></span>' }
+        { href: "#/instance-detail/sndsprd1", title: "实例信息", pre: '<span class="fa fa-table"></span>' },
+        { href: "", title: "苏宁云数据库（snds）"}
     ];
     //加载数据实例（升级完毕）
     function getSystemExDatas() {
@@ -59,5 +57,5 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
     }
 }
 
-InstancesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
-export default app => app.controller('InstancesCtrl', InstancesCtrl);
+InstanceDetailCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
+export default app => app.controller('InstanceDetailCtrl', InstanceDetailCtrl);

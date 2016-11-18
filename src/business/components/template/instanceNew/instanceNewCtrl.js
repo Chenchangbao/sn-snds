@@ -1,4 +1,4 @@
-let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q) => {
+let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, AlertService, $state) => {
 
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
@@ -6,6 +6,8 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q) =>
     $scope.pageSize = 5;
     $scope.total = 0;
     $scope.exData = null;
+    $scope.aa = 170;
+    $scope.bb = '';
 
 
     var deferred = $q.defer();
@@ -14,6 +16,23 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q) =>
         getSystemExDatas();
     })
 
+
+    $scope.newInstance = () => {
+        AlertService.confirm({
+            title: '申请创建数据库机器',
+            content: '确定要申请创建数据库服务吗？'
+        }).then(() => {
+            console.info('confirm OK');
+        }, () => {
+            console.info('confirm CANCEL');
+        })
+    };
+
+    $scope.cancel = () => {
+        $state.go('Portal.Instances', {}, {
+            reload: true
+        })
+    }
     // SndsService.getUserInfo()
     //     .then( datas => {
     //         $scope.user.userName = datas.userName; 
@@ -24,7 +43,7 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q) =>
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
-        { href: "", title: "实例列表", pre: '<span class="fa fa-table"></span>' }
+        { href: "", title: "新增实例", pre: '<span class="fa fa-table"></span>' }
     ];
     //加载数据实例（升级完毕）
     function getSystemExDatas() {
@@ -90,5 +109,5 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q) =>
     deferred.resolve();
 }
 
-InstanceDetailCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q'];
-export default app => app.controller('InstanceDetailCtrl', InstanceDetailCtrl);
+InstanceNewCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', 'AlertService', '$state'];
+export default app => app.controller('InstanceNewCtrl', InstanceNewCtrl);

@@ -141,3 +141,36 @@ Mock.mock(/\/system\/toggle\.do/,{
     "result": true
   }
 });
+
+Mock.mock(/\/system\/instanceslist/,{
+  "result": true,
+  "data" : {
+        "list|33": [
+          {
+            'a':'苏宁云数据库(snds)',
+            'b':'sndsprd1',
+            'c':'1主2从',
+            'd':'MySQL5.6',
+            'e':'snds_PRD',
+            'f|1':['运行中','已停止'],
+            'g':'@now()'
+          },
+      ]
+  }
+});
+Mock.mock(/\/system\/myserviceslist/,{
+  "result": true,
+  "data" : {
+        "list|33": [
+          {
+            'a':'苏宁云数据库(snds)',
+            'b':'snds_PRD',
+            'c':'王小欢(15040639)',
+            'd':'@now()',
+            'e|1':['可用','创建中','已销毁','已驳回','审核通过','安装中','待审核'],
+            'f':'重试',
+            'g':'SNDS-MySQL5.6'
+          },
+      ]
+  }
+});

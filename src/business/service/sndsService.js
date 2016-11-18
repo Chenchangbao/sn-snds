@@ -41,6 +41,9 @@ let SndsService = function(HttpService) {
         getInstancesList: function(params){
             return HttpService.get('/system/instanceslist',params);
         },
+        getMyServicesList: function(params){
+            return HttpService.get('/system/myserviceslist',params);
+        },
     };
 }
 

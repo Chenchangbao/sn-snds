@@ -5,7 +5,9 @@ import portal from './portal/portalCtrl';
 // template
 import overview from './template/overview/overviewCtrl';
 import instances from './template/instances/instancesCtrl';
-import instanceDetail from './template/instanceDetail/instanceDetailCtrl';
+import myServices from './template/myServices/myServices';
+import instanceNew from './template/instanceNew/instanceNewCtrl';
+import instanceDetail from './template/instanceDetail/instanceDetail';
 import manager from './template/manager/managerCtrl';
 import logPage from './template/manager/log/LogCtrl';
 import update from './template/update/updateCtrl';
@@ -23,6 +25,8 @@ export default app => {
     updateModal,
     toggleModal,
     instances,
-    instanceDetail
+    instanceNew,
+    instanceDetail,
+    myServices
   ], app);
 }

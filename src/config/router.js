@@ -17,10 +17,10 @@ export default app => {
         templateUrl: 'business/components/template/instances/instances.html',
         controller: 'InstancesCtrl'
       })
-      .state('Portal.InstanceDetail', {
-        url: '/instance-detail/:id',
-        templateUrl: 'business/components/template/instanceDetail/instanceDetail.html',
-        controller: 'InstanceDetailCtrl'
+      .state('Portal.InstanceNew', {
+        url: '/instance-new',
+        templateUrl: 'business/components/template/instanceNew/instanceNew.html',
+        controller: 'InstanceNewCtrl'
       })
       .state('Portal.Manager', {
         url: '/manager',
@@ -36,6 +36,16 @@ export default app => {
         url: '/loginForLoad',
         templateUrl: 'business/components/template/manager/load/loginForLoad.html',
         controller: 'LoginForLoadCtrl'
+      })
+      .state('Portal.MyServices', {
+        url: '/myservices',
+        templateUrl: 'business/components/template/myServices/myServices.html',
+        controller: 'MyServicesCtrl'
+      })
+      .state('Portal.InstanceDetail', {
+        url: '/instance-detail/:name',
+        templateUrl: 'business/components/template/instanceDetail/instanceDetail.html',
+        controller: 'InstanceDetailCtrl'
       })
       // .state('Requirement', {
       //   url: '/requirement',

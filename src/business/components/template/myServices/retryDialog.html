@@ -1,0 +1,22 @@
+<div class="modal fade in" ng-controller="retryDialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">重试</h4>
+      </div>
+      <div class="modal-body">
+        <section>
+          <h4>现在将要进行重试操作，继续请点击确认键</h4>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <div class="text-right">
+          <button class="btn btn-primary" ng-click="commit()"> 确 认</button>
+          <button class="btn btn-primary reverse" ng-click="close()"> 取 消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
