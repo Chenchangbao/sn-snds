@@ -147,13 +147,13 @@ Mock.mock(/\/system\/instanceslist/,{
   "data" : {
         "list|33": [
           {
-            'a':'苏宁云数据库(snds)',
-            'b':'sndsprd1',
+            'a|1':['苏宁云数据库(snds)','去商业数据库项目(APP)','风控系统(WAS)','分布式缓存服务(dcs)','Sentinel集群管理(stl)','MySQL5.6项目(rds)'],
+            'b|1':['sndsapp','sndsprd1','sndswas1','dcssit1','Sentinel','rdsprd'],
             'c':'1主2从',
             'd':'MySQL5.6',
-            'e':'snds_PRD',
-            'f|1':['运行中','已停止'],
-            'g':'@now()'
+            'e|1':['snds_PRD','APP_PRD','WAS_PRD','dcs_SIT','stl_SIT','rds_SIT'],
+            'f|1':['运行中','已停止','异常'],
+            'g|1':['2016-11-1 10:08:02','2016-11-1 10:09:50','2016-11-11 17:20:02','2016-10-11 23:15:02']
           },
       ]
   }

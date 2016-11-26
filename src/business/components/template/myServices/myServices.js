@@ -1,5 +1,6 @@
 import retryDialog from './retryDialog'
 import logDialog from './logDialog'
+import review from './review'
 
 let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
 
@@ -94,5 +95,5 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
 MyServicesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
 export default app => {
     app.controller('MyServicesCtrl', MyServicesCtrl);
-    INCLUDE_ALL_MODULES([logDialog, retryDialog], app);
+    INCLUDE_ALL_MODULES([logDialog, retryDialog, review], app);
 }

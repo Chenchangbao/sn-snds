@@ -47,6 +47,11 @@ export default app => {
         templateUrl: 'business/components/template/instanceDetail/instanceDetail.html',
         controller: 'InstanceDetailCtrl'
       })
+      .state('Portal.Review', {
+        url: '/review/:id',
+        templateUrl: 'business/components/template/myServices/review.html',
+        controller: 'Review'
+      })
       // .state('Requirement', {
       //   url: '/requirement',
       //   templateUrl: 'business/components/template/requirement.html',

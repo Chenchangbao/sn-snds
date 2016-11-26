@@ -3,7 +3,7 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
     $scope.page = 1;
-    $scope.pageSize = 9;
+    $scope.pageSize = 10;
     $scope.total = 0;
     $scope.exData = null;
 
