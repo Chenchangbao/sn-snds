@@ -32,11 +32,6 @@ export default app => {
         templateUrl: 'business/components/template/update/update.html',
         controller: 'UpdateCtrl'
       })
-      .state('LoginForLoad', {
-        url: '/loginForLoad',
-        templateUrl: 'business/components/template/manager/load/loginForLoad.html',
-        controller: 'LoginForLoadCtrl'
-      })
       .state('Portal.MyServices', {
         url: '/myservices',
         templateUrl: 'business/components/template/myServices/myServices.html',

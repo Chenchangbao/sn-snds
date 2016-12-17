@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +7,66 @@
     <link rel="shortcut icon" type="image/ico" href="https://www.suning.com/favicon.ico">
     <link rel="stylesheet" type="text/css" href="https://ssores.cnsuning.com/res/passport/dcs/styles/login.css">
     <script src="https://ssores.cnsuning.com/res/passport/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script>
+            $(function(){
+                //显示服务端错误信息
+                var errorcode = "";
+                var errorMessage='';
+                if(errorcode =="badPassword.msg1"){
+                    errorMessage="工号或密码不正确，请重新输入！";
+                    document.getElementById("error").innerHTML = errorMessage;
+                    document.getElementById("error").style.display = "block";
+                    document.form1.username.focus();
+                    return false;
+                }
+                else if(errorcode!=""){
+                    document.getElementById("error").innerHTML = errorMessage;
+                    document.getElementById("error").style.display = "block";
+                    document.form1.username.focus();
+                    return false;
+                }
+            });
+
+        // 按"回车键"提交
+        document.onkeydown = function(event) {
+            var e = window.event || event;
+            if(e.keyCode == 13) {
+                submit_form();
+            }
+        };
+        function submit_form() {
+            var re=/^\d{8}$/;
+            var employeeName = document.form1.username.value;
+            if (employeeName == ""){
+                document.getElementById("error").innerHTML = "工号不能为空";
+                document.getElementById("error").style.display = "block";
+                document.form1.username.focus();
+                return false;
+            }
+            else if(!re.test(employeeName)){
+                document.getElementById("error").innerHTML = "工号只能为8位数字";
+                document.getElementById("error").style.display = "block";
+                document.form1.username.focus();
+                return false;
+            }
+            else if(document.form1.password.value == ""){
+                document.getElementById("error").innerHTML = "密码不能为空";
+                document.getElementById("error").style.display = "block";
+                document.form1.password.focus();
+                return false;
+            }
+            document.form.j_username.value = employeeName;
+            document.form.j_password.value = document.form1.password.value;
+            document.form.submit();
+
+            document.form1.action="login";
+            document.form1.submit();
+        }
+
+        function fun_getVcode() {
+            document.getElementById("vcodeimg1").src = "https://vcs.suning.com/vcs/imageCode.htm?uuid=" + "5f693623-ef12-4197-9cd1-8da70833582f" + "&yys=" + new Date().getTime();
+        }
+    </script>
     <title>苏宁数据库服务系统SNDS</title>
 </head>
 
@@ -18,14 +77,21 @@
     </div>
     <!--登录区域-->
     <div class="row">
-        <form class="form" method="post" action="login">
-
+        <iframe id="frame" name="frame" src="" style="display:none"></iframe>
+        <form id="form" name="form" action="https://oa.cnsuning.com/SuningUUMWeb/AuthenticationServlet" target="frame" method="post">
+            <input type="hidden" name="j_username" value="">
+            <input type="hidden" name="j_password" value="">
+        </form>
+        <form class="form" name="form1" method="post" action="login">
+            <input type="hidden" name="uuid" value="5f693623-ef12-4197-9cd1-8da70833582f">
+            <input type="hidden" name="service" value="http://snds.cnsuning.com/auth?targetUrl=http%3A%2F%2Fsndspre.cnsuning.com%2F">
+            <input type="hidden" name="loginTheme" value="snds">
             <div class="control-group">
                 <div class="control-icon">
                     <i class="icon1"></i>
                 </div>
                 <div class="controls">
-                    <input type="text" placeholder="请输入用户名" class="text" id="username" name="username" value="" />
+                    <input type="text" placeholder="请输入用户名" class="text" id="username" name="username" value="" maxlength="8"/>
                 </div>
             </div>
 
@@ -34,32 +100,17 @@
                     <i class="icon2"></i>
                 </div>
                 <div class="controls">
-                    <input type="password" placeholder="请输入密码" class="text" id="password" name="password" />
+                    <input type="password" placeholder="请输入密码" class="text" id="password" name="password" maxlength="20"/>
                 </div>
             </div>
 
             <div class="control-group border-none mt9">
                 <div class="controls">
-                    <input type="button" value="登录" class="btn" onclick="doLogin()">
+                    <input type="button" value="登录" class="btn" onclick="submit_form();">
                 </div>
             </div>
         </form>
     </div>
-
-    <script src="lib/mock/mock.js"></script>
-    <script src="lib/mock/mockData.js"></script>
-    <script src="lib/mock/mock.angular.js"></script>
-    <script>
-        // var doLogin = function(){
-        //     location.replace("http://localhost:8181/index.html");
-        // }
-        var passport_config = { 
-            base: "/", 
-            loginTheme: "soa_pop" 
-        }; 
-
-    </script>
-    <script type="text/javascript" src="http://sso.cnsuning.com/ids/js/passport.js "></script>
 </body>
 
 </html>

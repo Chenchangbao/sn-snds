@@ -62,7 +62,12 @@
         <div class="form-group">
             <label class="control-label col-sm-2"><span style="color:red">* </span>数据库名称：</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" ng-required="true" />
+                <input type="text" name="dbName" class="form-control" ng-model="dbname" ng-required="true" maxlength="18" ng-pattern="/^[a-z][a-z0-9_]*$/"/>
+            </div>
+            <div class="col-sm-6 form-control-static" ng-show="applyForm.dbName.$dirty">
+                <span class="error-text-color" ng-show="applyForm.dbName.$error.maxlength">字段长度不能超过18个字符</span>
+                <span class="error-text-color" ng-show="applyForm.dbName.$error.required">字段不能为空</span>
+                <span class="error-text-color" ng-show="applyForm.dbName.$error.pattern">只能由小写字母、数字和下划线组成，且以小写字母开头</span>
             </div>
         </div>
         <div class="form-group">
