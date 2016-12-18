@@ -3,16 +3,17 @@ import logDialog from './logDialog'
 import review from './review'
 
 let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
-
+    let vm = $scope
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
-    $scope.page = 1;
+    $scope.pageNumber = 1;
     $scope.pageSize = 9;
     $scope.total = 0;
     $scope.exData = null;
 
 
     getSystemExDatas();
+    getTypeStatus()
 
     $scope.newInstance = function () {
         $state.go('Portal.InstanceNew', {}, {
@@ -52,13 +53,6 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
     };
 
 
-    // SndsService.getUserInfo()
-    //     .then( datas => {
-    //         $scope.user.userName = datas.userName; 
-    //         $scope.user.userId = datas.userId;   
-    //         getSystemExDatas();
-    //     });
-
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
@@ -66,11 +60,30 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
     ];
     //加载数据实例（升级完毕）
     function getSystemExDatas() {
-        SndsService.getMyServicesList({ "userId": $scope.user.userId })
-            .then(datas => {
-                $scope.systemExDatas = datas.list;
-                $scope.total = $scope.systemExDatas.length;
-            });
+        SndsService.getMyServicesList({
+            pageNumber: vm.pageNumber,
+            pageSize: vm.pageSize,
+            serviceStatus: vm.serviceStatus,
+            envType: vm.envType,
+            systemName: vm.systemName,
+        }).then(d => {
+            $scope.systemExDatas = d.list;
+            vm.pageNumber = d.pageNumber
+            vm.pageSize = d.pageSize
+            vm.pageTotal = d.pageTotal
+        });
+    }
+
+    function getTypeStatus() {
+        SndsService.getTypeStatus().then(datas => {
+            vm.type = datas.type;
+            vm.status = datas.status;
+        });
+    }
+
+    vm.changePage = (pageNumber) => {
+        vm.pageNumber = pageNumber
+        getSystemExDatas()
     }
 
     //显示日志

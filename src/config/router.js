@@ -13,7 +13,7 @@ export default app => {
         controller: 'OverviewCtrl'
       })
       .state('Portal.Instances', {
-        url: '/instances',
+        url: '/instanceslist',
         templateUrl: 'business/components/template/instances/instances.html',
         controller: 'InstancesCtrl'
       })

@@ -12,25 +12,13 @@
 <section class="content">
     <form name="applyForm" class="form-inline" novalidate>
         <div class="form-group">
-            <select class="form-control">
-                <option>请选择服务状态</option>
-                <option>可用</option>
-                <option>创建中</option>
-                <option>已销毁</option>
-                <option>已驳回</option>
-                <option>审核通过</option>
-                <option>安装中</option>
+            <select class="form-control" ng-model="serviceStatus" ng-options="d.code as d.name for d in status">
             </select>
-            <select class="form-control">
-                <option>请选择环境类型</option>
-                <option>DEV</option>
-                <option>SIT</option>
-                <option>PRE</option>
-                <option>PRD</option>
+            <select class="form-control" ng-model="envType" ng-options="d.code as d.name for d in type">
             </select>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" ng-model="filter.$" placeholder="请输入系统名称">
+            <input type="text" class="form-control" ng-model="systemName" placeholder="请输入系统名称">
         </div>
         <div class="form-group">
             <button class="btn btn-default pull-right">搜索</button>
@@ -45,13 +33,13 @@
                 <th>服务状态</th>
                 <th>操作</th>
             </tr>
-            <tr ng-repeat="exData in systemExDatas |filter:filter|paging:page:pageSize" ng-class="{info:$even}">
-                <td>{{exData.g}}</td>
-                <td>{{exData.a}}</td>
-                <td>{{exData.b}}</td>
-                <td>{{exData.c}}</td>
-                <td>{{exData.d}}</td>
-                <td>{{exData.e}}</td>
+            <tr ng-repeat="exData in systemExDatas" ng-class="{info:$even}">
+                <td>{{exData.type}}</td>
+                <td>{{exData.systemName}}</td>
+                <td>{{exData.envName}}</td>
+                <td>{{exData.proposer+exData.proposerCode}}</td>
+                <td>{{exData.requestTime}}</td>
+                <td>{{exData.orderStatus}}</td>
                 <td>
                     <a ng-click="retryDialog()" href="" style="margin-right: 10px;">重试</a>
                     <a ng-click="logDialog()" href="">日志</a>
@@ -60,7 +48,7 @@
         </table>
         <!--分页区-->
         <div style="text-align:center;">
-            <sn-pager page="page" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>
+            <sn-pager page="pageNumber" page-size="pageSize" total="pageTotal" paging-action="changePage(page)"></sn-pager>
         </div>
     </form>
 </section>

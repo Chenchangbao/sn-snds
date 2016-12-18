@@ -1,5 +1,5 @@
 let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
-
+    let vm = $scope
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
     $scope.page = 1;
@@ -11,8 +11,8 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
     getSystemExDatas();
 
     $scope.newInstance = function () {
-        $state.go('Portal.InstanceNew',{},{
-            reload:true
+        $state.go('Portal.InstanceNew', {}, {
+            reload: true
         })
     }
     $scope.delInstance = function () {
@@ -33,30 +33,28 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
     ];
     //加载数据实例（升级完毕）
     function getSystemExDatas() {
-        SndsService.getInstancesList({ "userId": $scope.user.userId })
-            .then(datas => {
-                $scope.systemExDatas = datas.list;
-                $scope.total = $scope.systemExDatas.length;
-            });
+        let param = {
+            pageNumber: vm.pageNumber,
+            pageSize: vm.pageSize,
+            keyword: vm.keyword
+        }
+        SndsService.getInstancesList(param).then(d => {
+            $scope.systemExDatas = d.list;
+            vm.pageNumber = d.pageNumber
+            vm.pageSize = d.pageSize
+            vm.pageTotal = d.pageTotal
+        });
     }
 
-    //显示日志
-    $scope.showData = function (exName) {
-
-        DialogService.modal({
-            key: 'data',
-            url: 'business/components/template/manager/log/log.html',
-            accept: function (result) {
-                console.log(result);
-            },
-            refuse: function (reason) {
-                console.log(reason);
-            }
-        }, {
-                key: 'data',
-                data: { "msg": "日志", "exName": exName }
-            });
+    vm.search = () => {
+        getSystemExDatas()
     }
+
+    vm.changePage = (pageNumber) => {
+        vm.pageNumber = pageNumber
+        getSystemExDatas()
+    }
+
 }
 
 InstancesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];

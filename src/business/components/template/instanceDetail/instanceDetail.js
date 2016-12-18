@@ -1,4 +1,4 @@
-let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
+let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, $stateParams) => {
 
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
@@ -7,35 +7,26 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $s
     $scope.total = 0;
     $scope.exData = null;
 
-
-    getSystemExDatas();
+    $stateParams.name
+    getInstanceDetail();
 
     $scope.newInstance = function () {
-        $state.go('Portal.InstanceNew',{},{
-            reload:true
+        $state.go('Portal.InstanceNew', {}, {
+            reload: true
         })
     }
-
-    // SndsService.getUserInfo()
-    //     .then( datas => {
-    //         $scope.user.userName = datas.userName; 
-    //         $scope.user.userId = datas.userId;   
-    //         getSystemExDatas();
-    //     });
 
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
         { href: "#/instance-detail/sndsprd1", title: "实例信息", pre: '<span class="fa fa-table"></span>' },
-        { href: "", title: "苏宁云数据库（snds）"}
+        { href: "", title: "苏宁云数据库（snds）" }
     ];
     //加载数据实例（升级完毕）
-    function getSystemExDatas() {
-        SndsService.getInstancesList({ "userId": $scope.user.userId })
-            .then(datas => {
-                $scope.systemExDatas = datas.list;
-                $scope.total = $scope.systemExDatas.length;
-            });
+    function getInstanceDetail() {
+        SndsService.getInstanceDetail($stateParams.name).then(d => {
+            $scope.view = d;
+        });
     }
 
     //显示日志
@@ -57,5 +48,5 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $s
     }
 }
 
-InstanceDetailCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
+InstanceDetailCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state', '$stateParams'];
 export default app => app.controller('InstanceDetailCtrl', InstanceDetailCtrl);

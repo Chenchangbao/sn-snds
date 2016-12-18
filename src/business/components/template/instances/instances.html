@@ -10,9 +10,9 @@
     <div>
         <button class="btn btn-default" ng-click="newInstance()">新建实例</button>
         <button class="btn btn-default" ng-click="delInstance()">删除实例</button>
-        <button class="btn btn-default pull-right">搜索</button>
+        <button class="btn btn-default pull-right" ng-click="search()">搜索</button>
         <div class="pull-right">
-            <input type="text" class="form-control" ng-model="filter.$" placeholder="根据关键字过滤">
+            <input type="text" class="form-control" ng-model="keyword" placeholder="根据关键字过滤">
         </div>
     </div>
     <!--下部分表格区-->
@@ -28,20 +28,20 @@
                 <th>运行状态</th>
                 <th>实例创建日期</th>
             </tr>
-            <tr ng-repeat="exData in systemExDatas |filter:filter|paging:page:pageSize" ng-class="{info:$even}">
+            <tr ng-repeat="exData in systemExDatas" ng-class="{info:$even}">
                 <td><input type="checkbox" name="toggle" id="" ng-click="setToggleEx(exData)"></td>
-                <td>{{exData.a}}</td>
-                <td><a ng-href="#/instance-detail/{{exData.b}}">{{exData.b}}</a></td>
-                <td>{{exData.c}}</td>
-                <td>{{exData.d}}</td>
-                <td>{{exData.e}}</td>
+                <td>{{exData.systemName}}</td>
+                <td><a ng-href="#/instance-detail/{{exData.instanceID}}">{{exData.instanceAlias}}</a></td>
+                <td>{{exData.haType}}</td>
+                <td>{{exData.version}}</td>
+                <td>{{exData.env}}</td>
                 <td>{{exData.f}}</td>
-                <td>{{exData.g}}</td>
+                <td>{{exData.createTime}}</td>
             </tr>
         </table>
         <!--分页区-->
         <div style="text-align:center;">
-            <sn-pager page="page" page-size="pageSize" total="(systemExDatas |filter:filter).length" paging-action=""></sn-pager>
+            <sn-pager page="pageNumber" page-size="pageSize" total="pageTotal" paging-action="changePage(page)"></sn-pager>
         </div>
     </form>
     <!--</div>-->

@@ -36,33 +36,33 @@
                         </tr>
                         <tr>
                             <td style="width:15%">系统名称</td>
-                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:35%">{{view.systemName}}</td>
                             <td style="width:15%">实例集群编号</td>
-                            <td style="width:35%">999999-201505210939</td>
+                            <td style="width:35%">{{view.clusterSN}}</td>
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>100013-201505210939</td>
+                            <td>{{view.instanceId}}</td>
                             <td>实例名称</td>
-                            <td> sndsprd1</td>
+                            <td>{{}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>
-                            <td>主</td>
+                            <td>{{view.haRole}}</td>
                             <td>所属中心</td>
-                            <td>云事业部</td>
+                            <td>{{view.center}}</td>
                         </tr>
                         <tr>
                             <td>环境名称</td>
-                            <td>snds_PRD</td>
+                            <td>{{view.envName}}</td>
                             <td>位置</td>
-                            <td>OS雨花Juno4</td>
+                            <td>{{view.zone}}</td>
                         </tr>
                         <tr>
                             <td>负责人</td>
-                            <td>刘伟（16081377）</td>
+                            <td>{{view.proposer+view.proposerCode}}</td>
                             <td>实例创建日期</td>
-                            <td>2016-11-1 10:08:02</td>
+                            <td>{{view.createTime}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -71,21 +71,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">服务器名称</td>
-                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:35%">{{view.vmName}}</td>
                             <td style="width:15%">端口</td>
-                            <td style="width:35%">3306</td>
+                            <td style="width:35%">{{view.port}}</td>
                         </tr>
                         <tr>
                             <td>虚拟机地址</td>
-                            <td>192.168.180.66</td>
+                            <td>{{view.vmIP}}</td>
                             <td>物理机地址</td>
-                            <td>10.27.3.150</td>
+                            <td>{{view.hostIP}}</td>
                         </tr>
                         <tr>
                             <td>读写VIP地址</td>
-                            <td>10.100.33.73</td>
+                            <td>{{view.wvip}}</td>
                             <td>只读VIP地址</td>
-                            <td>10.100.33.74</td>
+                            <td>{{view.rvip}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -94,9 +94,9 @@
                         </tr>
                         <tr>
                             <td style="width:15%">运行状态</td>
-                            <td style="width:35%">运行中</td>
+                            <td style="width:35%">{{view.status}}</td>
                             <td style="width:15%">已用空间</td>
-                            <td style="width:35%">200G / 600G</td>
+                            <td style="width:35%">{{view.usedDataDiskSize}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -105,21 +105,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">CPU</td>
-                            <td style="width:35%">8核</td>
+                            <td style="width:35%">{{view.cpuCores}}</td>
                             <td style="width:15%">内存</td>
-                            <td style="width:35%">64G</td>
+                            <td style="width:35%">{{view.memory}}</td>
                         </tr>
                         <tr>
                             <td>系统盘</td>
-                            <td>50G</td>
+                            <td>{{view.osDiskSize}}</td>
                             <td>数据盘 / 存储</td>
-                            <td>300G</td>
+                            <td>{{view.dataDiskSize}}</td>
                         </tr>
                         <tr>
                             <td>操作系统</td>
-                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>{{view.os}}</td>
                             <td>数据库版本</td>
-                            <td>MySQL Percona Server 5.6.2365</td>
+                            <td>{{view.dbEngine}}</td>
                         </tr>
                     </table>
                 </div>
@@ -134,33 +134,33 @@
                         </tr>
                         <tr>
                             <td style="width:15%">系统名称</td>
-                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:35%">{{view.systemName}}</td>
                             <td style="width:15%">实例集群编号</td>
-                            <td style="width:35%">999999-201505210939</td>
+                            <td style="width:35%">{{view.clusterSN}}</td>
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>100013-201505210939</td>
+                            <td>{{view.instanceId}}</td>
                             <td>实例名称</td>
-                            <td> sndsprd1-s1</td>
+                            <td>{{}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>
-                            <td>从</td>
+                            <td>{{view.haRole}}</td>
                             <td>所属中心</td>
-                            <td>云事业部</td>
+                            <td>{{view.center}}</td>
                         </tr>
                         <tr>
                             <td>环境名称</td>
-                            <td>snds_PRD</td>
+                            <td>{{view.envName}}</td>
                             <td>位置</td>
-                            <td>OS雨花Juno4</td>
+                            <td>{{view.zone}}</td>
                         </tr>
                         <tr>
                             <td>负责人</td>
-                            <td>刘伟（16081377）</td>
+                            <td>{{view.proposer+view.proposerCode}}</td>
                             <td>实例创建日期</td>
-                            <td>2016-11-1 10:08:02</td>
+                            <td>{{view.createTime}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -169,21 +169,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">服务器名称</td>
-                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:35%">{{view.vmName}}</td>
                             <td style="width:15%">端口</td>
-                            <td style="width:35%">3306</td>
+                            <td style="width:35%">{{view.port}}</td>
                         </tr>
                         <tr>
                             <td>虚拟机地址</td>
-                            <td>192.168.180.66</td>
+                            <td>{{view.vmIP}}</td>
                             <td>物理机地址</td>
-                            <td>10.27.3.150</td>
+                            <td>{{view.hostIP}}</td>
                         </tr>
                         <tr>
                             <td>读写VIP地址</td>
-                            <td>10.100.33.73</td>
+                            <td>{{view.wvip}}</td>
                             <td>只读VIP地址</td>
-                            <td>10.100.33.74</td>
+                            <td>{{view.rvip}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -192,9 +192,9 @@
                         </tr>
                         <tr>
                             <td style="width:15%">运行状态</td>
-                            <td style="width:35%">运行中</td>
+                            <td style="width:35%">{{view.status}}</td>
                             <td style="width:15%">已用空间</td>
-                            <td style="width:35%">200G / 600G</td>
+                            <td style="width:35%">{{view.usedDataDiskSize}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -203,21 +203,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">CPU</td>
-                            <td style="width:35%">8核</td>
+                            <td style="width:35%">{{view.cpuCores}}</td>
                             <td style="width:15%">内存</td>
-                            <td style="width:35%">64G</td>
+                            <td style="width:35%">{{view.memory}}</td>
                         </tr>
                         <tr>
                             <td>系统盘</td>
-                            <td>50G</td>
+                            <td>{{view.osDiskSize}}</td>
                             <td>数据盘 / 存储</td>
-                            <td>300G</td>
+                            <td>{{view.dataDiskSize}}</td>
                         </tr>
                         <tr>
                             <td>操作系统</td>
-                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>{{view.os}}</td>
                             <td>数据库版本</td>
-                            <td>MySQL Percona Server 5.6.2365</td>
+                            <td>{{view.dbEngine}}</td>
                         </tr>
                     </table>
                 </div>
@@ -232,33 +232,33 @@
                         </tr>
                         <tr>
                             <td style="width:15%">系统名称</td>
-                            <td style="width:35%">苏宁云数据库（snds）</td>
+                            <td style="width:35%">{{view.systemName}}</td>
                             <td style="width:15%">实例集群编号</td>
-                            <td style="width:35%">999999-201505210939</td>
+                            <td style="width:35%">{{view.clusterSN}}</td>
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>100013-201505210939</td>
+                            <td>{{view.instanceId}}</td>
                             <td>实例名称</td>
-                            <td>sndsprd1-s2</td>
+                            <td>{{}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>
-                            <td>从</td>
+                            <td>{{view.haRole}}</td>
                             <td>所属中心</td>
-                            <td>云事业部</td>
+                            <td>{{view.center}}</td>
                         </tr>
                         <tr>
                             <td>环境名称</td>
-                            <td>snds_PRD</td>
+                            <td>{{view.envName}}</td>
                             <td>位置</td>
-                            <td>OS雨花Juno4</td>
+                            <td>{{view.zone}}</td>
                         </tr>
                         <tr>
                             <td>负责人</td>
-                            <td>刘伟（16081377）</td>
+                            <td>{{view.proposer+view.proposerCode}}</td>
                             <td>实例创建日期</td>
-                            <td>2016-11-1 10:08:55</td>
+                            <td>{{view.createTime}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -267,21 +267,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">服务器名称</td>
-                            <td style="width:35%">sndsprddb01</td>
+                            <td style="width:35%">{{view.vmName}}</td>
                             <td style="width:15%">端口</td>
-                            <td style="width:35%">3306</td>
+                            <td style="width:35%">{{view.port}}</td>
                         </tr>
                         <tr>
                             <td>虚拟机地址</td>
-                            <td>192.168.180.66</td>
+                            <td>{{view.vmIP}}</td>
                             <td>物理机地址</td>
-                            <td>10.27.3.150</td>
+                            <td>{{view.hostIP}}</td>
                         </tr>
                         <tr>
                             <td>读写VIP地址</td>
-                            <td>10.100.33.73</td>
+                            <td>{{view.wvip}}</td>
                             <td>只读VIP地址</td>
-                            <td>10.100.33.74</td>
+                            <td>{{view.rvip}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -290,9 +290,9 @@
                         </tr>
                         <tr>
                             <td style="width:15%">运行状态</td>
-                            <td style="width:35%">运行中</td>
+                            <td style="width:35%">{{view.status}}</td>
                             <td style="width:15%">已用空间</td>
-                            <td style="width:35%">200G / 600G</td>
+                            <td style="width:35%">{{view.usedDataDiskSize}}</td>
                         </tr>
                     </table>
                     <table style="width:100%">
@@ -301,21 +301,21 @@
                         </tr>
                         <tr>
                             <td style="width:15%">CPU</td>
-                            <td style="width:35%">8核</td>
+                            <td style="width:35%">{{view.cpuCores}}</td>
                             <td style="width:15%">内存</td>
-                            <td style="width:35%">64G</td>
+                            <td style="width:35%">{{view.memory}}</td>
                         </tr>
                         <tr>
                             <td>系统盘</td>
-                            <td>50G</td>
+                            <td>{{view.osDiskSize}}</td>
                             <td>数据盘 / 存储</td>
-                            <td>300G</td>
+                            <td>{{view.dataDiskSize}}</td>
                         </tr>
                         <tr>
                             <td>操作系统</td>
-                            <td>Red Hat Enterprise Linux Server 6.3 (64 Bit)</td>
+                            <td>{{view.os}}</td>
                             <td>数据库版本</td>
-                            <td>MySQL Percona Server 5.6.2365</td>
+                            <td>{{view.dbEngine}}</td>
                         </tr>
                     </table>
                 </div>
