@@ -1,19 +1,55 @@
 import retryDialog from './retryDialog'
 import logDialog from './logDialog'
 import review from './review'
+import moment from 'moment'
 
-let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
+let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, CtrlInit, CtrlRefresh, CtrlTablePage) => {
     let vm = $scope
-    $scope.user = $rootScope.user;
-    $scope.systemExDatas = [];
-    $scope.pageNumber = 1;
-    $scope.pageSize = 9;
-    $scope.total = 0;
-    $scope.exData = null;
 
+    vm.pageNumber = 1
+    vm.pageSize = 10
+    vm.pageCtrl = CtrlTablePage()
 
-    getSystemExDatas();
-    getTypeStatus()
+    CtrlInit(function () {
+        SndsService.getMyServicesList({
+            pageNumber: vm.pageNumber,
+            pageSize: vm.pageSize,
+            serviceStatus: vm.serviceStatus,
+            envType: vm.envType,
+            systemName: vm.systemName,
+        }).then(d => {
+            d.results.forEach((el) => {
+                el.requestTime = moment(el.requestTime).format('YYYY-MM-DD HH:mm:ss')
+            })
+            vm.systemExDatas = d.results;
+            vm.pageCtrl.pageNumber = d.page.index
+            vm.pageCtrl.pageSize = d.page.size
+            vm.pageCtrl.pageTotal = d.page.records || 1
+        });
+        SndsService.getTypeStatus().then(datas => {
+            // vm.type = datas.type;
+            vm.status = datas;
+        });
+    })
+
+    vm.search = () => {
+        let params = {
+            pageNumber: 1,
+            pageSize: vm.pageSize,
+            serviceStatus: vm.serviceStatus,
+            envType: vm.envType,
+            // systemName: vm.systemName,
+        }
+        if (vm.systemName) {
+            params.systemName = vm.systemName
+        }
+        SndsService.getMyServicesList(params).then(d => {
+            vm.systemExDatas = d.results;
+            vm.pageCtrl.pageNumber = d.page.index
+            vm.pageCtrl.pageSize = d.page.size
+            vm.pageCtrl.pageTotal = d.page.records
+        });
+    }
 
     $scope.newInstance = function () {
         $state.go('Portal.InstanceNew', {}, {
@@ -21,12 +57,14 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
         })
     }
 
-    $scope.retryDialog = () => {
+    vm.retryDialog = (id) => {
         DialogService.modal({
             key: 'dialogDemo',
             url: 'business/components/template/myServices/retryDialog.html',
             accept: (result) => {
-                console.log(result);
+                SndsService.myServiceRetry(id).then(d => {
+
+                });
             },
             refuse: (reason) => {
                 console.log(reason);
@@ -36,7 +74,10 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
                 data: { msg: 'this is data from modalCtrl!' }
             });
     };
-    $scope.logDialog = () => {
+    vm.logDialog = (id) => {
+        // SndsService.getSystemExLog(id).then(d => {
+        //     d
+        // });
         DialogService.modal({
             key: 'dialogDemo',
             url: 'business/components/template/myServices/logDialog.html',
@@ -48,43 +89,15 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
             }
         }, {
                 key: 'dialogDemo',
-                data: { msg: 'this is data from modalCtrl!' }
+                data: { id }
             });
     };
-
 
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
         { href: "", title: "我的服务", pre: '<span class="fa fa-tasks"></span>' }
     ];
-    //加载数据实例（升级完毕）
-    function getSystemExDatas() {
-        SndsService.getMyServicesList({
-            pageNumber: vm.pageNumber,
-            pageSize: vm.pageSize,
-            serviceStatus: vm.serviceStatus,
-            envType: vm.envType,
-            systemName: vm.systemName,
-        }).then(d => {
-            $scope.systemExDatas = d.list;
-            vm.pageNumber = d.pageNumber
-            vm.pageSize = d.pageSize
-            vm.pageTotal = d.pageTotal
-        });
-    }
-
-    function getTypeStatus() {
-        SndsService.getTypeStatus().then(datas => {
-            vm.type = datas.type;
-            vm.status = datas.status;
-        });
-    }
-
-    vm.changePage = (pageNumber) => {
-        vm.pageNumber = pageNumber
-        getSystemExDatas()
-    }
 
     //显示日志
     $scope.showData = function (exName) {
@@ -105,7 +118,7 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
     }
 }
 
-MyServicesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
+MyServicesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state', 'CtrlInit', 'CtrlRefresh', 'CtrlTablePage'];
 export default app => {
     app.controller('MyServicesCtrl', MyServicesCtrl);
     INCLUDE_ALL_MODULES([logDialog, retryDialog, review], app);

@@ -8,53 +8,25 @@
       </div>
       <div class="modal-body">
         <section style="height:400px;overflow:auto">
-          审核阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          审核阶段结束！</br>
-          </br>
-          创建虚拟机阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          创建虚拟机阶段结束！</br>
-          </br>
-          安装数据库软件阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          安装数据库软件</br>结束结束！</br>
-          </br>
-          启动实例及数据库开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述</br>
-          审核阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          审核阶段结束！</br>
-          </br>
-          创建虚拟机阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          创建虚拟机阶段结束！</br>
-          </br>
-          安装数据库软件阶段开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          安装数据库软件</br>结束结束！</br>
-          </br>
-          启动实例及数据库开始：</br>
-          1、xxxxx成功 / 失败（描述失败原因及解决方法）</br>
-          2、xxxxx成功 / 失败（描述</br>
-        </section>
-        <!--<pre>
+<div ng-repeat="d in msg">
+  <span style="font-size: 20px;">{{d.startLog}}</span><br/>
+<ul ng-repeat="dd in d.detailLogs track by $index" style="padding-left: 30px;margin: 8px;">
+<li>{{dd}}</li>
+</ul>
+<span style="font-size: 20px;">{{d.finishLog}}</span><br/>
+<span style="font-size: 20px;"> </span><br/>
+</div>
+</section>
+<!--<pre>
           这些数据是从modal页面中继承来的：
           $scope.data: {{data}}
         </pre>-->
-      </div>
-      <div class="modal-footer">
-        <div class="text-right">
-          <button class="btn btn-primary" ng-click="commit()"> 确 定</button>
-        </div>
-      </div>
-    </div>
+</div>
+<div class="modal-footer">
+  <div class="text-right">
+    <button class="btn btn-primary" ng-click="commit()"> 确 定</button>
   </div>
+</div>
+</div>
+</div>
 </div>

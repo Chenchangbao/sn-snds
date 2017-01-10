@@ -5,141 +5,132 @@
     <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
     <h4 class="text-primary"><strong>新建SNDS服务</strong></h4>
     <hr style="margin-bottom: 10px;margin-top: 10px;border-color:#3c8dbc" />
-    <p>SNDS让用户通过浏览器即可安全、方便的进行数据库管理和维护，数据库在线扩容，高可用一键切换、一键迁移升级，用户更多精力可集中于业务拓展等，更加安全、简便得使用数据库。目前支持MySQL5.6引擎，全新的高可用架构，提供了容灾、备份、恢复、监控、迁移等方面的全套解决方案，彻底解决数据库运维的烦恼。</p>
-    <h4 class="text-primary" style="margin-top:20px"><strong>基本信息</strong></h4>
-    <hr style="margin:0;border-color:#3c8dbc" />
+<p>SNDS让用户通过浏览器即可安全、方便的进行数据库管理和维护，数据库在线扩容，高可用一键切换、一键迁移升级，用户更多精力可集中于业务拓展等，更加安全、简便得使用数据库。目前支持MySQL5.6引擎，全新的高可用架构，提供了容灾、备份、恢复、监控、迁移等方面的全套解决方案，彻底解决数据库运维的烦恼。</p>
+<h4 class="text-primary" style="margin-top:20px"><strong>基本信息</strong></h4>
+<hr style="margin:0;border-color:#3c8dbc" />
 </section>
 <!--内容部分 content-->
 <section class="content">
     <form name="applyForm" class="form-horizontal" ng-submit="newInstance()">
         <div class="form-group">
             <label class="control-label col-sm-2"><span style="color:red">* </span>所属系统：</label>
-            <div class="col-sm-4">
-                <select type="text" class="form-control">
-                    <option>请选择所属系统</option>
-                    <option>苏宁数据库系统（snds）</option>
-                    <option>苏宁Redis系统（snrs）</option>
+<div class="col-sm-4">
+    <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+        ng-change="changeSystem()" ng-required="true" name="system">
+                    <option value="">请选择所属系统</option>
                 </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>所属环境：</label>
-            <div class="col-sm-4">
-                <select type="text" class="form-control">
-                    <option>请选择所属环境</option>
-                    <option>snds_PRD</option>
-                    <option>snds_PRE</option>
-                    <option>snds_SIT</option>
-                    <option>snds_DEV</option>
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>所属环境：</label>
+<div class="col-sm-4">
+    <select type="text" class="form-control" ng-model="envObj" ng-options="d as d.name for d in modelSelect.envs" ng-required="true"
+        name="env">
+                    <option value="">请选择所属环境</option>
                 </select>
-            </div>
-            <div class="col-sm-6">
-                <span class="form-control no-border">新建环境入口：PCP--控制台--系统环境--新建环境</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>网络区：</label>
-            <div class="col-sm-4">
-                <div class="radio">
-                    <label>
+</div>
+<div class="col-sm-6">
+    <span class="form-control no-border">新建环境入口：PCP--控制台--系统环境--新建环境</span>
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>网络区：</label>
+<div class="col-sm-4">
+    <div class="radio">
+        <label>
                         <input type="radio" name="net" id="optionsRadios1" value="" checked>
                     </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>负责人：</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" ng-required="true" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2">数据库类型：</label>
-            <div class="col-sm-4">
-                <span class="form-control no-border">Percona Server 5.6.29-76.2</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>数据库名称：</label>
-            <div class="col-sm-4">
-                <input type="text" name="dbName" class="form-control" ng-model="dbname" ng-required="true" maxlength="18" ng-pattern="/^[a-z][a-z0-9_]*$/"/>
-            </div>
-            <div class="col-sm-6 form-control-static" ng-show="applyForm.dbName.$dirty">
-                <span class="error-text-color" ng-show="applyForm.dbName.$error.maxlength">字段长度不能超过18个字符</span>
-                <span class="error-text-color" ng-show="applyForm.dbName.$error.required">字段不能为空</span>
-                <span class="error-text-color" ng-show="applyForm.dbName.$error.pattern">只能由小写字母、数字和下划线组成，且以小写字母开头</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>部署方式：</label>
-            <div class="col-sm-4">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    </div>
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>负责人：</label>
+<div class="col-sm-4">
+    <input type="text" class="form-control" ng-model="inputData.leader" ng-required="true" />
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2">数据库类型：</label>
+    <div class="col-sm-4">
+        <span class="form-control no-border">Percona Server 5.6.29-76.2</span>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>数据库名称：</label>
+<div class="col-sm-4">
+    <input type="text" name="dbName" class="form-control" ng-model="inputData.dbName" ng-required="true" maxlength="18" ng-pattern="/^[a-z][a-z0-9_]*$/"
+    />
+</div>
+<div class="col-sm-6 form-control-static" ng-show="applyForm.dbName.$dirty">
+    <span class="error-text-color" ng-show="applyForm.dbName.$error.maxlength">字段长度不能超过18个字符</span>
+    <span class="error-text-color" ng-show="applyForm.dbName.$error.required">字段不能为空</span>
+    <span class="error-text-color" ng-show="applyForm.dbName.$error.pattern">只能由小写字母、数字和下划线组成，且以小写字母开头</span>
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>部署方式：</label>
+<div class="col-sm-4">
+    <div class="radio">
+        <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" ng-model="inputData.haType" checked>
                         单实例
                     </label>
-                    <label style="margin-left: 10px">
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        高可用（一主两从架构）
-                    </label>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <span class="form-control no-border">全新高可用架构，主库不参与读</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>服务器配置：</label>
-            <div class="col-sm-4">
-                <select type="text" class="form-control">
-                    <option>请选择套餐</option>
-                    <option>低（2C4G）</option>
-                    <option>中（8C16G）</option>
-                    <option>高（24C96G）</option>
-                    <option>……</option>
+        <label style="margin-left: 10px">
+<input type="radio" name="optionsRadios" id="optionsRadios1" value="3" ng-model="inputData.haType"> 高可用（一主两从架构）
+</label>
+</div>
+</div>
+<div class="col-sm-6">
+    <span class="form-control no-border">全新高可用架构，主库不参与读</span>
+</div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>服务器配置：</label>
+<div class="col-sm-4">
+    <select type="text" class="form-control" ng-model="cpuCoresObj" ng-options="d as d.name for d in modelSelect.cpuCores">
+                    <option value="">请选择套餐</option>
                 </select>
-            </div>
-        </div>
-        <div class="form-group authrity-rowtop">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>容量（GB）：</label>
-            <div class="col-sm-6" style="padding-top: 7px;">
-                <div class="input-group">
-                    <input type="range" id="myRange" ng-model="aa" min="170" max="500" step="10">
-                    <span class="input-group-addon no-border">
+</div>
+</div>
+<div class="form-group authrity-rowtop">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>容量（GB）：</label>
+<div class="col-sm-6" style="padding-top: 7px;">
+<div class="input-group">
+    <input type="range" id="myRange" min="170" max="500" step="10" ng-model="inputData.diskSize">
+    <span class="input-group-addon no-border">
                         {{aa}}GB
                     </span>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <span class="form-control no-border">最小：170GB，最大：500GB，每次递增10GB（采用滑动方式展示）</span>
-            </div>
-        </div>
-        <div class="form-group authrity-rowtop">
-            <label class="control-label col-sm-2"><span style="color:red">* </span>高可用套数：</label>
-            <div class="col-sm-1">
-                <span class="form-control no-border">1</span>
-            </div>
-            <div class="col-sm-9">
-                <span class="form-control no-border">若数量为1，则创建出1主2从共3台机器；若数量为2，则创建出2套1主2从共6台机器，以此类推</span>
-            </div>
-        </div>
-        <div class="form-group authrity-rowtop">
-            <label class="control-label col-sm-2">备注：</label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <textarea cols="3" rows="6" class="form-control" placeholder="请输入相关描述" maxlength="255" ng-model="bb"></textarea>
-                    <span class="input-group-addon no-border" style="vertical-align: bottom;">
-                        {{bb.length}}/255
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group authrity-rowtop">
-            <label class="control-label col-sm-2"></label>
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-default">立即申请</button>
-                <button class="btn btn-default" ng-click="cancel()">取消</button>
-            </div>
-        </div>
-    </form>
+</div>
+</div>
+<div class="col-sm-4">
+    <span class="form-control no-border">最小：170GB，最大：500GB，每次递增10GB（采用滑动方式展示）</span>
+</div>
+</div>
+<div class="form-group authrity-rowtop">
+    <label class="control-label col-sm-2"><span style="color:red">* </span>高可用套数：</label>
+<div class="col-sm-1">
+    <span class="form-control no-border">1</span>
+</div>
+<div class="col-sm-9">
+    <span class="form-control no-border">若数量为1，则创建出1主2从共3台机器；若数量为2，则创建出2套1主2从共6台机器，以此类推</span>
+</div>
+</div>
+<div class="form-group authrity-rowtop">
+    <label class="control-label col-sm-2">备注：</label>
+    <div class="col-sm-8">
+        <div class="input-group">
+            <textarea cols="3" rows="6" class="form-control" placeholder="请输入相关描述" maxlength="255" ng-model="inputData.remark"></textarea>
+            <span class="input-group-addon no-border" style="vertical-align: bottom;"> {{inputData.remark.length}}/255
+</span>
+</div>
+</div>
+</div>
+<div class="form-group authrity-rowtop">
+    <label class="control-label col-sm-2"></label>
+    <div class="col-sm-2">
+        <button type="submit" class="btn btn-default">立即申请</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>
+</div>
+</form>
 </section>

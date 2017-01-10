@@ -4,7 +4,13 @@ let PortalCtrl = function ($scope, SndsService, $rootScope, $window) {
   vm.now = new Date();
 
   vm.doLogout = function () {
-    $window.location.href = '/login.html'
+    if (ENVIRONMENT == 'development') {
+      $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com:8181/'
+    } else if (ENVIRONMENT == 'sit') {
+      $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com/'
+    } else {
+      $window.location.href = 'http://sso.cnsuning.com/ids/logout?service=http://snds.cnsuning.com/'
+    }
   }
 }
 

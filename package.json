@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
+    "devtest": "webpack-dev-server --config webpack.tests.config.js",
     "build": "set NODE_ENV=production&& webpack --bail --progress --profile",
+    "sit": "set NODE_ENV=sit&& webpack --bail --progress --profile",
     "dev": "set NODE_ENV=development&& webpack-dev-server --debug --display-error-details --history-api-fallback --inline --hot --progress"
   },
   "keywords": [

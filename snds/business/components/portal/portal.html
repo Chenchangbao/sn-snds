@@ -1,97 +1,117 @@
+<style>
+	.portal-span-chrome {
+		color: white;
+		position: relative;
+		top: 15px;
+		left: 10px;
+	}
+</style>
 <!--入口页-->
 <div class="skin-blue sidebar-mini sidebar-open">
-  <!--导航栏区域-->
-  <header class="main-header">
-    <a ui-sref="Portal.Overview" class="logo">
-      <span class="logo-lg">SNDS</span>
-      <span></span>
-    </a>
-    <nav class="navbar navbar-static-top" role="navigation">
-      <sn-menu class="horizontal pull-right">
-        <li class="dropdown user user-menu right-align" sn-dropdown>
-          <a href="javascript:void(0)" class="dropdown-toggle">
-            <img src="business/images/adminlte/avatar04.png" class="user-image" alt="User Image" />
-            <span class="hidden-xs">{{user.userName}}</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="user-header">
-              <img src="business/images/adminlte/avatar04.png" class="img-circle" alt="User Image" />
-              <p>
-                {{user.userName}}
-                <small>{{user.userId}}</small>
-                <small>{{now | date:'yyyy-MM-dd'}}</small>
-              </p>
-            </li>
-            <li class="user-footer">
-              <!--<div class="pull-left">
+	<!--导航栏区域-->
+	<header class="main-header">
+		<a ui-sref="Portal.Overview" class="logo">
+			<span class="logo-lg">SNDS</span>
+		</a>
+		<nav class="navbar navbar-static-top" role="navigation">
+			<span class="portal-span-chrome">本系统仅支持Chrome52.0版本以上浏览器！</span>
+			<sn-menu class="horizontal pull-right">
+				<li class="dropdown user user-menu right-align" sn-dropdown>
+					<a href="javascript:void(0)" class="dropdown-toggle">
+						<img src="business/images/adminlte/avatar04.png" class="user-image" alt="User Image" />
+						<span class="hidden-xs">{{user.userName}}</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="user-header">
+							<img src="business/images/adminlte/avatar04.png" class="img-circle" alt="User Image" />
+							<p>
+								{{user.userName}}
+								<small>{{user.userId}}</small>
+								<small>{{now | date:'yyyy-MM-dd'}}</small>
+							</p>
+						</li>
+						<li class="user-footer">
+							<!--<div class="pull-left">
                 <p>{{user.userId}}</p>
               </div>-->
-              <div class="pull-right">
-                <a href="" ng-click="doLogout()" class="btn btn-default btn-flat">注销</a>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </sn-menu>
-    </nav>
-  </header>
+							<div class="pull-right">
+								<a href="" ng-click="doLogout()" class="btn btn-default btn-flat">注销</a>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</sn-menu>
+		</nav>
+	</header>
 
-  <!--侧边栏区域 -->
-  <div class="main-sidebar">
-    <div class="sidebar">
-      <sn-menu class="vertical" main-menu="main-menu">
-        <sn-menu-item ui-state='Portal.Overview'>
-          <t><i class="fa fa-laptop"></i>概览</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='Portal.Manager'>
-          <t><i class="fa fa-table"></i>实例管理</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='Portal.Update'>
-          <t><i class="fa fa-arrow-up"></i>升级管理</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>数据库账号管理</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>数据库管理</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>备份与恢复</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>日志管理</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>性能优化</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>系统监控</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>异常告警</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>诊断收集</t>
-        </sn-menu-item>
-        <sn-menu-item ui-state='' readonly='true'>
-          <t><i class="fa fa-ban"></i>批量处理</t>
-        </sn-menu-item>
-      </sn-menu>  
-    </div>
-  </div>
+	<!--侧边栏区域 -->
+	<div class="main-sidebar">
+		<div class="sidebar">
+			<sn-menu class="vertical" main-menu="main-menu">
+				<sn-menu-item ui-state='Portal.Overview'>
+					<t><i class="fa fa-laptop"></i>概览</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='Portal.Instances'>
+					<t><i class="fa fa-table"></i>实例列表</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='Portal.MyServices'>
+					<t><i class="fa fa-tasks"></i>我的服务</t>
+				</sn-menu-item>
+				<!--<sn-menu-item ui-state='Portal.Manager'>
+					<t><i class="fa fa-sliders"></i>主从切换管理</t>
+				</sn-menu-item>-->
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>主从切换管理</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>迁移升级管理</t>
+				</sn-menu-item>
+				<!--<sn-menu-item ui-state='Portal.Update'>
+					<t><i class="fa fa-arrow-up"></i>迁移升级管理</t>
+				</sn-menu-item>-->
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>数据库账号管理</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>数据库管理</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>备份与恢复</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>日志管理</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>性能优化</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>系统监控</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>异常告警</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>诊断收集</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='' readonly='true'>
+					<t><i class="fa fa-ban"></i>批量处理</t>
+				</sn-menu-item>
+			</sn-menu>
+		</div>
+	</div>
 
 
-  <!--内容路由区域-->
-  <div class="content-wrapper" content-wrapper-min-height ui-view>
+	<!--内容路由区域-->
+	<div class="content-wrapper" content-wrapper-min-height ui-view>
 
-  </div>
+	</div>
 
-  <!--脚部区域-->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright © 2016 苏宁云商.</strong> All rights reserved.
-  </footer>
-</div> 
+	<!--脚部区域-->
+	<footer class="main-footer">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs">
+		</div>
+		<!-- Default to the left -->
+		<strong>Copyright © 2016 苏宁云商.</strong> All rights reserved.
+	</footer>
+</div>

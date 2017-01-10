@@ -1,18 +1,10 @@
-let review = ($scope, DialogService) => {
+let review = ($scope, SndsService, $stateParams) => {
   let vm = $scope;
-  vm.close = () => {
-    // way 1:
-    DialogService.dismiss(vm.key);
-
-    // or
-    DialogService.refuse(vm.key, 'dialog refuse! cancel!');
-  };
-
-  vm.commit = () => {
-    DialogService.accept(vm.key, 'dialog accept!');
-  };
+  SndsService.newInstanceDetail($stateParams.code).then(d => {
+    vm.ajaxData = d;
+  });
 };
 
-review.$inject = ['$scope', 'DialogService'];
+review.$inject = ['$scope', 'SndsService', '$stateParams'];
 
 export default app => app.controller('Review', review);

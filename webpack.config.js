@@ -4,6 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+var WebpackDevServer = require("webpack-dev-server");
 
 
 var config = {};
@@ -27,20 +28,20 @@ config.entry = {
 // output
 config.output = {
   filename: '[name].bundle.js',
-  path: './dist',
+  path: path.join(__dirname, process.env.NODE_ENV === 'sit' ? 'sit' : "snds"),
   publicPath: ''
 };
 
 // module
 config.module = {
   loaders: [
-    {test: /\.less$/, loader: 'style!css!less'},
-    {test: /\.css$/, loader: 'style-loader!css-loader'},
-    {test: /\.(eot(\?.*)?|woff(\?.*)?|ttf(\?.*)?|svg(\?.*)?|woff2(\?.*)?)$/, loader: "file?limit=1024&name=fonts/[name].[ext]" },
-    {test: /\.(md|markdown)$/, loader: "html!markdown" },
-    {test: /\.html/, exclude: /(node_modules)/, loader: 'html-loader'},
-    {test: /\.(png|jpg)$/, loader: 'url?name=images/[name].[ext]'},
-    {test: /\.js$/, exclude: /(node_modules)/, loader: 'babel', query: {presets: ['es2015']}}
+    { test: /\.less$/, loader: 'style!css!less' },
+    { test: /\.css$/, loader: 'style-loader!css-loader' },
+    { test: /\.(eot(\?.*)?|woff(\?.*)?|ttf(\?.*)?|svg(\?.*)?|woff2(\?.*)?)$/, loader: "file?limit=1024&name=fonts/[name].[ext]" },
+    { test: /\.(md|markdown)$/, loader: "html!markdown" },
+    { test: /\.html/, exclude: /(node_modules)/, loader: 'html-loader' },
+    { test: /\.(png|jpg)$/, loader: 'url?name=images/[name].[ext]' },
+    { test: /\.js$/, exclude: /(node_modules)/, loader: 'babel', query: { presets: ['es2015'] } }
     // {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')},
   ]
 };
@@ -51,25 +52,26 @@ config.plugins = [
   new webpack.DefinePlugin({
     'INCLUDE_ALL_MODULES': function includeAllModulesGlobalFn(modulesArray, application) {
       modulesArray.forEach(function executeModuleIncludesFn(moduleFn) {
-          moduleFn(application);
+        moduleFn(application);
       });
     },
-    ENVIRONMENT: JSON.stringify(nodeEnvironment)
+    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV)
+    // ENVIRONMENT: JSON.stringify(nodeEnvironment)
   }),
   new CopyWebpackPlugin([
-    {from: './src', to:'./'}
+    { from: './src', to: './' }
   ], {
-    ignore: ['*.js', 'index.html']
-  }),
+      ignore: ['*.js', 'index.html']
+    }),
   new CopyWebpackPlugin([
-    {from: './src/lib', to: './lib'}
+    { from: './src/lib', to: './lib' }
   ]),
-  new ngAnnotatePlugin({add: true}),
-  new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery", "window.jQuery": "jquery"}),
-  new webpack.ProvidePlugin({echarts: "echarts", "window.echarts": "echarts"}),
-  new ExtractTextPlugin('[name].css', {allChunks: true}),
-  new HtmlWebpackPlugin({template: path.resolve('src', 'index.html'), inject: 'body'}),
-  new webpack.optimize.CommonsChunkPlugin({name: 'ng', fileName: 'angular.js', minChunks: 3}),
+  new ngAnnotatePlugin({ add: true }),
+  new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery", "window.jQuery": "jquery" }),
+  new webpack.ProvidePlugin({ echarts: "echarts", "window.echarts": "echarts" }),
+  new ExtractTextPlugin('[name].css', { allChunks: true }),
+  new HtmlWebpackPlugin({ template: path.resolve('src', 'index.html'), inject: 'body' }),
+  new webpack.optimize.CommonsChunkPlugin({ name: 'ng', fileName: 'angular.js', minChunks: 3 }),
 ];
 
 // resolve
@@ -81,8 +83,8 @@ config.resolve = {
 // devtool
 var nodeEnvironment = process.env.NODE_ENV;
 
-switch(nodeEnvironment){
-  case 'production': 
+switch (nodeEnvironment) {
+  case 'production':
     config.plugins.push(
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.DedupePlugin(),
@@ -97,24 +99,54 @@ switch(nodeEnvironment){
       new webpack.optimize.OccurenceOrderPlugin()
     );
     config.devtool = 'eval';
-    config.devServer = {
-      port: 8181,
-      host: '0.0.0.0',
+    // config.devServer = {
+    //   port: 8181,
+    //   host: '127.0.0.1',
+    //   historyApiFallback: true,
+    //   stats: {
+    //     chunkModules: false,
+    //     colors: true
+    //   },
+    //   proxy: [{
+    //     context: ['/authStatus', '/snds/'],
+    //     // path: ['authStatus','instances'],
+    //     target: 'http://10.24.75.229:7009',
+    //     secure: false
+    //   }],
+    //   contentBase: './src'
+    // };
+    var compiler = webpack(config);
+    var server = new WebpackDevServer(compiler, {
+      // contentBase: path.join(__dirname, 'src'),
+      contentBase: './src',
+      hot: true,
       historyApiFallback: true,
-      stats: {
-        chunkModules: false,
-        colors: true
+      stats: { chunkModules: false, colors: true },
+      //compress: true,
+      // proxy: {
+      // proxy('**', {...}) matches any path, all requests will be proxied.
+      // proxy('**/*.html', {...}) matches any path which ends with .html
+      // proxy('/*.html', {...}) matches paths directly under path-absolute
+      // proxy('/api/**/*.html', {...}) matches requests ending with .html in the path of /api
+      // proxy(['/api/**', '/ajax/**'], {...}) combine multiple patterns
+      // proxy(['/api/**', '!**/bad.json'], {...}) exclusion
+      // },
+      proxy: {
+        "/authStatus": "http://10.24.75.229:7009/",
+        "/snds/": "http://10.24.75.229:7009/"
       },
-      // proxy: [
-      //   path: /\.html$/,
-      //   target: 'http://target/server',
-      //   secure: false
-      // }],
-      contentBase: './src'
-    };
+      setup: function (app) {
+        // Here you can access the Express app object and add your own custom middleware to it.
+        // For example, to define custom handlers for some paths:
+        // app.get('/some/path', function(req, res) {
+        //   res.json({ custom: 'response' });
+        // });
+      },
+    });
+    server.listen(8181, "0.0.0.0", function () { });
     config.cache = true;
     break;
-  default: 
+  default:
     console.warn('Unknown or Undefigned Node Environment. Please refer to package.json for available build commands.');
 }
 

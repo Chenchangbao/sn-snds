@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=9,Edge,chrome=1" />
     <link rel="shortcut icon" type="image/ico" href="https://www.suning.com/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://ssoressit.cnsuning.com/snr/res/passport/snds/styles/login.css">
-    <script src="https://ssoressit.cnsuning.com/snr/res/passport/snds/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="https://ssores.cnsuning.com/res/passport/snds/style/login.css">
+    <script src="https://ssores.cnsuning.com/res/passport/snds/jquery-1.8.3.min.js" type="text/javascript"></script>
     <title>苏宁数据库服务系统SNDS</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <iframe id="frame" name="frame" src="" style="display:none"></iframe>
-        <form id="form" name="form" action="https://oasit.cnsuning.com/SuningUUMWeb/AuthenticationServlet" target="frame" method="post">
+        <form id="form" name="form" action="https://oa.cnsuning.com/SuningUUMWeb/AuthenticationServlet" target="frame" method="post">
             <input type="hidden" name="j_username" value="">
             <input type="hidden" name="j_password" value="">
         </form>

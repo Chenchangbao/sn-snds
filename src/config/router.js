@@ -43,7 +43,7 @@ export default app => {
         controller: 'InstanceDetailCtrl'
       })
       .state('Portal.Review', {
-        url: '/review/:id',
+        url: '/review/:code',
         templateUrl: 'business/components/template/myServices/review.html',
         controller: 'Review'
       })

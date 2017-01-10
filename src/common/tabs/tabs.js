@@ -19,6 +19,9 @@ export default app => {
           if(panel.state) {
             $state.go(panel.state, panel.params);
           }
+          if(panel.clickpanel){
+            panel.clickpanel()
+          }
         };
 
         this.addPanel = panel => {
@@ -67,7 +70,8 @@ export default app => {
       scope: {
         title: '@t',
         state: '=',
-        params: '='
+        params: '=',
+        clickpanel: '&'
       },
       link: (scope, element, attrs, snTabs) => {
         snTabs.addPanel(scope);

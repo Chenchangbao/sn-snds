@@ -15,7 +15,7 @@ export default app => {
         handle: function (data) {
           var defer = $q.defer(),
             defaultMessage = '系统出了点小问题，请稍后重试！',
-            message = data.message || defaultMessage;
+            message = data.msg || defaultMessage;
 
           if (data.result) {
             defer.resolve(data.data);

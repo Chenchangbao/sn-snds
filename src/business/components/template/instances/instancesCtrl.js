@@ -1,14 +1,28 @@
-let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state) => {
+import moment from 'moment'
+let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, CtrlInit, CtrlRefresh, CtrlTablePage) => {
     let vm = $scope
-    $scope.user = $rootScope.user;
-    $scope.systemExDatas = [];
-    $scope.page = 1;
-    $scope.pageSize = 10;
-    $scope.total = 0;
-    $scope.exData = null;
 
+    vm.pageNumber = 1
+    vm.pageSize = 10
 
-    getSystemExDatas();
+    vm.pageCtrl = CtrlTablePage()
+
+    CtrlInit(function getSystemExDatas() {
+        let param = {
+            pageNumber: vm.pageNumber,
+            pageSize: vm.pageSize,
+            keyword: vm.keyword
+        }
+        SndsService.getInstancesList(param).then(d => {
+            d.results.forEach((el) => {
+                el.createTime = moment(el.createTime).format('YYYY-MM-DD HH:mm:ss')
+            })
+            $scope.systemExDatas = d.results;
+            vm.pageCtrl.pageNumber = d.page.index
+            vm.pageCtrl.pageSize = d.page.size
+            vm.pageCtrl.pageTotal = d.page.records || 1
+        });
+    })
 
     $scope.newInstance = function () {
         $state.go('Portal.InstanceNew', {}, {
@@ -16,7 +30,7 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
         })
     }
     $scope.delInstance = function () {
-        getSystemExDatas();
+        // getSystemExDatas();
     }
 
     // SndsService.getUserInfo()
@@ -31,31 +45,12 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state)
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
         { href: "", title: "实例列表", pre: '<span class="fa fa-table"></span>' }
     ];
-    //加载数据实例（升级完毕）
-    function getSystemExDatas() {
-        let param = {
-            pageNumber: vm.pageNumber,
-            pageSize: vm.pageSize,
-            keyword: vm.keyword
-        }
-        SndsService.getInstancesList(param).then(d => {
-            $scope.systemExDatas = d.list;
-            vm.pageNumber = d.pageNumber
-            vm.pageSize = d.pageSize
-            vm.pageTotal = d.pageTotal
-        });
-    }
+
 
     vm.search = () => {
-        getSystemExDatas()
+        CtrlRefresh()
     }
-
-    vm.changePage = (pageNumber) => {
-        vm.pageNumber = pageNumber
-        getSystemExDatas()
-    }
-
 }
 
-InstancesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state'];
+InstancesCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', '$state', 'CtrlInit', 'CtrlRefresh', 'CtrlTablePage'];
 export default app => app.controller('InstancesCtrl', InstancesCtrl);

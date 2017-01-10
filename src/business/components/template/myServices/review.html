@@ -6,11 +6,11 @@
         <table class='table-border-mine'>
             <tr>
                 <td>所属系统</td>
-                <td>苏宁数据库系统（snds）</td>
+                <td>{{ajaxData.system}}</td>
             </tr>
             <tr>
                 <td>所属环境</td>
-                <td>snds_SIT</td>
+                <td>{{ajaxData.env}}</td>
             </tr>
             <tr>
                 <td>网络区</td>
@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <td>负责人</td>
-                <td>王小欢（15040639）</td>
+                <td>{{ajaxData.proposer+ajaxData.proposerCode}}</td>
             </tr>
             <tr>
                 <td>数据库类型</td>
@@ -26,23 +26,23 @@
             </tr>
             <tr>
                 <td>数据库名称</td>
-                <td>sndssitdb</td>
+                <td>{{ajaxData.dbName}}</td>
             </tr>
             <tr>
                 <td>部署方式</td>
-                <td>1主2从</td>
+                <td>{{ajaxData.haType}}</td>
             </tr>
             <tr>
                 <td>服务器配置</td>
-                <td>8C16G</td>
+                <td>{{ajaxData.cpuCores+ajaxData.memory}}</td>
             </tr>
             <tr>
                 <td>容量</td>
-                <td>300G</td>
+                <td>{{ajaxData.diskSize}}</td>
             </tr>
             <tr>
                 <td>高可用套数</td>
-                <td>1</td>
+                <td>{{ajaxData.quantity}}</td>
             </tr>
         </table>
     </form>

@@ -16,7 +16,7 @@ export default app => {
         var defer = $q.defer();
         busy();
 
-        $http[method](url, params).success(function (result) {
+        $http[method]('/snds' + url, params).success(function (result) {
           idle();
 
           ErrorHandle.handle(result)
@@ -81,7 +81,7 @@ export default app => {
                     }, function (data) {
                       defer.reject(data);
                     }
-                    );
+                  );
                 } else {
                   LoginService.popupLoginContainer();
                   LoginService.enqueue(function () {
@@ -91,7 +91,7 @@ export default app => {
                       }, function (data) {
                         defer.reject(data);
                       }
-                      );
+                    );
                   }, function () {
                     defer.reject('close');
                   });
@@ -119,7 +119,7 @@ export default app => {
               }, function (data) {
                 defer.reject(data);
               }
-              );
+            );
           } else {
             $http.jsonp(loginUrl)
               .success(function (data) {
@@ -130,7 +130,7 @@ export default app => {
                     }, function (data) {
                       defer.reject(data);
                     }
-                    );
+                  );
                 } else {
                   LoginService.popupLoginContainer();
                   LoginService.enqueue(function () {
@@ -140,7 +140,7 @@ export default app => {
                       }, function (data) {
                         defer.reject(data);
                       }
-                      );
+                    );
                   }, function () {
                     defer.reject('close');
                   });

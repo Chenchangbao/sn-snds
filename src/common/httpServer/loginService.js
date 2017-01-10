@@ -6,22 +6,31 @@ export default app => {
     var currentLocation;
 
     var config = {
-      base: baseUrl+'/',
-      loginTheme: "dcs_pop"
+      base: baseUrl + '/',
+      loginTheme: "snds"
     };
 
     function popupLoginContainer() {
-      if (typeof intervalVar == 'undefined') {
-        currentLocation = window.location.href;
-        var src = ((typeof config.successCallbackUrl == 'undefined') ?
-          (config.base + "popupLoginSuccess?") : config.successCallbackUrl) + "topLocation=" + encodeURIComponent(currentLocation) + "&loginTheme=" + config.loginTheme;
-
-        document.getElementById('modalOverlay').style.display = 'block';
-        document.getElementById('modalContainer').style.display = 'block';
-        document.getElementById("iframeLogin").src = src;
-
-        intervalVar = window.setInterval(checkMsgFromLoginIframe, 200);
+      if (ENVIRONMENT == 'development') {
+        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:8181/'
+      } else if (ENVIRONMENT == 'sit') {
+        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com/'
+      } else {
+        window.location.href = 'https://sso.cnsuning.com/ids/login?loginTheme=snds&service=http://snds.cnsuning.com/'
       }
+      // window.location.href='https://sso.cnsuning.com/ids/login?loginTheme=snds&service=http://snds.cnsuning.com/'
+      // window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:8181/'
+      // if (typeof intervalVar == 'undefined') {
+      //   currentLocation = window.location.href;
+      //   var src = ((typeof config.successCallbackUrl == 'undefined') ?
+      //     (config.base + "popupLoginSuccess?") : config.successCallbackUrl) + "topLocation=" + encodeURIComponent(currentLocation) + "&loginTheme=" + config.loginTheme;
+
+      //   document.getElementById('modalOverlay').style.display = 'block';
+      //   document.getElementById('modalContainer').style.display = 'block';
+      //   document.getElementById("iframeLogin").src = src;
+
+      //   intervalVar = window.setInterval(checkMsgFromLoginIframe, 200);
+      // }
     }
 
     function resizeContainer(widthAndHeight) {

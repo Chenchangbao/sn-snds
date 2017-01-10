@@ -2,8 +2,8 @@ let SndsService = function (HttpService) {
 
     return {
         //获取用户的用户信息
-        getUserInfo: function (params) {
-            return HttpService.get('/usermsg.do', params);
+        presentUser: function (params) {
+            return HttpService.get('/mySystem/presentUser', params);
         },
         //获取系统状态统计数据
         getSystemStateNum: function (params) {
@@ -26,9 +26,9 @@ let SndsService = function (HttpService) {
             return HttpService.get('/system/exDatasUped.do', params);
         },
         //获取实例对应详细日志
-        getSystemExLog: function (params) {
-            return HttpService.get('/system/exLog.do', params);
-        },
+        // getSystemExLog: function (id) {
+        //     return HttpService.get('/instances/myServices/' + id + '/log');
+        // },
         //单个实例选中升级
         exUpdate: function (params) {
             return HttpService.get('/system/update.do', params);
@@ -49,6 +49,27 @@ let SndsService = function (HttpService) {
         },
         getTypeStatus: function (params) {
             return HttpService.get('/instances/myServices/status', params);
+        },
+        myServiceRetry: function (id) {
+            return HttpService.get('/instances/myServices/' + id);
+        },
+        myServiceLog: function (id) {
+            return HttpService.get('/instances/myServices/' + id + '/log');
+        },
+        newInstanceMySystem: function () {
+            return HttpService.get('/mySystem');
+        },
+        newInstanceEnvs: function (code) {
+            return HttpService.get('/mySystem/' + code + '/envs');
+        },
+        newInstanceTemplates: function (code) {
+            return HttpService.get('/mySystem/templates');
+        },
+        newInstance: function (params) {
+            return HttpService.post('/instances/instance', params);
+        },
+        newInstanceDetail: function (code) {
+            return HttpService.post('/mySystem/' + code);
         },
     };
 }

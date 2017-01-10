@@ -27,7 +27,7 @@
     <!--<h4 class="text-primary"><strong>实例列表</strong></h4>-->
     <!--<div class="box box-primary">-->
     <sn-tabs class="no-btn">
-        <sn-tab-panel t="主信息">
+        <sn-tab-panel t="主信息" clickpanel="clickPanel(0)">
             <div class="box">
                 <div class="box-body">
                     <table style="width:100%">
@@ -42,9 +42,9 @@
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>{{view.instanceId}}</td>
+                            <td>{{view.instanceSN}}</td>
                             <td>实例名称</td>
-                            <td>{{}}</td>
+                            <td>{{view.instanceName}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>
@@ -125,7 +125,7 @@
                 </div>
             </div>
         </sn-tab-panel>
-        <sn-tab-panel t="从1信息">
+        <sn-tab-panel t="从1信息" clickpanel="clickPanel(1)">
             <div class="box">
                 <div class="box-body">
                     <table style="width:100%">
@@ -140,9 +140,9 @@
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>{{view.instanceId}}</td>
+                            <td>{{view.instanceSN}}</td>
                             <td>实例名称</td>
-                            <td>{{}}</td>
+                            <td>{{view.instanceName}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>
@@ -223,7 +223,7 @@
                 </div>
             </div>
         </sn-tab-panel>
-        <sn-tab-panel t="从2信息">
+        <sn-tab-panel t="从2信息" clickpanel="clickPanel(2)">
             <div class="box">
                 <div class="box-body">
                     <table style="width:100%">
@@ -238,9 +238,9 @@
                         </tr>
                         <tr>
                             <td>实例编号</td>
-                            <td>{{view.instanceId}}</td>
+                            <td>{{view.instanceSN}}</td>
                             <td>实例名称</td>
-                            <td>{{}}</td>
+                            <td>{{view.instanceName}}</td>
                         </tr>
                         <tr>
                             <td>实例类型</td>

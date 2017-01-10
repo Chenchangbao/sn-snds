@@ -1,4 +1,4 @@
-import "business/style/uxc.less";
+
 
 import angular from "angular";
 
@@ -7,6 +7,8 @@ import snCommon from "common/snCommon";
 import appConfiguration from 'config/config';
 import appRouter from 'config/router';
 import business from 'business/business';
+
+import "business/style/uxc.less";
 
 let app = angular.module('app', ['ui.router', 'ui.router.state.events', 'ngSanitize', snCommon.name]);
 
@@ -33,10 +35,9 @@ app.filter('paging',function(){
 .run(['$state', '$rootScope','SndsService',
   function ($state, $rootScope,SndsService) {
     $rootScope.user = {userName:'',userId:''};
-    SndsService.getUserInfo()
-        .then( datas => {
-           $rootScope.user.userName = datas.userName; 
-           $rootScope.user.userId = datas.userId; 
+    SndsService.presentUser().then( d => {
+           $rootScope.user.userName = d; 
+           $rootScope.user.userId = d; 
         });
   }
 ]);

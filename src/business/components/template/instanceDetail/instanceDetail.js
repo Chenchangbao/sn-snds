@@ -1,5 +1,6 @@
+import moment from 'moment'
 let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, $stateParams) => {
-
+    let vm = $scope
     $scope.user = $rootScope.user;
     $scope.systemExDatas = [];
     $scope.page = 1;
@@ -25,8 +26,16 @@ let InstanceDetailCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $s
     //加载数据实例（升级完毕）
     function getInstanceDetail() {
         SndsService.getInstanceDetail($stateParams.name).then(d => {
-            $scope.view = d;
+            d.forEach((e) => {
+                e.createTime = moment(e.createTime).format('YYYY-MM-DD HH:mm:ss')
+            })
+            $scope.views = d;
+            vm.view = d[0]
         });
+    }
+
+    vm.clickPanel = (index) => {
+        vm.view = vm.views[index]
     }
 
     //显示日志

@@ -1,28 +1,61 @@
-let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, AlertService, $state) => {
+let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, AlertService, $state, CtrlInit, CtrlRefresh) => {
+    let vm = $scope
+    vm.inputData = {
+        system: '',
+        systemCode: '',
+        systemAlias: '',
+        env: '',
+        envId: '',
+        proposer: '',
+        proposerCode: '',
+        leader: '',
+        leaderCode: '',
+        dbName: '',
+        haType: '1',
+        cpuCores: '',
+        memory: '',
+        diskSize: '200',
+        quantity: '1',
+        remark: ''
+    }
+    CtrlInit(function () {
+        SndsService.newInstanceMySystem().then(d => {
+            vm.modelSelect.mySystem = d;
+        });
+        SndsService.newInstanceTemplates().then(d => {
+            vm.modelSelect.cpuCores = d;
+        });
+    }, vm)
 
-    $scope.user = $rootScope.user;
-    $scope.systemExDatas = [];
-    $scope.page = 1;
-    $scope.pageSize = 5;
-    $scope.total = 0;
-    $scope.exData = null;
-    $scope.aa = 170;
-    $scope.bb = '';
+    vm.changeSystem = () => {
+        if (!vm.systemObj) return
+        vm.inputData.system = vm.systemObj.name
+        vm.inputData.systemCode = vm.systemObj.code
+        vm.inputData.systemAlias = vm.systemObj.nameEn
 
+        vm.inputData.systemCode = 'SMC160803000002'
+        SndsService.newInstanceEnvs(vm.inputData.systemCode).then(d => {
+            vm.modelSelect.envs = d;
+        });
+    }
 
-    var deferred = $q.defer();
-    var promise = deferred.promise;
-    promise.then(function () {
-        getSystemExDatas();
-    })
-
-
-    $scope.newInstance = () => {
+    vm.newInstance = () => {
         AlertService.confirm({
             title: '申请创建数据库机器',
             content: '确定要申请创建数据库服务吗？'
         }).then(() => {
-            console.info('confirm OK');
+            vm.inputData.env = vm.envObj.name
+            vm.inputData.envId = vm.envObj.id
+            vm.inputData.envType = vm.envObj.type
+            vm.inputData.proposer = vm.user.userName
+            vm.inputData.proposerCode = vm.user.userId
+            vm.inputData.leaderCode = vm.inputData.leader
+            vm.inputData.cpuCores = vm.cpuCoresObj.cpuCore
+            vm.inputData.memory = vm.cpuCoresObj.memorySize
+
+            SndsService.newInstance(vm.inputData).then(d => {
+                $state.go('Portal.MyServices');
+            });
         }, () => {
             console.info('confirm CANCEL');
         })
@@ -105,9 +138,7 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
     $scope.doConfirm = function (index) {
         $scope.systemExDatas[index].modify = true;
     }
-
-    deferred.resolve();
 }
 
-InstanceNewCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', 'AlertService', '$state'];
+InstanceNewCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', 'AlertService', '$state', 'CtrlInit', 'CtrlRefresh'];
 export default app => app.controller('InstanceNewCtrl', InstanceNewCtrl);
