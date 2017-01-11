@@ -5,7 +5,7 @@ let PortalCtrl = function ($scope, SndsService, $rootScope, $window) {
 
   vm.doLogout = function () {
     if (ENVIRONMENT == 'development') {
-      $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com:8181/'
+      $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com:' + PORT + '/'
     } else if (ENVIRONMENT == 'sit') {
       $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com/'
     } else {

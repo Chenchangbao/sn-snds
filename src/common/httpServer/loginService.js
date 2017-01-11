@@ -12,7 +12,7 @@ export default app => {
 
     function popupLoginContainer() {
       if (ENVIRONMENT == 'development') {
-        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:8181/'
+        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:' + PORT + '/'
       } else if (ENVIRONMENT == 'sit') {
         window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com/'
       } else {

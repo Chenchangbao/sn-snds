@@ -6,7 +6,10 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 var WebpackDevServer = require("webpack-dev-server");
 
-
+var devServer = {
+  host: '127.0.0.1',
+  port: 8188
+}
 var config = {};
 
 // entry
@@ -22,7 +25,9 @@ config.entry = {
   ],
   app: [
     'main'
-  ]
+  ],
+  // host: '127.0.0.1',
+  // port: 8188
 };
 
 // output
@@ -55,7 +60,8 @@ config.plugins = [
         moduleFn(application);
       });
     },
-    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV)
+    ENVIRONMENT: JSON.stringify(process.env.NODE_ENV),
+    PORT: devServer.port
     // ENVIRONMENT: JSON.stringify(nodeEnvironment)
   }),
   new CopyWebpackPlugin([
@@ -143,7 +149,7 @@ switch (nodeEnvironment) {
         // });
       },
     });
-    server.listen(8181, "0.0.0.0", function () { });
+    server.listen(devServer.port, devServer.host, function () { });
     config.cache = true;
     break;
   default:
