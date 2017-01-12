@@ -51,7 +51,7 @@ let SndsService = function (HttpService) {
             return HttpService.get('/instances/myServices/status', params);
         },
         myServiceRetry: function (id) {
-            return HttpService.get('/instances/myServices/' + id);
+            return HttpService.post('/mySystem/' + id);
         },
         myServiceLog: function (id) {
             return HttpService.get('/instances/myServices/' + id + '/log');

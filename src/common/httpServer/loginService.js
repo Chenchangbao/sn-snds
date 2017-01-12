@@ -10,7 +10,11 @@ export default app => {
       loginTheme: "snds"
     };
 
+
     function popupLoginContainer() {
+      document.cookie = "authId=1; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.cnsuning.com; path=/;";
+      // $cookies.remove('authId')
+      console.log('111')
       if (ENVIRONMENT == 'development') {
         window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:' + PORT + '/'
       } else if (ENVIRONMENT == 'sit') {

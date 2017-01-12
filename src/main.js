@@ -32,14 +32,6 @@ app.filter('paging',function(){
     return items.slice(offset,offset+pageSize);
   }
 })
-.run(['$state', '$rootScope','SndsService',
-  function ($state, $rootScope,SndsService) {
-    $rootScope.user = {userName:'',userId:''};
-    SndsService.presentUser().then( d => {
-           $rootScope.user.userName = d; 
-           $rootScope.user.userId = d; 
-        });
-  }
-]);
+
 
 export default app;

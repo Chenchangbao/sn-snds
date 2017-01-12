@@ -9,8 +9,8 @@ let InstancesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state,
 
     CtrlInit(function getSystemExDatas() {
         let param = {
-            pageNumber: vm.pageNumber,
-            pageSize: vm.pageSize,
+            pageNumber: vm.pageCtrl.pageNumber,
+            pageSize: vm.pageCtrl.pageSize,
             keyword: vm.keyword
         }
         SndsService.getInstancesList(param).then(d => {

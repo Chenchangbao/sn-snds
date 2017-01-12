@@ -43,7 +43,7 @@
                 <td>{{exData.requestTime}}</td>
                 <td>{{exData.orderStatus}}</td>
                 <td>
-                    <a ng-click="retryDialog(exData.id)" href="" style="margin-right: 10px;">重试</a>
+                    <a ng-click="retryDialog(exData.id)" href="" style="margin-right: 10px;" ng-if="exData.orderStatusCode === 0 || exData.orderStatusCode === 5">重试</a>
 <a ng-click="logDialog(exData.id)" href="">日志</a>
 </td>
 </tr>

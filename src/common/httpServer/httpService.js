@@ -12,6 +12,23 @@ export default app => {
         document.body.style.cssText = "";
       }
 
+      function passportRedirect(config) {
+        /*
+     if (typeof config == 'undefined') {
+         if (typeof passport_config != 'undefined') {
+             config = passport_config;
+         } else {
+             alert('You must define passport_config var.');
+             return;
+         }
+     }*/
+        var src =
+          (LoginService.config.base + "popupLoginSuccess?")
+          + "topLocation=" + encodeURIComponent(location.href)
+          + "&loginTheme=snds";
+        location.href = src;
+      }
+
       function sendRequest(url, params, method) {
         var defer = $q.defer();
         busy();
@@ -62,7 +79,6 @@ export default app => {
       return {
         "get": function (url, param, option) {
           var defer = $q.defer();
-
           if (option && option.unrestricted) {
             sendRequest(baseUrl + url, { params: param }, "get").then(
               function (result) {

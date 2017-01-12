@@ -1,4 +1,4 @@
-let PortalCtrl = function ($scope, SndsService, $rootScope, $window) {
+let PortalCtrl = function ($scope, SndsService, $rootScope, $window, SndsUser) {
   let vm = $scope;
   vm.user = $rootScope.user;
   vm.now = new Date();
@@ -14,5 +14,5 @@ let PortalCtrl = function ($scope, SndsService, $rootScope, $window) {
   }
 }
 
-PortalCtrl.$inject = ['$scope', 'SndsService', '$rootScope', '$window'];
+PortalCtrl.$inject = ['$scope', 'SndsService', '$rootScope', '$window', 'SndsUser'];
 export default app => app.controller('PortalCtrl', PortalCtrl);

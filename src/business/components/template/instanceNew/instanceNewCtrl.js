@@ -1,23 +1,6 @@
-let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, AlertService, $state, CtrlInit, CtrlRefresh) => {
+let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, AlertService, $state, CtrlInit, CtrlRefresh, SndsUser) => {
     let vm = $scope
-    vm.inputData = {
-        system: '',
-        systemCode: '',
-        systemAlias: '',
-        env: '',
-        envId: '',
-        proposer: '',
-        proposerCode: '',
-        leader: '',
-        leaderCode: '',
-        dbName: '',
-        haType: '1',
-        cpuCores: '',
-        memory: '',
-        diskSize: '200',
-        quantity: '1',
-        remark: ''
-    }
+
     CtrlInit(function () {
         SndsService.newInstanceMySystem().then(d => {
             vm.modelSelect.mySystem = d;
@@ -25,6 +8,26 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
         SndsService.newInstanceTemplates().then(d => {
             vm.modelSelect.cpuCores = d;
         });
+        SndsUser.then(() => {
+            vm.inputData = {
+                system: '',
+                systemCode: '',
+                systemAlias: '',
+                env: '',
+                envId: '',
+                proposer: '',
+                proposerCode: '',
+                leader: vm.user.userName,
+                leaderCode: vm.user.userId,
+                dbName: '',
+                haType: '1',
+                cpuCores: '',
+                memory: '',
+                diskSize: '200',
+                quantity: '1',
+                remark: ''
+            }
+        })
     }, vm)
 
     vm.changeSystem = () => {
@@ -33,7 +36,7 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
         vm.inputData.systemCode = vm.systemObj.code
         vm.inputData.systemAlias = vm.systemObj.nameEn
 
-        vm.inputData.systemCode = 'SMC160803000002'
+        // vm.inputData.systemCode = 'SMC160803000002'
         SndsService.newInstanceEnvs(vm.inputData.systemCode).then(d => {
             vm.modelSelect.envs = d;
         });
@@ -49,7 +52,6 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
             vm.inputData.envType = vm.envObj.type
             vm.inputData.proposer = vm.user.userName
             vm.inputData.proposerCode = vm.user.userId
-            vm.inputData.leaderCode = vm.inputData.leader
             vm.inputData.cpuCores = vm.cpuCoresObj.cpuCore
             vm.inputData.memory = vm.cpuCoresObj.memorySize
 
@@ -76,7 +78,7 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
     //面包屑
     $scope.crumbIconData = [
         { href: "#/overview", title: "控制台", disable: "true", pre: '<span class="fa fa-home"></span>' },
-        { href: "", title: "新增实例", pre: '<span class="fa fa-table"></span>' }
+        { href: "", title: "新增实例", pre: '<span class="fa fa-plus-square-o"></span>' }
     ];
     //加载数据实例（升级完毕）
     function getSystemExDatas() {
@@ -140,5 +142,5 @@ let InstanceNewCtrl = ($scope, DialogService, SndsService, $rootScope, $q, Alert
     }
 }
 
-InstanceNewCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', 'AlertService', '$state', 'CtrlInit', 'CtrlRefresh'];
+InstanceNewCtrl.$inject = ['$scope', 'DialogService', 'SndsService', '$rootScope', '$q', 'AlertService', '$state', 'CtrlInit', 'CtrlRefresh', 'SndsUser'];
 export default app => app.controller('InstanceNewCtrl', InstanceNewCtrl);

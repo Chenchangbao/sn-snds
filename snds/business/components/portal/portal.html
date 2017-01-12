@@ -19,7 +19,7 @@
 				<li class="dropdown user user-menu right-align" sn-dropdown>
 					<a href="javascript:void(0)" class="dropdown-toggle">
 						<img src="business/images/adminlte/avatar04.png" class="user-image" alt="User Image" />
-						<span class="hidden-xs">{{user.userName}}</span>
+						<span class="hidden-xs">{{user.userId}}</span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="user-header">
@@ -56,6 +56,9 @@
 				</sn-menu-item>
 				<sn-menu-item ui-state='Portal.MyServices'>
 					<t><i class="fa fa-tasks"></i>我的服务</t>
+				</sn-menu-item>
+				<sn-menu-item ui-state='Portal.InstanceNew'>
+					<t><i class="fa fa-plus-square-o"></i>新增实例</t>
 				</sn-menu-item>
 				<!--<sn-menu-item ui-state='Portal.Manager'>
 					<t><i class="fa fa-sliders"></i>主从切换管理</t>

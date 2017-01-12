@@ -12,8 +12,8 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
 
     CtrlInit(function () {
         SndsService.getMyServicesList({
-            pageNumber: vm.pageNumber,
-            pageSize: vm.pageSize,
+            pageNumber: vm.pageCtrl.pageNumber,
+            pageSize: vm.pageCtrl.pageSize,
             serviceStatus: vm.serviceStatus,
             envType: vm.envType,
             systemName: vm.systemName,
