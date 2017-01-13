@@ -1,6 +1,10 @@
 export default app => {
   app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
-    $urlRouterProvider.otherwise('/overview');
+    // $urlRouterProvider.otherwise('/overview');
+    $urlRouterProvider.otherwise(function ($injector) {
+      var $state = $injector.get("$state");
+      $state.go('Portal.Overview');
+    });
     $stateProvider
       .state('Portal', {
         abstract: true,
@@ -15,12 +19,22 @@ export default app => {
       .state('Portal.Instances', {
         url: '/instanceslist',
         templateUrl: 'business/components/template/instances/instances.html',
-        controller: 'InstancesCtrl'
+        controller: 'InstancesCtrl',
+        // data: {
+        //   permissions: {
+        //     only: 'seo-edit'
+        //   }
+        // }
       })
       .state('Portal.InstanceNew', {
         url: '/instance-new',
         templateUrl: 'business/components/template/instanceNew/instanceNew.html',
-        controller: 'InstanceNewCtrl'
+        controller: 'InstanceNewCtrl',
+        // data: {
+        //   permissions: {
+        //     only: 'ADMIN'
+        //   }
+        // }
       })
       .state('Portal.Manager', {
         url: '/manager',
