@@ -1,4 +1,4 @@
-let OverviewCtrl = ($scope,$state,SndsService,$q,$rootScope) => {
+let OverviewCtrl = ($scope, $state, SndsService, $q, $rootScope, SnAnimation) => {
 
     $scope.user = $rootScope.user;
     $scope.systemStateArrs = [];
@@ -9,11 +9,13 @@ let OverviewCtrl = ($scope,$state,SndsService,$q,$rootScope) => {
     $scope.pageSize = 5;
     $scope.total = 0;
 
+    // SnAnimation.to()
+
     var deferred = $q.defer();
     var promise = deferred.promise;
-    promise.then(function(){
-         getDataForEcharts();
-         getSystemRecords();
+    promise.then(function () {
+        getDataForEcharts();
+        getSystemRecords();
     });
 
     // SndsService.getUserInfo()
@@ -23,78 +25,91 @@ let OverviewCtrl = ($scope,$state,SndsService,$q,$rootScope) => {
     //         getDataForEcharts();
     //         getSystemRecords();
     //     });
-    
+
     //面包屑
-    $scope.crumbIconData = [
-        {href:"#/overview",title:"控制台",disable:"true",pre:'<span class="fa fa-home"></span>'},
-        {href:"",title:"概览",pre:'<span class="fa fa-laptop"></span>'}
+    $scope.crumbIconData = [{
+            href: "#/overview",
+            title: "控制台",
+            disable: "true",
+            pre: '<span class="fa fa-home"></span>'
+        },
+        {
+            href: "",
+            title: "概览",
+            pre: '<span class="fa fa-laptop"></span>'
+        }
     ];
 
-    
+
     //获取echarts数据
-    function getDataForEcharts(){
-        SndsService.getSystemStateNum({"userId":$scope.user.userId})
-            .then( datas => {
+    function getDataForEcharts() {
+        SndsService.getSystemStateNum({
+                "userId": $scope.user.userId
+            })
+            .then(datas => {
                 $scope.systemStateArrs = datas.list;
-                $scope.systemStateArrs.forEach(function(element) {
+                $scope.systemStateArrs.forEach(function (element) {
                     $scope.systemStateName.push(element.state);
                     $scope.systemStateNum.push(element.num)
                 }, this);
                 drawByEcharts();
-            });      
+            });
     }
 
 
     // echarts配置及绘制
-    function drawByEcharts(){
+    function drawByEcharts() {
         var myChart = echarts.init(document.getElementById('_echarts'));
         var myChart2 = echarts.init(document.getElementById('_echarts2'));
 
         var option = {
 
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data:[$scope.systemStateName[0],$scope.systemStateName[1]]
-                },
-                series: [
-                    {
-                        name:'数据统计',
-                        type:'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '30',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
-                            {value:$scope.systemStateNum[0], name:$scope.systemStateName[0]},
-                            {value:$scope.systemStateNum[1], name:$scope.systemStateName[1]},
-                        ]
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: [$scope.systemStateName[0], $scope.systemStateName[1]]
+            },
+            series: [{
+                name: '数据统计',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
                     }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                        value: $scope.systemStateNum[0],
+                        name: $scope.systemStateName[0]
+                    },
+                    {
+                        value: $scope.systemStateNum[1],
+                        name: $scope.systemStateName[1]
+                    },
                 ]
-            };
+            }]
+        };
 
         var option2 = {
-            
+
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -116,26 +131,26 @@ let OverviewCtrl = ($scope,$state,SndsService,$q,$rootScope) => {
             },
             yAxis: {
                 type: 'category',
-                data: [$scope.systemStateName[0],$scope.systemStateName[1]]
+                data: [$scope.systemStateName[0], $scope.systemStateName[1]]
             },
-            series: [
-                {
-                    name: '数据',
-                    type: 'bar',
-                    data: [$scope.systemStateNum[0],$scope.systemStateNum[1]]
-                }
-            ]
+            series: [{
+                name: '数据',
+                type: 'bar',
+                data: [$scope.systemStateNum[0], $scope.systemStateNum[1]]
+            }]
         };
-        
+
         myChart.setOption(option);
-        myChart2.setOption(option2);   
+        myChart2.setOption(option2);
     }
 
-    
+
     //系统操作记录获取
-    function getSystemRecords(){
-        SndsService.getSystemRecords({"userId":$scope.user.userId})
-            .then( datas => {
+    function getSystemRecords() {
+        SndsService.getSystemRecords({
+                "userId": $scope.user.userId
+            })
+            .then(datas => {
                 $scope.systemRecords = datas.list;
                 $scope.total = $scope.systemRecords.length;
             })
@@ -144,5 +159,5 @@ let OverviewCtrl = ($scope,$state,SndsService,$q,$rootScope) => {
     deferred.resolve();
 }
 
-OverviewCtrl.$inject = ['$scope','$state','SndsService','$q','$rootScope'];
-export default app => app.controller('OverviewCtrl',OverviewCtrl);
+OverviewCtrl.$inject = ['$scope', '$state', 'SndsService', '$q', '$rootScope', 'SnAnimation'];
+export default app => app.controller('OverviewCtrl', OverviewCtrl);

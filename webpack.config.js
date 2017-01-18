@@ -140,6 +140,9 @@ switch (nodeEnvironment) {
       proxy: {
         "/authStatus": "http://10.24.75.229:7009/",
         "/snds/": "http://10.24.75.229:7009/"
+        // "/authStatus": "http://10.24.75.204/",
+        // // "/auth": "http://10.24.75.204:80/",
+        // "/snds/": "http://10.24.75.204/"
       },
       setup: function (app) {
         // Here you can access the Express app object and add your own custom middleware to it.
