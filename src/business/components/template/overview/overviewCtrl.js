@@ -1,4 +1,4 @@
-let OverviewCtrl = ($scope, $state, SndsService, $q, $rootScope, SnAnimation) => {
+let OverviewCtrl = ($scope, $state, SndsService, $q, $rootScope) => {
 
     $scope.user = $rootScope.user;
     $scope.systemStateArrs = [];
@@ -8,8 +8,6 @@ let OverviewCtrl = ($scope, $state, SndsService, $q, $rootScope, SnAnimation) =>
     $scope.page = 1;
     $scope.pageSize = 5;
     $scope.total = 0;
-
-    // SnAnimation.to()
 
     var deferred = $q.defer();
     var promise = deferred.promise;
@@ -159,5 +157,5 @@ let OverviewCtrl = ($scope, $state, SndsService, $q, $rootScope, SnAnimation) =>
     deferred.resolve();
 }
 
-OverviewCtrl.$inject = ['$scope', '$state', 'SndsService', '$q', '$rootScope', 'SnAnimation'];
+OverviewCtrl.$inject = ['$scope', '$state', 'SndsService', '$q', '$rootScope'];
 export default app => app.controller('OverviewCtrl', OverviewCtrl);

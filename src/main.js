@@ -1,7 +1,6 @@
 import angular from "angular";
 
 import snCommon from "common/snCommon";
-import animation from "common/animation/animation";
 
 import appConfiguration from 'config/config';
 import appRouter from 'config/router';
@@ -13,7 +12,7 @@ import {
 
 import "business/style/uxc.less";
 
-let app = angular.module('app', ['ui.router', permission, uiPermission, 'ui.router.state.events', 'ngSanitize', snCommon.name, animation.name]);
+let app = angular.module('app', ['ui.router', permission, uiPermission, 'ui.router.state.events', 'ngSanitize', snCommon.name]);
 
 // 如果是工程开发，请使用注释掉的部分。打包production工程时，mock不会生效
 // if(ENVIRONMENT == 'development'){
