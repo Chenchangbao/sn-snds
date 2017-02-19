@@ -13,6 +13,7 @@ import logPage from './template/manager/log/LogCtrl';
 import update from './template/update/updateCtrl';
 import updateModal from './template/update/update/updateModalCtrl';
 import toggleModal from './template/manager/toggle/toggleModalCtrl';
+import bulk from './template/bulk/bulk';
 
 
 export default app => {
@@ -27,6 +28,7 @@ export default app => {
     instances,
     instanceNew,
     instanceDetail,
-    myServices
+    myServices,
+    bulk
   ], app);
 }

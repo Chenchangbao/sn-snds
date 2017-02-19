@@ -1,0 +1,73 @@
+/*
+ * Name:			login.css
+ * Introduction:	ç™»é™†é¡µé¢æ ·å¼è¡¨
+ * Authorï¼š		    13075766 xql
+ * Time:			2016-3-16 modify
+ */
+@charset "utf-8";
+/*reset*/
+body, h1, h2, h3, h4, h5, h6, hr, p, dl, dt, dd, ul, ol, li, form, fieldset, legend, button, input, textarea, th, td { margin: 0;padding: 0;}
+body, button, input, select, textarea { font: 12px/1.5 arial,tahoma,\5b8b\4f53;}
+ul, ol, li { list-style: none;}
+.mt9 { margin-top: 19px;}
+
+input { height: 18px; padding: 15px 10px; line-height: 18px; border: none; outline: none;}
+
+/*Logo*/
+.logo { height: 340px;background:#4387b3 url(../images/login_bg.png) no-repeat center;}
+
+/*form*/
+.form { position: relative;width: 340px;margin: 50px auto 79px;}
+.control-group { margin-bottom: 10px;border: 1px solid #d9d9d9;overflow: hidden;border-radius: 2px;}
+.control-icon { float: left;padding: 17px 14px 16px 15px;background: #f5f5f5;}
+.pad-justice { padding: 17px 15px 16px 16px;}
+.control-icon i { display: block;height: 15px;background: url(../images/loginIcon.png) no-repeat;}
+.control-icon .icon1 { width: 15px;background-position: 0 0;}
+.control-icon .icon2 { width: 13px;background-position: -16px 0;}
+.controls { float: left;}
+.controls { border-left: 1px solid #e7e7e7;}
+.controls input { width: 273px;}
+
+.verifyCode { height: 50px; }
+.verifyCode .control-group { float: left; margin-right: 20px;}
+.verifyCode .text { width: 120px; }
+.verifyCode img { float: left; width: 120px; height: 50px;}
+.verifyCode .desc { float: right; width: 50px; font-size: 14px; line-height: 24px;}
+.verifyCode .desc a { color: #2272c8; }
+.verifyCode .desc a:hover { color: #F60; }
+
+.control-label { float: left;font:14px/25px "Microsoft Yahei";color: #6b6b6b;}
+.border-none { border:none;}
+.controls select { width: 200px;height: 25px;border: 1px solid #d9d9d9;color: #999;border-radius: 1px;outline: none;}
+.checkbox .controls input{ width: 12px;height: 12px;padding: 0 0;line-height: 12px;}
+.checkbox .control-label { font-size: 12px;line-height: 12px;margin-left: 5px;}
+.controls .btn { width: 340px;height:50px;background: #5592c3;font:bold 16px/18px "Microsoft Yahei";color: #fff;text-align: center;cursor: pointer;}
+.controls .btn:hover { background: #61b7d8;}
+
+/*footer*/
+.footer { max-width: 1240px;margin: 0 auto;padding: 0 40px;}
+.notice { padding: 48px 0 88px;font:14px/14px "Microsoft Yahei";color: #6b6b6b;border-bottom: 1px solid #ddd;text-align: center;}
+.tips { margin-top: 15px;text-align: center;}
+.tips a ,.tips i{ font:12px/12px "Microsoft Yahei";color: #6b6b6b;}
+.tips a { text-decoration: none;}
+.tips i { margin: 0 10px;}
+.tips a:hover { text-decoration: underline;color: #f60;}
+.right { margin-top: 10px;font:12px/12px "Microsoft Yahei";color: #6b6b6b;text-align: center;}
+
+/*border css3*/
+.focus { border: 1px solid #5592c3;box-shadow: 0 0 5px 1px #5592c3;}
+
+/*errorPlace*/
+.error-place { position: absolute;top: -22px;left: 0;font: 12px "SimSun";color: #fc1110;}
+.hide { display: none;}
+
+/*pop*/
+.pop { position: relative; width: 400px; padding: 6px; overflow: hidden; }
+.pop .pop-mask { position: absolute; top: 0; left: 0; width: 9999px; height: 9999px; background: #000; opacity: .3; filter: alpha(opacity=30); z-index: 998px;}
+.pop .pop-form { position: relative; margin: 0; padding: 50px 30px 30px; background: #FFF;}
+.pop .pop-form form { position: relative;}
+.pop .title { position: relative; height: 30px; border-bottom: 1px solid #CCC; background: #EEE; z-index: 999; }
+.pop .title h3 { padding-left: 10px; height: 30px; line-height: 30px; font-size: 14px; font-family: "Microsoft Yahei"; font-weight: normal; color: #666;}
+.pop .title em { font-style: normal; }
+.pop .title .close { display: inline-block; position: absolute; top: 4px; right: 5px; width: 22px; height: 22px; background: url(../images/close.png) no-repeat -22px 0; font: 14px Simsun; font-weight: 700; color: #666; text-indent: -999em; z-index: 10; cursor: pointer; overflow: hidden; }
+.pop .border-none .controls { border: none; }

@@ -39,14 +39,41 @@ config.output = {
 
 // module
 config.module = {
-  loaders: [
-    { test: /\.less$/, loader: 'style!css!less' },
-    { test: /\.css$/, loader: 'style-loader!css-loader' },
-    { test: /\.(eot(\?.*)?|woff(\?.*)?|ttf(\?.*)?|svg(\?.*)?|woff2(\?.*)?)$/, loader: "file?limit=1024&name=fonts/[name].[ext]" },
-    { test: /\.(md|markdown)$/, loader: "html!markdown" },
-    { test: /\.html/, exclude: /(node_modules)/, loader: 'html-loader' },
-    { test: /\.(png|jpg)$/, loader: 'url?name=images/[name].[ext]' },
-    { test: /\.js$/, exclude: /(node_modules)/, loader: 'babel', query: { presets: ['es2015'] } }
+  loaders: [{
+      test: /\.less$/,
+      loader: 'style!css!less'
+    },
+    {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader'
+    },
+    {
+      test: /\.(eot(\?.*)?|woff(\?.*)?|ttf(\?.*)?|svg(\?.*)?|woff2(\?.*)?)$/,
+      loader: "file?limit=1024&name=fonts/[name].[ext]"
+    },
+    {
+      test: /\.(md|markdown)$/,
+      loader: "html!markdown"
+    },
+    {
+      test: /\.html/,
+      exclude: /(node_modules)/,
+      loader: 'html-loader'
+    },
+    {
+      test: /\.(png|jpg)$/,
+      loader: 'url?name=images/[name].[ext]'
+    },
+    {
+      test: /\.js$/,
+      exclude: /(node_modules)/,
+      loader: 'babel',
+      query: {
+        cacheDirectory: true,
+        plugins: ['transform-decorators-legacy'],
+        presets: ['es2015']
+      }
+    }
     // {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')},
   ]
 };
@@ -64,20 +91,40 @@ config.plugins = [
     PORT: devServer.port
     // ENVIRONMENT: JSON.stringify(nodeEnvironment)
   }),
-  new CopyWebpackPlugin([
-    { from: './src', to: './' }
-  ], {
-      ignore: ['*.js', 'index.html']
-    }),
-  new CopyWebpackPlugin([
-    { from: './src/lib', to: './lib' }
-  ]),
-  new ngAnnotatePlugin({ add: true }),
-  new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery", "window.jQuery": "jquery" }),
-  new webpack.ProvidePlugin({ echarts: "echarts", "window.echarts": "echarts" }),
-  new ExtractTextPlugin('[name].css', { allChunks: true }),
-  new HtmlWebpackPlugin({ template: path.resolve('src', 'index.html'), inject: 'body' }),
-  new webpack.optimize.CommonsChunkPlugin({ name: 'ng', fileName: 'angular.js', minChunks: 3 }),
+  new CopyWebpackPlugin([{
+    from: './src',
+    to: './'
+  }], {
+    ignore: ['*.js', 'index.html']
+  }),
+  new CopyWebpackPlugin([{
+    from: './src/lib',
+    to: './lib'
+  }]),
+  new ngAnnotatePlugin({
+    add: true
+  }),
+  new webpack.ProvidePlugin({
+    $: "jquery",
+    jQuery: "jquery",
+    "window.jQuery": "jquery"
+  }),
+  new webpack.ProvidePlugin({
+    echarts: "echarts",
+    "window.echarts": "echarts"
+  }),
+  new ExtractTextPlugin('[name].css', {
+    allChunks: true
+  }),
+  new HtmlWebpackPlugin({
+    template: path.resolve('src', 'index.html'),
+    inject: 'body'
+  }),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'ng',
+    fileName: 'angular.js',
+    minChunks: 3
+  }),
 ];
 
 // resolve
@@ -127,7 +174,10 @@ switch (nodeEnvironment) {
       contentBase: './src',
       hot: true,
       historyApiFallback: true,
-      stats: { chunkModules: false, colors: true },
+      stats: {
+        chunkModules: false,
+        colors: true
+      },
       //compress: true,
       // proxy: {
       // proxy('**', {...}) matches any path, all requests will be proxied.
@@ -152,7 +202,7 @@ switch (nodeEnvironment) {
         // });
       },
     });
-    server.listen(devServer.port, devServer.host, function () { });
+    server.listen(devServer.port, devServer.host, function () {});
     config.cache = true;
     break;
   default:

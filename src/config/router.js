@@ -20,21 +20,21 @@ export default app => {
         url: '/instanceslist',
         templateUrl: 'business/components/template/instances/instances.html',
         controller: 'InstancesCtrl',
-        // data: {
-        //   permissions: {
-        //     only: 'seo-edit'
-        //   }
-        // }
+        data: {
+          permissions: {
+            only: 'seo-edit'
+          }
+        }
       })
       .state('Portal.InstanceNew', {
         url: '/instance-new',
         templateUrl: 'business/components/template/instanceNew/instanceNew.html',
         controller: 'InstanceNewCtrl',
-        // data: {
-        //   permissions: {
-        //     only: 'ADMIN'
-        //   }
-        // }
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        }
       })
       .state('Portal.Manager', {
         url: '/manager',
@@ -60,6 +60,11 @@ export default app => {
         url: '/review/:code',
         templateUrl: 'business/components/template/myServices/review.html',
         controller: 'Review'
+      })
+      .state('Portal.Bulk', {
+        url: '/bulks',
+        templateUrl: 'business/components/template/bulk/bulk.html',
+        controller: 'BulkCtrl'
       })
       // .state('Requirement', {
       //   url: '/requirement',
