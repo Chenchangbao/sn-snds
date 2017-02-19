@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "admin-lte": "^2.3.2",
-    "angular": "^1.5.0",
+    "angular": "=1.5.0",
     "angular-permission": "^5.1.0",
     "angular-sanitize": "^1.5.0",
     "babel-polyfill": "^6.7.4",

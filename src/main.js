@@ -6,8 +6,8 @@ import appConfiguration from 'config/config';
 import appRouter from 'config/router';
 import business from 'business/business';
 import {
-  permission,
-  uiPermission
+    permission,
+    uiPermission
 } from 'angular-permission';
 
 import "business/style/uxc.less";
@@ -27,12 +27,12 @@ appRouter(app);
 business(app);
 
 app.filter('paging', function () {
-  return function (items, index, pageSize) {
-    if (!items)
-      return [];
-    var offset = (index - 1) * pageSize;
-    return items.slice(offset, offset + pageSize);
-  }
+    return function (items, index, pageSize) {
+        if (!items)
+            return [];
+        var offset = (index - 1) * pageSize;
+        return [].slice.call(items, offset, offset + pageSize);
+    }
 })
 
 import permFn from 'business/permission/permission'
