@@ -1,59 +1,37 @@
-class State {
-    constructor(option) {
-        this.url = option.url
-        this.templateUrl = option.templateUrl
-        this.cssUrl = option.cssUrl
-        this.controllerurl = option.controller
-        this.resolve = {
-            css: ($q) => {
-                var deferred = $q.defer();
-                let cssList = this.cssList
-                if (cssList && cssList.length) {
-                    cssList.forEach(e => this.removeCssList(e))
-                }
-                this.addCssList()
-                deferred.resolve()
-                return deferred.promise;
+let cssList = {}
+
+function addResolve(obj) {
+    obj.resolve = {
+        css: ['$q', '$state', ($q, $state) => {
+            var deferred = $q.defer();
+
+            if (obj.cssUrl) {
+                let csslink = document.createElement('link')
+                csslink.setAttribute('rel', 'stylesheet')
+                csslink.setAttribute('type', 'text/css')
+                csslink.setAttribute('href', obj.cssUrl)
+                document.head.appendChild(csslink)
+                cssList[obj.name] = obj.cssUrl
             }
-        }
+
+            deferred.resolve()
+            return deferred.promise;
+        }]
     }
+    return obj
+}
 
-    get cssList() {
-        if (!State.cssList) return
-        return State.cssList
-    }
-
-    addCssList() {
-        if (!this.cssUrl) return
-
-        if (!State.cssList) State.cssList = []
-        // let cssPath = this.templateUrl.replace(/\.html$/, '.css')
-        let csslink = document.createElement('link')
-        csslink.setAttribute('rel', 'stylesheet')
-        csslink.setAttribute('type', 'text/css')
-        csslink.setAttribute('href', this.cssUrl)
-        document.head.appendChild(csslink)
-        State.cssList.push(this.cssUrl)
-    }
-
-    removeCssList(name) {
-        if (!State.cssList) return
-
-        let links = document.getElementsByTagName('link')
-        for (let i = 0; i < links.length; i++) {
-            let link = links[i]
-            if (link.href.match(name)) {
-                document.head.removeChild(link)
-                let i = State.cssList.indexOf(name)
-                if (i > -1)
-                    State.cssList.splice(i, 1)
-            }
-        }
+function mockFn(obj, name) {
+    let old = obj[name]
+    obj[name] = function () {
+        arguments[1].name = arguments[0]
+        return old.call(obj, arguments[0], addResolve(arguments[1]))
     }
 }
 
 export default app => {
     app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
+        mockFn($stateProvider, 'state')
         // $urlRouterProvider.otherwise('/overview');
         $urlRouterProvider.otherwise(function ($injector) {
             var $state = $injector.get("$state");
@@ -65,13 +43,13 @@ export default app => {
                 templateUrl: 'business/components/portal/portal.html',
                 controller: 'PortalCtrl',
             })
-            .state('Portal.Overview', new State({
+            .state('Portal.Overview', {
                 url: '/overview',
                 templateUrl: 'business/components/template/overview/overview.html',
                 cssUrl: 'business/components/template/overview/overview.css',
                 controller: 'OverviewCtrl'
-            }))
-            .state('Portal.Instances', new State({
+            })
+            .state('Portal.Instances', {
                 url: '/instanceslist',
                 templateUrl: 'business/components/template/instances/instances.html',
                 controller: 'InstancesCtrl',
@@ -80,7 +58,7 @@ export default app => {
                         only: 'seo-edit'
                     }
                 }
-            }))
+            })
             .state('Portal.InstanceNew', {
                 url: '/instance-new',
                 templateUrl: 'business/components/template/instanceNew/instanceNew.html',
@@ -119,6 +97,31 @@ export default app => {
             .state('Portal.Bulk', {
                 url: '/bulks',
                 templateUrl: 'business/components/template/bulk/bulk.html',
+                cssUrl: 'business/components/template/bulk/bulk.css',
+                controller: 'BulkCtrl'
+            })
+            .state('Portal.Bulk.Status', {
+                url: '/status',
+                templateUrl: 'business/components/template/bulk/status/status.html',
+                cssUrl: 'business/components/template/bulk/status/status.css',
+                controller: 'BulkCtrl'
+            })
+            .state('Portal.Bulk.Account', {
+                url: '/account',
+                templateUrl: 'business/components/template/bulk/account/account.html',
+                cssUrl: 'business/components/template/bulk/account/account.css',
+                controller: 'BulkCtrl'
+            })
+            .state('Portal.Bulk.Paramsall', {
+                url: '/paramsall',
+                templateUrl: 'business/components/template/bulk/paramsall/paramsall.html',
+                cssUrl: 'business/components/template/bulk/paramsall/paramsall.css',
+                controller: 'BulkCtrl'
+            })
+            .state('Portal.Bulk.Params', {
+                url: '/params',
+                templateUrl: 'business/components/template/bulk/params/params.html',
+                cssUrl: 'business/components/template/bulk/params/params.css',
                 controller: 'BulkCtrl'
             })
         // .state('Requirement', {
@@ -128,4 +131,50 @@ export default app => {
         // })
         ;
     }]);
+
+    //set css file
+    app.run(['$rootScope', $rootScope => {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
+            let sameName = getSameStateName(toState, fromState)
+
+        })
+
+        /**
+         * 
+         */
+        function removeCssList(sameName) {
+            if (!sameName.length) return
+
+            let cssKeys = Object.keys(cssList)
+            if (!cssKeys.length) return
+
+            let links = document.getElementsByTagName('link')
+            for (let i = 0; i < links.length; i++) {
+                let link = links[i]
+                cssKeys.forEach(e => {
+                    if (link.href.match(cssList[e])) {
+                        document.head.removeChild(link)
+                        delete cssList[fromState.name]
+                    }
+                })
+            }
+        }
+
+        /**
+         * get the same part between toState.name and fromState.name
+         */
+        function getSameStateName(toState, fromState) {
+            let toStateName = toState.name.split('.'),
+                fromStateName = fromState.name.split('.'),
+                result = []
+
+            for (let i = 0; i < toStateName.length; i++) {
+                if (toStateName[i] === fromStateName[i]) {
+                    result.push(toStateName[i])
+                } else
+                    break
+            }
+            return result
+        }
+    }])
 }

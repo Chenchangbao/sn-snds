@@ -3,11 +3,19 @@
     <sn-breadcrumb datalist="crumbIconData"></sn-breadcrumb>
     <h4 class="text-primary"><strong>批量管理</strong></h4>
     <hr style="margin:0;border-color:#3c8dbc" />
+    <p class="bulk_content">描述：针对数据库各种情况设计的批量处理功能</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a ui-sref="Portal.Bulk.Status">主从状态检查</a></li>
+        <li><a ui-sref="Portal.Bulk.Account">账号密码权限修改</a></li>
+        <li><a ui-sref="Portal.Bulk.Paramsall">批量机器参数修改</a></li>
+        <li><a ui-sref="Portal.Bulk.Params">单个机器参数修改</a></li>
+    </ul>
+    <div ui-view></div>
 </section>
 <!--<section class="content-header">
     <h4 class="text-primary"><strong>我的服务</strong></h4>
 </section>-->
 <!--内容部分 content-->
 <section class="content">
-    
+
 </section>
