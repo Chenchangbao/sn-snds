@@ -95,6 +95,7 @@ export default app => {
                 controller: 'Review'
             })
             .state('Portal.Bulk', {
+                abstract: true,
                 url: '/bulks',
                 templateUrl: 'business/components/template/bulk/bulk.html',
                 cssUrl: 'business/components/template/bulk/bulk.css',
@@ -103,25 +104,25 @@ export default app => {
             .state('Portal.Bulk.Status', {
                 url: '/status',
                 templateUrl: 'business/components/template/bulk/status/status.html',
-                cssUrl: 'business/components/template/bulk/status/status.css',
+                // cssUrl: 'business/components/template/bulk/status/status.css',
                 controller: 'BulkCtrl'
             })
             .state('Portal.Bulk.Account', {
                 url: '/account',
                 templateUrl: 'business/components/template/bulk/account/account.html',
-                cssUrl: 'business/components/template/bulk/account/account.css',
+                // cssUrl: 'business/components/template/bulk/account/account.css',
                 controller: 'BulkCtrl'
             })
             .state('Portal.Bulk.Paramsall', {
                 url: '/paramsall',
                 templateUrl: 'business/components/template/bulk/paramsall/paramsall.html',
-                cssUrl: 'business/components/template/bulk/paramsall/paramsall.css',
+                // cssUrl: 'business/components/template/bulk/paramsall/paramsall.css',
                 controller: 'BulkCtrl'
             })
             .state('Portal.Bulk.Params', {
                 url: '/params',
                 templateUrl: 'business/components/template/bulk/params/params.html',
-                cssUrl: 'business/components/template/bulk/params/params.css',
+                // cssUrl: 'business/components/template/bulk/params/params.css',
                 controller: 'BulkCtrl'
             })
         // .state('Requirement', {
@@ -136,7 +137,7 @@ export default app => {
     app.run(['$rootScope', $rootScope => {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
             let sameName = getSameStateName(toState, fromState)
-
+            removeCssList(sameName)
         })
 
         /**
@@ -152,9 +153,25 @@ export default app => {
             for (let i = 0; i < links.length; i++) {
                 let link = links[i]
                 cssKeys.forEach(e => {
-                    if (link.href.match(cssList[e])) {
-                        document.head.removeChild(link)
-                        delete cssList[fromState.name]
+                    if (sameName.length === 0) {
+                        del()
+                    } else if (sameName.length === 1) {
+                        if (sameName[0] !== e)
+                            del()
+                    } else {
+                        sameName.reduce((x, y) => {
+                            var parentName = x + '.' + y
+                            if (parentName !== e) {
+                                del()
+                            }
+                        });
+                    }
+
+                    function del() {
+                        if (link.href.match(cssList[e])) {
+                            document.head.removeChild(link)
+                            delete cssList[e]
+                        }
                     }
                 })
             }
