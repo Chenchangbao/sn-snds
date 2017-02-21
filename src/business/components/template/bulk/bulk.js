@@ -1,3 +1,5 @@
+import Status from './status/status'
+
 let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, CtrlInit, CtrlRefresh, CtrlTablePage) => {
     let vm = $scope
 
@@ -20,5 +22,6 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
 
 MyServicesCtrl.$inject = ['$scope'];
 export default app => {
-    app.controller('BulkCtrl', MyServicesCtrl);
+    app.controller('BulkCtrl', MyServicesCtrl)
+        .controller(Status.name, Status)
 }

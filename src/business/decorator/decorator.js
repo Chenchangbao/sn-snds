@@ -34,7 +34,12 @@ var newClass = (...args) => {
     return fn
 }
 
+let exportDefault = (...args) => {
+    
+}
+
 export {
     Inject,
-    newClass
+    newClass,
+    exportDefault,
 }

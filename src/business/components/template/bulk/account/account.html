@@ -1,1 +1,39 @@
-222
+<form class="form-inline">
+    <div class="form-group">
+        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+            ng-change="changeSystem()" ng-required="true" name="system">
+                    <option value="">请选择系统名称</option>
+                </select>
+    </div>
+    <div class="form-group">
+        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+            ng-change="changeSystem()" ng-required="true" name="system">
+                    <option value="">请选择环境类型</option>
+                </select>
+    </div>
+    <button type="submit" class="btn btn-default">搜索</button>
+    <table class='table-border-mine'>
+        <tr>
+            <th>系统名称</th>
+            <th>所在环境</th>
+            <th>管理员</th>
+            <th>IP</th>
+            <th>账号</th>
+            <th>密码</th>
+            <th>权限</th>
+            <th>日志</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="exData in systemExDatas" ng-class="{info:$even}">
+            <td>{{exData.type}}</td>
+            <td>{{exData.systemName || '无'}}</td>
+            <td>{{exData.envName}}</td>
+            <td>{{exData.proposer+exData.proposerCode}}</td>
+            <td>{{exData.requestTime}}</td>
+            <td>{{exData.orderStatus}}</td>
+            <td>{{exData.orderStatus}}</td>
+            <td>{{exData.orderStatus}}</td>
+            <td>{{exData.orderStatus}}</td>
+        </tr>
+    </table>
+</form>

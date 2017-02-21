@@ -2,3 +2,11 @@ p.bulk_content {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+form.form-inline{
+    margin: 20px 0 0 0;
+}
+
+form strong{
+    margin: 0 0 0 10px;
+}
