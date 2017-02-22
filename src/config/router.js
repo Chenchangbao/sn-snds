@@ -1,5 +1,4 @@
-let cssList = {},
-    toStateCache, fromStateCache
+let toStateCache, fromStateCache, cssToBeEnableList = []
 
 export default app => {
     app.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
@@ -113,9 +112,14 @@ export default app => {
         })
 
         //be careful, the time of removing css file is important, or the screen view would be flashing
-        $rootScope.$on('$viewContentLoaded', function (event) {
+        $rootScope.$on('$viewContentLoaded', function (event, viewConfig) {
+            if (!toStateCache || !fromStateCache) return
             let sameName = getSameStateName(toStateCache, fromStateCache)
-            removeCssList(sameName)
+            let exceptName = toStateCache.name || ''
+            removeCssList(sameName, exceptName)
+            for (let i = 0; i < cssToBeEnableList.length; i++) {
+                cssToBeEnableList.pop()()
+            }
         })
     }])
 }
@@ -130,11 +134,18 @@ function addResolve(obj) {
                 csslink.setAttribute('rel', 'stylesheet')
                 csslink.setAttribute('type', 'text/css')
                 csslink.setAttribute('href', obj.cssUrl)
+                csslink.setAttribute('data-name', obj.name)
                 csslink.addEventListener('load', e => {
+                    let styleSheet = csslink.sheet || csslink.styleSheet;
+                    styleSheet.disabled = true
+                    cssToBeEnableList.push((sheet => {
+                        return function () {
+                            sheet.disabled = false
+                        }
+                    })(styleSheet))
                     deferred.resolve()
                 })
                 document.head.appendChild(csslink)
-                cssList[obj.name] = obj.cssUrl
             } else {
                 deferred.resolve()
             }
@@ -156,37 +167,36 @@ function mockFn(obj, name) {
 /**
  * 
  */
-function removeCssList(sameName) {
+function removeCssList(sameName, exceptFile) {
     if (!sameName.length) return
 
-    let cssKeys = Object.keys(cssList)
-    if (!cssKeys.length) return
+    let exceptArr = exceptFile.split('.'),
+        exceptStr = '',
+        exceptName = ''
 
-    let links = document.getElementsByTagName('link')
+    if (exceptFile.match('.')) {
+        exceptArr.forEach(e => {
+            exceptName += exceptName ? '.' + e : e
+            exceptStr += ':not([data-name="' + exceptName + '"])'
+        })
+    }
+    let links = document.querySelectorAll('head>link[data-name]' + exceptStr)
     for (let i = 0; i < links.length; i++) {
         let link = links[i]
-        cssKeys.forEach(e => {
-            if (sameName.length === 0) {
-                del()
-            } else if (sameName.length === 1) {
-                if (sameName[0] !== e)
-                    del()
-            } else {
-                sameName.reduce((x, y) => {
-                    var parentName = x + '.' + y
-                    if (parentName !== e) {
-                        del(e)
-                    }
-                });
-            }
 
-            function del(e) {
-                if (link.href.match(cssList[e])) {
-                    document.head.removeChild(link)
-                    delete cssList[e]
+        if (sameName.length === 0) {
+            document.head.removeChild(link)
+        } else {
+            let name = ''
+            let r = sameName.every(e => {
+                name += name ? '.' + e : e
+                if (name !== link.dataset.name) {
+                    return true
                 }
-            }
-        })
+            })
+            if (r)
+                document.head.removeChild(link)
+        }
     }
 }
 
