@@ -137,6 +137,7 @@ function addResolve(obj) {
                 csslink.setAttribute('data-name', obj.name)
                 csslink.addEventListener('load', e => {
                     let styleSheet = csslink.sheet || csslink.styleSheet;
+                    //如果可以在加载css文件的同时disabled，应该可以避免闪烁
                     styleSheet.disabled = true
                     cssToBeEnableList.push((sheet => {
                         return function () {
