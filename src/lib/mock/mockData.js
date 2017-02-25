@@ -1,7 +1,7 @@
 
-// Mock.mock(/authStatus/, {
-//   "hasLogin": true
-// });
+Mock.mock(/authStatus/, {
+  "hasLogin": true
+});
 
 // Mock.mock(/\/getRemoteSelectList\.htm/, {
 //   result: true,

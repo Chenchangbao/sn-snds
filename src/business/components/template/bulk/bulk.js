@@ -14,7 +14,7 @@ let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state
         },
         {
             href: "",
-            title: "我的服务",
+            title: "批量管理",
             pre: '<span class="fa fa-tasks"></span>'
         }
     ];

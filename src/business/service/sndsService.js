@@ -71,6 +71,9 @@ let SndsService = function (HttpService) {
         newInstanceDetail: function (code) {
             return HttpService.post('/mySystem/' + code);
         },
+        bulkStatusSearch: function (code) {
+            return HttpService.post('/bulkStatusSearch/' + code);
+        },
     };
 }
 
