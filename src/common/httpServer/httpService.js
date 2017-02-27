@@ -33,7 +33,7 @@ export default app => {
         var defer = $q.defer();
         busy();
 
-        $http[method]('/snds' + url, params).success(function (result) {
+        $http[method](url, params).success(function (result) {
           idle();
 
           ErrorHandle.handle(result)

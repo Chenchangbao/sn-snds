@@ -82,19 +82,19 @@ export default app => {
                 url: '/account',
                 templateUrl: 'business/components/template/bulk/account/account.html',
                 cssUrl: 'business/components/template/bulk/account/account.css',
-                controller: 'BulkCtrl'
+                controller: 'Account'
             })
             .state('Portal.Bulk.Paramsall', {
                 url: '/paramsall',
                 templateUrl: 'business/components/template/bulk/paramsall/paramsall.html',
                 cssUrl: 'business/components/template/bulk/paramsall/paramsall.css',
-                controller: 'BulkCtrl'
+                controller: 'Params'
             })
             .state('Portal.Bulk.Params', {
                 url: '/params',
                 templateUrl: 'business/components/template/bulk/params/params.html',
                 cssUrl: 'business/components/template/bulk/params/params.css',
-                controller: 'BulkCtrl'
+                controller: 'Paramsall'
             })
         // .state('Requirement', {
         //   url: '/requirement',

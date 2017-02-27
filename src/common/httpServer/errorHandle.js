@@ -15,9 +15,9 @@ export default app => {
         handle: function (data) {
           var defer = $q.defer(),
             defaultMessage = '系统出了点小问题，请稍后重试！',
-            message = data.msg || defaultMessage;
+            message = data.msg || (data.data && data.data.error) || data.message || defaultMessage;
 
-          if (data.result) {
+          if (data.result || data.code === 200) {
             defer.resolve(data.data);
           } else {
             AlertService.alert({

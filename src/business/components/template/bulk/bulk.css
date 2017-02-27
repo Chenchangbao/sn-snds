@@ -3,10 +3,14 @@ p.bulk_content {
     margin-bottom: 20px;
 }
 
-form.form-inline{
+form.form-inline {
     margin: 20px 0 0 0;
 }
 
-form strong{
+form strong {
     margin: 0 0 0 10px;
+}
+
+.hidden {
+    display: none!important;
 }

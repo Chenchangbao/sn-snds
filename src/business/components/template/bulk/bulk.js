@@ -1,4 +1,11 @@
 import Status from './status/status'
+import Account from './account/account'
+import Params from './params/params'
+import Paramsall from './paramsall/paramsall'
+import Userbox from './account/userbox/userbox'
+import Passwordbox from './account/passwordbox/passwordbox'
+import privilegebox from './account/privilegebox/privilegebox'
+import logbox from './account/logbox/logbox'
 
 let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, CtrlInit, CtrlRefresh, CtrlTablePage) => {
     let vm = $scope
@@ -24,4 +31,11 @@ MyServicesCtrl.$inject = ['$scope'];
 export default app => {
     app.controller('BulkCtrl', MyServicesCtrl)
         .controller(Status.name, Status)
+        .controller(Account.name, Account)
+        .controller(Params.name, Params)
+        .controller(Paramsall.name, Paramsall)
+        .controller(Userbox.name, Userbox)
+        .controller(Passwordbox.name, Passwordbox)
+        .controller(privilegebox.name, privilegebox)
+        .controller(logbox.name, logbox)
 }

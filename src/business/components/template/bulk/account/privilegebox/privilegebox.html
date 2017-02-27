@@ -1,0 +1,38 @@
+<div class="modal fade in" ng-controller="Privilegebox">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">查看/修改</h4>
+      </div>
+      <div class="modal-body">
+        <section>
+          <ul class="nav nav-tabs">
+            <li ng-click="tabs.view=0" ng-class="tabs.view===0?'active':''"><a>全局权限</a></li>
+            <li ng-click="tabs.view=1" ng-class="tabs.view===1?'active':''"><a>DB权限</a></li>
+          </ul>
+          <form class="form-horizontal privilige-form" ng-submit="doSubRequire()" ng-show="tabs.view===0">
+            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in data"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
+          </form>
+          <form class="form-inline privilige-form" ng-submit="doSubRequire()" ng-show="tabs.view===1">
+            <div class="form-group">
+              <select ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control" ng-change="changeSystem()"
+                ng-required="true" name="system">
+                    <option value="">请选择系统名称</option>
+                </select>
+            </div>
+            <br>
+            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in data"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
+          </form>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <div class="text-right">
+          <button class="btn btn-primary" ng-click="commit()"> 修 改</button>
+          <button class="btn btn-primary reverse" ng-click="close()"> 取 消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
