@@ -88,13 +88,13 @@ export default app => {
                 url: '/paramsall',
                 templateUrl: 'business/components/template/bulk/paramsall/paramsall.html',
                 cssUrl: 'business/components/template/bulk/paramsall/paramsall.css',
-                controller: 'Params'
+                controller: 'Paramsall'
             })
             .state('Portal.Bulk.Params', {
                 url: '/params',
                 templateUrl: 'business/components/template/bulk/params/params.html',
                 cssUrl: 'business/components/template/bulk/params/params.css',
-                controller: 'Paramsall'
+                controller: 'Params'
             })
         // .state('Requirement', {
         //   url: '/requirement',

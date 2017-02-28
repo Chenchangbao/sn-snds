@@ -6,7 +6,7 @@ import {
 class Paramsall {
     constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService) {
         let vm = $scope;
-        vm.a = 1
+        vm.step0 = vm.step1 = vm.step2 = vm.step3 = vm.step4 = false
 
         vm.pageNumber = 1
         vm.pageSize = 10
@@ -14,21 +14,19 @@ class Paramsall {
 
         vm.search = d => {
             HttpService.get('/batch/cluster/' + d + '/status').then(e => {
-                if(e.data){
-
+                if (e.data) {
+                    vm.step0 = true
                 }
             })
 
             //
+            vm.step0 = true
             vm.data = [{
-                systemName:'苏宁云数据库(snds)',
-                env:'snds_PRD',
-                manager:'魏一凡',
-                master:'192.168.100.1',
-                slave1:'192.168.100.2',
-                slave2:'192.168.100.3'
+                mysqlVersion: 'MySQL 5.6',
+                type: '基础参数',
+                name: 'autocommit',
+                applyImmediately: 'Yes',
             }]
-            document.querySelector('.table-border-mine.hidden.batch-cluster-status').classList.remove('hidden')
         }
     }
 }

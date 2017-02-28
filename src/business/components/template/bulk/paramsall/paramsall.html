@@ -1,61 +1,108 @@
 <form class="form-inline" novalidate>
     <div class="paramsall-row">
         <div class="form-group">
-            <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入IP">
+            <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入参数名" ng-model="paramName">
         </div>
-        <button class="btn btn-default">搜索</button>
+        <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
     </div>
-
-    <div class="paramsall-step">
+    <div class="paramsall-step" ng-show="step0">
         <div class="paramsall-row">
             <table class='table-border-mine'>
                 <tr>
-                    <th>系统名称</th>
-                    <th>所在环境</th>
-                    <th>管理员</th>
-                    <th>主IP</th>
-                    <th>从IP</th>
-                    <th>从IP</th>
+                    <th>数据库版本</th>
+                    <th>参数类型</th>
+                    <th>参数名</th>
+                    <th>Dynamic</th>
                 </tr>
-                <tr ng-repeat="exData in systemExDatas" ng-class="{info:$even}">
-                    <td>{{exData.type}}</td>
-                    <td>{{exData.systemName || '无'}}</td>
-                    <td>{{exData.envName}}</td>
-                    <td>{{exData.proposer+exData.proposerCode}}</td>
-                    <td>{{exData.requestTime}}</td>
-                    <td>{{exData.orderStatus}}</td>
+                <tr ng-repeat="d in data" ng-class="{info:$even}">
+                    <td>{{d.mysqlVersion}}</td>
+                    <td>{{d.type || '无'}}</td>
+                    <td>{{d.name}}</td>
+                    <td>{{d.applyImmediately}}</td>
                 </tr>
             </table>
         </div>
     </div>
-
-    <div class="paramsall-step">
-        <div class="paramsall-row">
-            <span>您目前正在对autocommit参数进行批量机器修改，请选择：</span>
+    <div class="paramsall-step" ng-show="step1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">第一步：修改参数值</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="EmployeeId" class="control-label">旧密码</label>
+                        <input type="text" class="form-control" id="EmployeeId" placeholder="" ng-required="true" ng-model="user">
+                    </div>
+                    <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
+                </form>
+            </div>
         </div>
-        <div class="paramsall-row">
-            <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
-                ng-change="changeSystem()" ng-required="true" name="system">
+    </div>
+
+    <div class="paramsall-step" ng-show="step2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">第二步：批量机器查询</h3>
+            </div>
+            <div class="panel-body">
+                <p>您目前正在对autocommit参数进行批量机器修改，请选择：</p>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+                            ng-change="changeSystem()" ng-required="true" name="system">
                     <option value="">请选择系统名称</option>
                 </select>
-            <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
-                ng-change="changeSystem()" ng-required="true" name="system">
+                        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+                            ng-change="changeSystem()" ng-required="true" name="system">
                     <option value="">请选择环境类型</option>
                 </select>
-        </div>
-        <div class="paramsall-row">
-            <button class="btn btn-default">搜索机器</button>
-        </div>
-    </div>
-
-    <div class="paramsall-step">
-        <div class="paramsall-row">
-            <span>目前搜索到2577台机器可修改，点击机器清单查看!</span>
-        </div>
-        <div class="paramsall-row">
-            <button class="btn btn-default">机器清单</button>
-            <button class="btn btn-default">查看日志</button>
+                    </div>
+                    <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
+                </form>
+            </div>
         </div>
     </div>
 
+    <div class="paramsall-step" ng-show="step3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">第三步：批量修改</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <button class="btn btn-default" ng-click="search(paramName)" ng-show="">确认修改</button>
+                    <button class="btn btn-default" ng-click="search(paramName)">修改日志</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="paramsall-step" ng-show="step4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">第四步：失败机器列表</h3>
+            </div>
+            <div class="panel-body">
+                <p>以下机器参数修改失败，请查看：</p>
+                <table class='table-border-mine'>
+                    <tr>
+                        <th>系统名称</th>
+                        <th>所在环境</th>
+                        <th>管理员</th>
+                        <th>主IP</th>
+                        <th>从IP</th>
+                        <th>从IP</th>
+                    </tr>
+                    <tr ng-repeat="d in data" ng-class="{info:$even}">
+                        <td>{{d.mysqlVersion}}</td>
+                        <td>{{d.type || '无'}}</td>
+                        <td>{{d.name}}</td>
+                        <td>{{d.applyImmediately}}</td>
+                        <td>{{d.applyImmediately}}</td>
+                        <td>{{d.applyImmediately}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </form>
