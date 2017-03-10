@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Paramsall {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService) {
         let vm = $scope;
         vm.step0 = vm.step1 = vm.step2 = vm.step3 = vm.step4 = false
 
@@ -27,6 +27,85 @@ class Paramsall {
                 name: 'autocommit',
                 applyImmediately: 'Yes',
             }]
+        }
+
+        vm.searchhost = () => {
+            DialogService.modal({
+                key: 'dialogDemo',
+                url: 'business/components/template/bulk/paramsall/searchhost/searchhost.html',
+                accept: (result) => {
+                    HttpService.post('/auth/' + d.ip + '/password', {
+                        oldPassword: d.user,
+                        newPassword: result,
+                        operator: ''
+                    }).then(e => {
+                        if (e.data) {
+
+                        }
+                    })
+                },
+                refuse: (reason) => {
+                    console.log(reason);
+                }
+            }, {
+                key: 'dialogDemo',
+                data: {
+                    msg: 'this is data from modalCtrl!'
+                }
+            });
+
+        }
+        vm.psedit = () => {
+            DialogService.modal({
+                key: 'dialogDemo',
+                url: 'business/components/template/bulk/paramsall/searchhost/searchhost.html',
+                accept: (result) => {
+                    HttpService.post('/auth/' + d.ip + '/password', {
+                        oldPassword: d.user,
+                        newPassword: result,
+                        operator: ''
+                    }).then(e => {
+                        if (e.data) {
+
+                        }
+                    })
+                },
+                refuse: (reason) => {
+                    console.log(reason);
+                }
+            }, {
+                key: 'dialogDemo',
+                data: {
+                    msg: 'this is data from modalCtrl!'
+                }
+            });
+
+        }
+        vm.pslogbox = () => {
+            DialogService.modal({
+                key: 'dialogDemo',
+                url: 'business/components/template/bulk/paramsall/pslogbox/pslogbox.html',
+                accept: (result) => {
+                    HttpService.post('/auth/' + d.ip + '/password', {
+                        oldPassword: d.user,
+                        newPassword: result,
+                        operator: ''
+                    }).then(e => {
+                        if (e.data) {
+
+                        }
+                    })
+                },
+                refuse: (reason) => {
+                    console.log(reason);
+                }
+            }, {
+                key: 'dialogDemo',
+                data: {
+                    msg: 'this is data from modalCtrl!'
+                }
+            });
+
         }
     }
 }

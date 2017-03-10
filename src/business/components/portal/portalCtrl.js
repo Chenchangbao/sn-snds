@@ -4,13 +4,18 @@ let PortalCtrl = function ($scope, SndsService, $rootScope, $window, SndsUser) {
   vm.now = new Date();
 
   vm.doLogout = function () {
-    if (ENVIRONMENT == 'development') {
+    if (location.host.match('sit')) {
       $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com:' + PORT + '/'
-    } else if (ENVIRONMENT == 'sit') {
-      $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com/'
     } else {
       $window.location.href = 'http://sso.cnsuning.com/ids/logout?service=http://snds.cnsuning.com/'
     }
+    // if (ENVIRONMENT == 'development') {
+    //   $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com:' + PORT + '/'
+    // } else if (ENVIRONMENT == 'sit') {
+    //   $window.location.href = 'http://ssosit.cnsuning.com/ids/logout?service=http://sndssit.cnsuning.com/'
+    // } else {
+    //   $window.location.href = 'http://sso.cnsuning.com/ids/logout?service=http://snds.cnsuning.com/'
+    // }
   }
 }
 

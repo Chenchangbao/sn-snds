@@ -5,7 +5,7 @@
         </div>
         <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
     </div>
-    <div class="paramsall-step" ng-show="step0">
+    <div class="paramsall-step">
         <div class="paramsall-row">
             <table class='table-border-mine'>
                 <tr>
@@ -23,7 +23,7 @@
             </table>
         </div>
     </div>
-    <div class="paramsall-step" ng-show="step1">
+    <div class="paramsall-step">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">第一步：修改参数值</h3>
@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <form class="form-inline">
                     <div class="form-group">
-                        <label for="EmployeeId" class="control-label">旧密码</label>
+                        <label for="EmployeeId" class="control-label">修改参数值：</label>
                         <input type="text" class="form-control" id="EmployeeId" placeholder="" ng-required="true" ng-model="user">
                     </div>
                     <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="paramsall-step" ng-show="step2">
+    <div class="paramsall-step">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">第二步：批量机器查询</h3>
@@ -50,34 +50,34 @@
                 <form class="form-inline">
                     <div class="form-group">
                         <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
-                            ng-change="changeSystem()" ng-required="true" name="system">
+                            ng-change="changeSystem()" name="system">
                     <option value="">请选择系统名称</option>
                 </select>
                         <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
-                            ng-change="changeSystem()" ng-required="true" name="system">
+                            ng-change="changeSystem()" name="system">
                     <option value="">请选择环境类型</option>
                 </select>
                     </div>
-                    <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
+                    <button class="btn btn-default" ng-click="searchhost()">搜索机器</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="paramsall-step" ng-show="step3">
+    <div class="paramsall-step">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">第三步：批量修改</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline">
-                    <button class="btn btn-default" ng-click="search(paramName)" ng-show="">确认修改</button>
-                    <button class="btn btn-default" ng-click="search(paramName)">修改日志</button>
+                    <button class="btn btn-default" ng-click="psedit()" ng-show="true">确认修改</button>
+                    <button class="btn btn-default" ng-click="pslogbox()" ng-show="true">修改日志</button>
                 </form>
             </div>
         </div>
     </div>
-    <div class="paramsall-step" ng-show="step4">
+    <div class="paramsall-step">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">第四步：失败机器列表</h3>

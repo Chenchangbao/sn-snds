@@ -6,6 +6,8 @@ import Userbox from './account/userbox/userbox'
 import Passwordbox from './account/passwordbox/passwordbox'
 import privilegebox from './account/privilegebox/privilegebox'
 import logbox from './account/logbox/logbox'
+import searchhost from './paramsall/searchhost/searchhost'
+import pslogbox from './paramsall/pslogbox/pslogbox'
 
 let MyServicesCtrl = ($scope, DialogService, SndsService, $rootScope, $q, $state, CtrlInit, CtrlRefresh, CtrlTablePage) => {
     let vm = $scope
@@ -38,4 +40,6 @@ export default app => {
         .controller(Passwordbox.name, Passwordbox)
         .controller(privilegebox.name, privilegebox)
         .controller(logbox.name, logbox)
+        .controller(searchhost.name, searchhost)
+        .controller(pslogbox.name, pslogbox)
 }
