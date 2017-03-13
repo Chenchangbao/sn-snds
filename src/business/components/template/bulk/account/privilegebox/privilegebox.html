@@ -9,21 +9,21 @@
       <div class="modal-body">
         <section>
           <ul class="nav nav-tabs">
-            <li ng-click="tabs.view=0" ng-class="tabs.view===0?'active':''"><a>全局权限</a></li>
-            <li ng-click="tabs.view=1" ng-class="tabs.view===1?'active':''"><a>DB权限</a></li>
+            <li ng-click="tabs.view='gb'" ng-class="tabs.view==='gb'?'active':''"><a>全局权限</a></li>
+            <li ng-click="tabs.view='db'" ng-class="tabs.view==='db'?'active':''"><a>DB权限</a></li>
           </ul>
           <form class="form-horizontal privilige-form" ng-submit="doSubRequire()" ng-show="tabs.view===0">
-            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in data"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
+            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in gbPrivileges"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
           </form>
           <form class="form-inline privilige-form" ng-submit="doSubRequire()" ng-show="tabs.view===1">
             <div class="form-group">
-              <select ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control" ng-change="changeSystem()"
+              <select ng-model="systemObj" ng-options="d as d.name for d in dbs" type="text" class="form-control" ng-change="changeSystem()"
                 ng-required="true" name="system">
                     <option value="">请选择系统名称</option>
                 </select>
             </div>
             <br>
-            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in data"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
+            <label for="EmployeeId" class="privilige-checkbox-layout checkbox-inline" ng-repeat="d in dbPrivileges"><input type="checkbox" id="EmployeeId" ng-model="d.checked">{{d.name}}</label>
           </form>
         </section>
       </div>

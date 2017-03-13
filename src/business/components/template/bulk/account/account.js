@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Account {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp) {
         let vm = $scope;
         vm.a = 1
 
@@ -12,11 +12,21 @@ class Account {
         vm.pageSize = 10
         vm.pageCtrl = CtrlTablePage()
 
-        vm.search = d => {
-            HttpService.get('/batch/cluster/' + d + '/status').then(e => {
-                if (e.data) {
+        // SndsService.getTypeStatus().then(datas => {
+        //     // vm.type = datas.type;
+        //     vm.status = datas;
+        // });
 
-                }
+        SndsService.newInstanceMySystem().then(d => {
+            vm.status = d;
+        });
+        SndsService.newInstanceEnvs().then(d => {
+            vm.type = d;
+        });
+
+        vm.search = d => {
+            bulkHttp.get('/batch/auth/' + vm.sysName.name + '/' + vm.sysName.sysAlias + '/' + vm.env).then(e => {
+                vm.data = e
             })
 
             //
@@ -34,14 +44,12 @@ class Account {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/account/userbox/userbox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/user', {
+                    bulkHttp.post('/batch/auth/' + d.ip + '/user', {
                         oldUser: d.user,
                         newUser: result,
                         operator: ''
                     }).then(e => {
-                        if (e.data) {
-
-                        }
+                        e
                     })
                 },
                 refuse: (reason) => {
@@ -60,7 +68,7 @@ class Account {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/account/passwordbox/passwordbox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
+                    bulkHttp.post('/batch/auth/' + d.ip + '/password', {
                         oldPassword: d.user,
                         newPassword: result,
                         operator: ''
@@ -86,15 +94,22 @@ class Account {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/account/privilegebox/privilegebox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
-                        oldPassword: d.user,
-                        newPassword: result,
-                        operator: ''
-                    }).then(e => {
-                        if (e.data) {
+                    if (result.view === 'gb') {
+                        bulkHttp.post('/batch/auth/' + d.ip + '/privilege/' + d.user, {
+                            privileges: d.data,
+                            operator: ''
+                        }).then(e => {
+                            e
+                        })
+                    } else {
+                        bulkHttp.post('/batch/auth/' + d.ip + '/privilege/' + d.db, {
+                            privileges: d.data,
+                            operator: ''
+                        }).then(e => {
+                            e
+                        })
+                    }
 
-                        }
-                    })
                 },
                 refuse: (reason) => {
                     console.log(reason);
@@ -112,15 +127,11 @@ class Account {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/account/logbox/logbox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
-                        oldPassword: d.user,
-                        newPassword: result,
-                        operator: ''
-                    }).then(e => {
-                        if (e.data) {
+                    // bulkHttp.post('/batch/auth/log' + d.ip).then(e => {
+                    //     if (e.data) {
 
-                        }
-                    })
+                    //     }
+                    // })
                 },
                 refuse: (reason) => {
                     console.log(reason);

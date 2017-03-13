@@ -1,12 +1,12 @@
 <form class="form-inline">
     <div class="form-group">
-        <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入机器IP">
+        <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入机器IP" ng-model="ip">
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入参数名">
+        <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入参数名" ng-model="param">
     </div>
-    <button class="btn btn-default">搜索</button>
-    <strong>错误信息：未搜索到该IP，请核实后重新输入！</strong>
+    <button class="btn btn-default" ng-click="search()">搜索</button>
+    <strong style="color: red;">{{errorTxt}}</strong>
     <table class='table-border-mine'>
         <tr>
             <th>数据库版本</th>
@@ -23,7 +23,7 @@
             <td>{{d.applyImmediately}}</td>
             <td>
                 <span ng-show="!d.isEdit">{{d.value}}</span>
-                <input ng-show="d.isEdit" type="text" class="form-control" placeholder="">
+                <input ng-show="d.isEdit" type="text" class="form-control" placeholder="" ng-model="d.value_edit">
                 <button ng-show="!d.isEdit" class="btn btn-default" ng-click="editParam(d)" ng-disabled="d.type==='固定参数'">修改</button>
                 <button ng-show="d.isEdit" class="btn btn-default" ng-click="saveParam(d)" ng-disabled="d.type==='固定参数'">保存</button>
             </td>

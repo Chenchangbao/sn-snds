@@ -8,7 +8,7 @@ var WebpackDevServer = require("webpack-dev-server");
 
 var devServer = {
     host: '127.0.0.1',
-    port: 8188
+    port: 80
 }
 var config = {};
 
@@ -145,7 +145,7 @@ var nodeEnvironment = process.env.NODE_ENV || 'development';
 switch (nodeEnvironment) {
     case 'production':
         config.plugins.push(
-            new webpack.optimize.UglifyJsPlugin(),
+            // new webpack.optimize.UglifyJsPlugin(),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.OccurenceOrderPlugin()
         );
@@ -194,8 +194,9 @@ switch (nodeEnvironment) {
             // proxy(['/api/**', '!**/bad.json'], {...}) exclusion
             // },
             proxy: {
-                "/authStatus": "http://10.24.75.229:7009/",
-                "/snds/": "http://10.24.75.229:7009/"
+                "/auth": "http://10.24.75.65/",
+                "/snds/": "http://10.24.75.65/",
+                "/batch/": "http://10.24.75.65/"
                 // "/authStatus": "http://10.24.75.204/",
                 // // "/auth": "http://10.24.75.204:80/",
                 // "/snds/": "http://10.24.75.204/"

@@ -4,29 +4,36 @@ import {
 
 @Inject
 class Paramsall {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp) {
         let vm = $scope;
-        vm.step0 = vm.step1 = vm.step2 = vm.step3 = vm.step4 = false
+        vm.buttonView = 'edit'
 
         vm.pageNumber = 1
         vm.pageSize = 10
         vm.pageCtrl = CtrlTablePage()
 
-        vm.search = d => {
-            HttpService.get('/batch/cluster/' + d + '/status').then(e => {
-                if (e.data) {
-                    vm.step0 = true
-                }
-            })
+        // SndsService.getTypeStatus().then(datas => {
+        //     // vm.type = datas.type;
+        //     vm.status = datas;
+        // });
 
-            //
-            vm.step0 = true
-            vm.data = [{
-                mysqlVersion: 'MySQL 5.6',
-                type: '基础参数',
-                name: 'autocommit',
-                applyImmediately: 'Yes',
-            }]
+        SndsService.newInstanceMySystem().then(d => {
+            vm.status = d;
+        });
+        SndsService.newInstanceEnvs().then(d => {
+            vm.type = d;
+        });
+
+        vm.search = d => {
+            bulkHttp.get('/batch/param/batch/' + d).then(e => {
+                vm.data = e
+                // vm.data = [{
+                //     mysqlVersion: 'MySQL 5.6',
+                //     type: '基础参数',
+                //     name: 'autocommit',
+                //     applyImmediately: 'Yes',
+                // }]
+            })
         }
 
         vm.searchhost = () => {
@@ -34,15 +41,7 @@ class Paramsall {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/paramsall/searchhost/searchhost.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
-                        oldPassword: d.user,
-                        newPassword: result,
-                        operator: ''
-                    }).then(e => {
-                        if (e.data) {
 
-                        }
-                    })
                 },
                 refuse: (reason) => {
                     console.log(reason);
@@ -56,19 +55,19 @@ class Paramsall {
 
         }
         vm.psedit = () => {
+            bulkHttp.post('/batch/params/' + vm.sysName + '/' + vm.sysAlias + '/' + vm.env, {
+                param: '',
+                value: '',
+                operator: ''
+            }).then(e => {
+                vm.buttonView = 'log'
+                vm.changeId = e
+            })
             DialogService.modal({
                 key: 'dialogDemo',
-                url: 'business/components/template/bulk/paramsall/searchhost/searchhost.html',
+                url: 'business/components/template/bulk/paramsall/pslogbox/pslogbox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
-                        oldPassword: d.user,
-                        newPassword: result,
-                        operator: ''
-                    }).then(e => {
-                        if (e.data) {
 
-                        }
-                    })
                 },
                 refuse: (reason) => {
                     console.log(reason);
@@ -86,15 +85,7 @@ class Paramsall {
                 key: 'dialogDemo',
                 url: 'business/components/template/bulk/paramsall/pslogbox/pslogbox.html',
                 accept: (result) => {
-                    HttpService.post('/auth/' + d.ip + '/password', {
-                        oldPassword: d.user,
-                        newPassword: result,
-                        operator: ''
-                    }).then(e => {
-                        if (e.data) {
 
-                        }
-                    })
                 },
                 refuse: (reason) => {
                     console.log(reason);

@@ -14,14 +14,19 @@ export default app => {
     function popupLoginContainer() {
       document.cookie = "authId=1; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.cnsuning.com; path=/;";
       // $cookies.remove('authId')
-      console.log('111')
-      if (ENVIRONMENT == 'development') {
-        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:' + PORT + '/'
-      } else if (ENVIRONMENT == 'sit') {
-        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com/'
-      } else {
-        window.location.href = 'https://sso.cnsuning.com/ids/login?loginTheme=snds&service=http://snds.cnsuning.com/'
+      if (window.location.hostname.match('sit')) {
+        window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=' + config.loginTheme + '&service=' + encodeURIComponent(window.location.href)
+      }else{
+        window.location.href = 'https://sso.cnsuning.com/ids/login?loginTheme=' + config.loginTheme + '&service=' + encodeURIComponent(window.location.href)
       }
+      // console.log('111')
+      // if (ENVIRONMENT == 'development') {
+      //   window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:' + PORT + '/'
+      // } else if (ENVIRONMENT == 'sit') {
+      //   window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com/'
+      // } else {
+      //   window.location.href = 'https://sso.cnsuning.com/ids/login?loginTheme=snds&service=http://snds.cnsuning.com/'
+      // }
       // window.location.href='https://sso.cnsuning.com/ids/login?loginTheme=snds&service=http://snds.cnsuning.com/'
       // window.location.href = 'https://ssosit.cnsuning.com/ids/login?loginTheme=snds&service=http://sndssit.cnsuning.com:8181/'
       // if (typeof intervalVar == 'undefined') {

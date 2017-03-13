@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Privilegebox {
-    constructor($scope, DialogService) {
+    constructor($scope, DialogService, bulkHttp) {
         let vm = $scope;
         vm.tabs = {
             global: {
@@ -13,19 +13,47 @@ class Privilegebox {
             db: {
 
             },
-            view: 0
+            view: 'gb'
+        }
+        let d = {}
+
+        bulkHttp.get('/batch/auth/' + d.ip + '/privilege').then(e => {
+            vm.gbPrivileges = [{
+                name: 'CREATE TABLESPACE',
+                checked: true
+            }, {
+                name: 'CREATE USER',
+                checked: false
+            }, {
+                name: 'FILE',
+                checked: true
+            }]
+            vm.gbPrivileges = e
+        })
+
+        let getDb = db => {
+            bulkHttp.get('/batch/auth/' + d.ip + '/privilege/db' + db).then(e => {
+                vm.dbPrivileges = [{
+                    name: 'ALL [PRIVILEGES]',
+                    checked: true
+                }, {
+                    name: 'EXECUTE',
+                    checked: false
+                }, {
+                    name: 'FILE',
+                    checked: true
+                }]
+                vm.dbPrivileges = e
+            })
         }
 
-        vm.data = [{
-            name: 'a',
-            checked: true
-        }, {
-            name: 'b',
-            checked: false
-        }, {
-            name: 'c',
-            checked: true
-        }]
+        bulkHttp.get('/batch/auth/' + d.ip + '/databases').then(e => {
+            vm.dbs = e
+        })
+
+        vm.changeSystem = d => {
+            getDb(d)
+        }
 
         vm.close = () => {
             // way 1:
@@ -36,7 +64,11 @@ class Privilegebox {
         };
 
         vm.commit = () => {
-            DialogService.accept(vm.key, vm.user);
+            let data = {
+                view: vm.tabs.view,
+                data: vm.tabs.view === 'gb' ? vm.gbPrivileges : vm.dbPrivileges
+            }
+            DialogService.accept(vm.key, data);
         };
     }
 }

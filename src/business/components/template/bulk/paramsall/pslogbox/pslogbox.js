@@ -4,9 +4,11 @@ import {
 
 @Inject
 class pslogbox {
-    constructor($scope, DialogService) {
+    constructor($scope, DialogService, bulkHttp) {
         let vm = $scope;
-        vm.user = ''
+        bulkHttp.post('/batch/params/batch/log/' + vm.changeId).then(e => {
+            vm.data = e
+        })
         vm.close = () => {
             // way 1:
             DialogService.dismiss(vm.key);

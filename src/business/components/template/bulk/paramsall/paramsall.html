@@ -32,9 +32,9 @@
                 <form class="form-inline">
                     <div class="form-group">
                         <label for="EmployeeId" class="control-label">修改参数值：</label>
-                        <input type="text" class="form-control" id="EmployeeId" placeholder="" ng-required="true" ng-model="user">
+                        <input type="text" class="form-control" id="EmployeeId" placeholder="" ng-required="true" ng-model="paramValue">
                     </div>
-                    <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
+                    <button class="btn btn-default" ng-click="search(paramValue)">确认</button>
                 </form>
             </div>
         </div>
@@ -49,11 +49,11 @@
                 <p>您目前正在对autocommit参数进行批量机器修改，请选择：</p>
                 <form class="form-inline">
                     <div class="form-group">
-                        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+                        <select select2 ng-model="sysName" ng-options="d as d.name for d in status" type="text" class="form-control"
                             ng-change="changeSystem()" name="system">
                     <option value="">请选择系统名称</option>
                 </select>
-                        <select select2 ng-model="systemObj" ng-options="d as d.name for d in modelSelect.mySystem" type="text" class="form-control"
+                        <select select2 ng-model="sysEnv" ng-options="d as d.name for d in type" type="text" class="form-control"
                             ng-change="changeSystem()" name="system">
                     <option value="">请选择环境类型</option>
                 </select>
@@ -71,8 +71,8 @@
             </div>
             <div class="panel-body">
                 <form class="form-inline">
-                    <button class="btn btn-default" ng-click="psedit()" ng-show="true">确认修改</button>
-                    <button class="btn btn-default" ng-click="pslogbox()" ng-show="true">修改日志</button>
+                    <button class="btn btn-default" ng-click="psedit()" ng-show="buttonView==='edit'">确认修改</button>
+                    <button class="btn btn-default" ng-click="pslogbox()" ng-show="buttonView==='log'">修改日志</button>
                 </form>
             </div>
         </div>

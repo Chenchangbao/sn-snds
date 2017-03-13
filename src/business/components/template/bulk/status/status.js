@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Status {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, bulkHttp) {
         let vm = $scope;
         vm.a = 1
 
@@ -13,45 +13,56 @@ class Status {
         vm.pageCtrl = CtrlTablePage()
 
         vm.search = d => {
-            HttpService.get('/batch/cluster/' + d + '/status').then(e => {
-                if(e.data){
+            if (!d) {
+                return vm.errorTxt = '输入ip不合法!'
+            }
 
-                }
-            })
+            var r = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(d)
+            if (r) {
+                vm.errorTxt = ''
+                bulkHttp.get('/batch/cluster/' + d + '/status').then(e => {
+                    if (e === undefined || e.length === undefined) {
+                        vm.errorTxt = '错误信息：未搜索到该IP，请核实后重新输入！'
+                    }
+                    vm.data = e
+                })
+            } else {
+                vm.errorTxt = '输入ip不合法!'
+            }
+
 
             //
-            vm.data = [{
-                systemName:'苏宁云数据库(snds)',
-                env:'snds_PRD',
-                manager:'魏一凡',
-                master:'192.168.100.1',
-                slave1:'192.168.100.2',
-                slave2:'192.168.100.3'
-            }]
-            document.querySelector('.table-border-mine.hidden.batch-cluster-status').classList.remove('hidden')
+            // vm.data = [{
+            //     systemName: '苏宁云数据库(snds)',
+            //     env: 'snds_PRD',
+            //     manager: '魏一凡',
+            //     master: '192.168.100.1',
+            //     slave1: '192.168.100.2',
+            //     slave2: '192.168.100.3'
+            // }]
         }
 
-        CtrlInit(function () {
-            SndsService.getMyServicesList({
-                pageNumber: vm.pageCtrl.pageNumber,
-                pageSize: vm.pageCtrl.pageSize,
-                serviceStatus: vm.serviceStatus,
-                envType: vm.envType,
-                systemName: vm.systemName,
-            }).then(d => {
-                d.results.forEach((el) => {
-                    el.requestTime = moment(el.requestTime).format('YYYY-MM-DD HH:mm:ss')
-                })
-                vm.systemExDatas = d.results;
-                vm.pageCtrl.pageNumber = d.page.index
-                vm.pageCtrl.pageSize = d.page.size
-                vm.pageCtrl.pageTotal = d.page.records || 1
-            });
-            SndsService.getTypeStatus().then(datas => {
-                // vm.type = datas.type;
-                vm.status = datas;
-            });
-        })
+        // CtrlInit(function () {
+        //     SndsService.getMyServicesList({
+        //         pageNumber: vm.pageCtrl.pageNumber,
+        //         pageSize: vm.pageCtrl.pageSize,
+        //         serviceStatus: vm.serviceStatus,
+        //         envType: vm.envType,
+        //         systemName: vm.systemName,
+        //     }).then(d => {
+        //         d.results.forEach((el) => {
+        //             el.requestTime = moment(el.requestTime).format('YYYY-MM-DD HH:mm:ss')
+        //         })
+        //         vm.systemExDatas = d.results;
+        //         vm.pageCtrl.pageNumber = d.page.index
+        //         vm.pageCtrl.pageSize = d.page.size
+        //         vm.pageCtrl.pageTotal = d.page.records || 1
+        //     });
+        //     SndsService.getTypeStatus().then(datas => {
+        //         // vm.type = datas.type;
+        //         vm.status = datas;
+        //     });
+        // })
     }
 }
 

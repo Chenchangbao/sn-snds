@@ -76,4 +76,22 @@ let SndsService = function (HttpService) {
 
 export default app => {
     app.service('SndsService', SndsService);
+    app.factory('bulkHttp', ['HttpService', HttpService => {
+        return {
+            get: (url, params) => {
+                return HttpService.get(url, params).then(d => {
+                    if (d.r === 1) {
+                        resolve(d.data)
+                    }
+                })
+            },
+            post: (url, params) => {
+                return HttpService.post(url, params).then(d => {
+                    if (d.r === 1) {
+                        resolve(d.data)
+                    }
+                })
+            },
+        }
+    }])
 }

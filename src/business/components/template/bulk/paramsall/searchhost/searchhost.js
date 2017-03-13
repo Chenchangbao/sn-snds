@@ -4,13 +4,11 @@ import {
 
 @Inject
 class searchhost {
-    constructor($scope, DialogService, HttpService) {
+    constructor($scope, DialogService, bulkHttp) {
         let vm = $scope;
         vm.user = ''
-        HttpService.get('/batch/cluster/' + '/status').then(e => {
-            if (e.data) {
-                vm.step0 = true
-            }
+        bulkHttp.post('/batch/param/batch/instances/' + vm.sysName + '/' + vm.sysAlias + '/' + vm.env).then(e => {
+            vm.data = e
         })
         vm.close = () => {
             // way 1:

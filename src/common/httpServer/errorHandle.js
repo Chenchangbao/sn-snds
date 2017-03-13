@@ -17,7 +17,7 @@ export default app => {
             defaultMessage = '系统出了点小问题，请稍后重试！',
             message = data.msg || (data.data && data.data.error) || data.message || defaultMessage;
 
-          if (data.result || data.code === 200) {
+          if (data.result || data.code === 200 || data.r === 1) {
             defer.resolve(data.data);
           } else {
             AlertService.alert({
