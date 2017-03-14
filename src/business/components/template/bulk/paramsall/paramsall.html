@@ -4,6 +4,7 @@
             <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入参数名" ng-model="paramName">
         </div>
         <button class="btn btn-default" ng-click="search(paramName)">搜索</button>
+        <strong style="color: red;">{{errorTxt}}</strong>
     </div>
     <div class="paramsall-step">
         <div class="paramsall-row">
@@ -49,12 +50,12 @@
                 <p>您目前正在对autocommit参数进行批量机器修改，请选择：</p>
                 <form class="form-inline">
                     <div class="form-group">
-                        <select select2 ng-model="sysName" ng-options="d as d.name for d in status" type="text" class="form-control"
-                            ng-change="changeSystem()" name="system">
+                        <select select2 ng-model="sysName" ng-options="d as d.name for d in status" type="text" class="form-control" ng-change="changeSystem()"
+                            name="system">
                     <option value="">请选择系统名称</option>
                 </select>
-                        <select select2 ng-model="sysEnv" ng-options="d as d.name for d in type" type="text" class="form-control"
-                            ng-change="changeSystem()" name="system">
+                        <select select2 ng-model="sysEnv" ng-options="d as d.name for d in type" type="text" class="form-control" ng-change="changeSystem()"
+                            name="system">
                     <option value="">请选择环境类型</option>
                 </select>
                     </div>
@@ -93,7 +94,7 @@
                         <th>从IP</th>
                         <th>从IP</th>
                     </tr>
-                    <tr ng-repeat="d in data" ng-class="{info:$even}">
+                    <tr ng-repeat="d in failed" ng-class="{info:$even}">
                         <td>{{d.mysqlVersion}}</td>
                         <td>{{d.type || '无'}}</td>
                         <td>{{d.name}}</td>

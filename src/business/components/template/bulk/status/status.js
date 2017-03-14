@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Status {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, bulkHttp) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, bulkHttp, IpTest) {
         let vm = $scope;
         vm.a = 1
 
@@ -13,23 +13,14 @@ class Status {
         vm.pageCtrl = CtrlTablePage()
 
         vm.search = d => {
-            if (!d) {
-                return vm.errorTxt = '输入ip不合法!'
-            }
-
-            var r = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(d)
-            if (r) {
-                vm.errorTxt = ''
+            IpTest(d, vm, () => {
                 bulkHttp.get('/batch/cluster/' + d + '/status').then(e => {
                     if (e === undefined || e.length === undefined) {
                         vm.errorTxt = '错误信息：未搜索到该IP，请核实后重新输入！'
                     }
                     vm.data = e
                 })
-            } else {
-                vm.errorTxt = '输入ip不合法!'
-            }
-
+            })
 
             //
             // vm.data = [{

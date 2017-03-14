@@ -1,17 +1,18 @@
 <form class="form-inline" novalidate>
     <div class="form-group">
-        <select select2 ng-model="sysName" ng-options="d as d.name for d in status" type="text" class="form-control"
-            ng-change="changeSystem()" ng-required="true" name="system">
+        <select select2 ng-model="systemObj" ng-options="d as d.name for d in status" type="text" class="form-control" ng-change="changeSystem()"
+            ng-required="true" name="system" style="width:200px;">
                     <option value="">请选择系统名称</option>
                 </select>
     </div>
     <div class="form-group">
-        <select select2 ng-model="env" ng-options="d.code as d.name for d in type" type="text" class="form-control"
-            ng-change="changeSystem()" ng-required="true" name="system">
+        <select select2 ng-model="env" ng-options="d.code as d.name for d in type" type="text" class="form-control" ng-change="changeSystem()"
+            ng-required="true" name="system" ng-disabled="!sysName" style="width:200px;">
                     <option value="">请选择环境类型</option>
                 </select>
     </div>
     <button class="btn btn-default" ng-click="search()">搜索</button>
+    <strong style="color: red;">{{errorTxt}}</strong>
     <table class='table-border-mine'>
         <tr>
             <th>系统名称</th>

@@ -80,16 +80,12 @@ export default app => {
         return {
             get: (url, params) => {
                 return HttpService.get(url, params).then(d => {
-                    if (d.r === 1) {
-                        resolve(d.data)
-                    }
+                    return d
                 })
             },
             post: (url, params) => {
                 return HttpService.post(url, params).then(d => {
-                    if (d.r === 1) {
-                        resolve(d.data)
-                    }
+                    return d
                 })
             },
         }

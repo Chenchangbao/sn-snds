@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Params {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp, IpTest) {
         let vm = $scope;
         // vm.data = [{
         //     mysqlVersion: 'MySQL 5.6',
@@ -25,17 +25,22 @@ class Params {
         vm.pageCtrl = CtrlTablePage()
 
         vm.search = d => {
-            bulkHttp.get('/batch/param/' + vm.ip, {
-                param: vm.param,
-                index: 1,
-                size: 10,
-            }).then(e => {
-                vm.errorTxt = ''
-                if (e === undefined || e.length === undefined) {
-                    vm.errorTxt = '错误信息：未搜索到该IP，请核实后重新输入！'
-                }
-                vm.data = e
+            vm.errorTxt = ''
+            if (!vm.ip || !vm.param) return vm.errorTxt = '输入参数不合法!'
+
+            IpTest(vm.ip, vm, () => {
+                bulkHttp.get('/batch/param/' + vm.ip, {
+                    param: vm.param,
+                    index: 1,
+                    size: 10,
+                }).then(e => {
+                    if (e === undefined || e.length === undefined) {
+                        vm.errorTxt = '错误信息：未搜索到该IP，请核实后重新输入！'
+                    }
+                    vm.data = e
+                })
             })
+
 
             //
             // vm.data = [{

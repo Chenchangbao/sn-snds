@@ -4,7 +4,7 @@ import {
 
 @Inject
 class Account {
-    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp) {
+    constructor($scope, $timeout, SndsService, CtrlInit, CtrlTablePage, HttpService, DialogService, bulkHttp, SndsUser) {
         let vm = $scope;
         vm.a = 1
 
@@ -17,14 +17,32 @@ class Account {
         //     vm.status = datas;
         // });
 
+        SndsUser.then(() => {
+            vm.inputData = {
+
+            }
+        })
+
         SndsService.newInstanceMySystem().then(d => {
             vm.status = d;
         });
-        SndsService.newInstanceEnvs().then(d => {
-            vm.type = d;
-        });
+
+        vm.changeSystem = () => {
+            if (!vm.systemObj) return
+            vm.inputData.system = vm.systemObj.name
+            vm.inputData.systemCode = vm.systemObj.code
+            vm.inputData.systemAlias = vm.systemObj.nameEn
+
+            vm.inputData.systemCode = 'SMC160803000002'
+            SndsService.newInstanceEnvs(vm.inputData.systemCode).then(d => {
+                vm.modelSelect.envs = d;
+            });
+        }
 
         vm.search = d => {
+            if (!vm.systemObj) return vm.errorTxt = '请选择系统名称！'
+            if (!vm.env) return vm.errorTxt = '请选择环境类型！'
+            
             bulkHttp.get('/batch/auth/' + vm.sysName.name + '/' + vm.sysName.sysAlias + '/' + vm.env).then(e => {
                 vm.data = e
             })
